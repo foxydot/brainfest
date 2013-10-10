@@ -1,5 +1,5 @@
 <?php
-
+global $subtitle,$documents;
 	// add a custom meta box
 	$documents = new WPAlchemy_MetaBox(array
 	(
