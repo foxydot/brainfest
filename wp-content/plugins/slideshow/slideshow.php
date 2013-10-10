@@ -1,12 +1,12 @@
 <?php
 /**
  *
- * Plugin Name: iThemes Slideshow
- * Plugin URI: http://ithemes.com/purchase/displaybuddy/
- * Description: Slideshow lets you display images with fully customizable animated transitions and effects. Easily create image groups and display them anywhere on your site.
- * Version: 2.0.7
- * Author: iThemes
- * Author URI: http://ithemes.com
+ * Plugin Name: Slideshow
+ * Plugin URI: http://pluginbuddy.com/purchase/displaybuddy/
+ * Description: DisplayBuddy Series - Slideshow lets you display images anywhere on your site with fully customizable animated transitions and advanced effects.
+ * Version: 1.0.33
+ * Author: The PluginBuddy Team
+ * Author URI: http://pluginbuddy.com/
  *
  * Installation:
  * 
@@ -19,15 +19,14 @@
  * 
  * 1. Navigate to the new plugin menu in the Wordpress Administration Panel.
  *
-
  */
 
 
 if (!class_exists('pluginbuddy_slideshow')) {
 	class pluginbuddy_slideshow {
-		var $_version = '2.0.7';
-		var $_updater = '1.0.8';
-		var $_wp_minimum = '3.2.1';
+		var $_version = '1.0.33';
+		var $_updater = '1.0.7';
+		
 		var $_var = 'pluginbuddy_slideshow'; // Format: pluginbuddy-pluginnamehere. All lowecase, no dashes.
 		var $_name = 'Slideshow'; // Pretty plugin name. Only used for display so any format is valid.
 		var $_series = 'DisplayBuddy'; // Series name if applicable.
@@ -39,83 +38,46 @@ if (!class_exists('pluginbuddy_slideshow')) {
 			'access'	=>	'activate_plugins',
 		);
 		var $_groupdefaults = array(
-			'title'                    =>		'',
-			'images'                   =>		array(),
-			'layout'                   =>		'default',
-			'type'                     =>		'slider',		// jQuery library for this group. Default: slider. Possible values: slider, cycle.
-			'render_mode'              =>		'fixed',
-			'enable_css_files'         =>		'true',
-			'image_width'              =>		'500',
-			'image_height'             =>		'300',
-			'thumb_image_width'        =>		'85',
-			'thumb_image_height'       =>		'65',
+			'title'				=>		'',
+			'images'			=>		array(),
+			'layout'			=>		'default',
+			'type'				=>		'slider',		// jQuery library for this group. Default: slider. Possible values: slider, cycle.
 			
-			'slider-align'             => 'center',
-			'slider-effect'            => 'random',
-			'slider-slices'            => '15',
-			'slider-animSpeed'         => '500',
-			'slider-pauseTime'         => '3000',
-			'slider-directionNav'      => 'true', // Next & Prev.
-			'slider-directionNavHide'  => 'true', // Only show on hover
-			'slider-controlNav'        => 'true', // 1,2,3...
-			'slider-controlNavThumbs'  => 'false', // Use thumbnails for Control Nav
-			'slider-keyboardNav'       => 'false', // Use left & right arrows
-			'slider-pauseOnHover'      => 'true', // Stop animation while hovering
-			'slider-captionOpacity'    => '0.8', // Universal caption opacity
-			'slider-shadows'           => 'true',
-			'slider-layout'            => 'default',
+			'enable_css_files'		=>		'true',
+			'image_width'			=>		'500',
+			'image_height'			=>		'300',
+			'thumb_image_width'		=>		'85',
+			'thumb_image_height'		=>		'65',
 			
-			'cycle-align'              => 'center',
-			'cycle-fx'                 => 'fade', // name of transition effect (or comma separated names, ex: fade,scrollUp,shuffle) 
-			'cycle-timeout'            => '4000', // milliseconds between slide transitions (0 to disable auto advance) 
-			'cycle-continuous'         => '0', // true to start next transition immediately after current one completes 
-		    'cycle-speed'              => '1000', // speed of the transition (any valid fx speed value) 
-			'cycle-speedIn'            => '0', // speed of the 'in' transition 
-			'cycle-speedOut'           => '0', // speed of the 'out' transition 
-			'cycle-sync'               => '1', // true if in/out transitions should occur simultaneously 
-			'cycle-random'             => '0', // true for random, false for sequence (not applicable to shuffle fx) 
-			'cycle-pause'              => '1', // true to enable "pause on hover" 
-			'cycle-autostop'           => '0', // true to end slideshow after X transitions (where X == slide count) 
-			'cycle-autostopCount'      => '3', // number of transitions (optionally used with autostop to define X) 
-			'cycle-delay'              => '0', // additional delay (in ms) for first transition (hint: can be negative) 
-			'cycle-randomizeEffects'   => '1', // valid when multiple effects are used; true to make the effect sequence random 
-			'cycle-pb_pager'           => '0',
+			'slider-align'			=>		'center',
+			'slider-effect'			=>		'random',
+			'slider-slices'			=>		'15',
+			'slider-animSpeed'		=>		'500',
+			'slider-pauseTime'		=>		'3000',
+			'slider-directionNav'		=>		'true',			// Next & Prev.
+			'slider-directionNavHide'	=>		'true',			//Only show on hover
+			'slider-controlNav'		=>		'true',			//1,2,3...
+			'slider-controlNavThumbs'	=>		'false',		//Use thumbnails for Control Nav
+			'slider-keyboardNav'		=>		'false',		//Use left & right arrows
+			'slider-pauseOnHover'		=>		'true',			//Stop animation while hovering
+			'slider-captionOpacity'		=>		'0.8',			//Universal caption opacity
+			'slider-shadows'		=>		'true',
 			
-			'rslider-effect'           => 'random',
-			'rslider-slices'           => '15',
-			'rslider-boxCols'          => '8',
-			'rslider-boxRows'          => '4',
-			'rslider-animSpeed'        => '500',
-			'rslider-pauseTime'        => '3000',
-			'rslider-startSlide'       => '0',
-			'rslider-directionNav'     => 'true',
-			'rslider-directionNavHide' => 'true',
-			'rslider-controlNav'       => 'false',
-			'rslider-controlNavThumbs' => 'true',
-			'rslider-pauseOnHover'     => 'true',
-			'rslider-manualAdvance'    => 'false',
-			'rslider-randomStart'      => 'false',
-			'rslider-layout'           => 'default',
-			
-			'rcycle-delay'             => '0',
-	    	'rcycle-allow-wrap'        => 'true',
-			'rcycle-auto-height'       => '0',
-			'rcycle-fx'                => 'fade',   
-			'rcycle-hide-non-active'   => 'true',
-			'rcycle-loader'            => 'false',
-			'rcycle-loop'              => '0',
-			'rcycle-manual-speed'      => '500',
-			'rcycle-pause-on-hover'    => 'false',
-			'rcycle-reverse'           => 'false',
-			'rcycle-speed'             => '500',
-			'rcycle-starting-slide'    => '0',
-			'rcycle-swipe'             => 'false',
-			'rcycle-sync'              => 'true',
-			'rcycle-timeout'           => '4000',
-			'rcycle-pb_pager'          => '1',
-			
-			
-			// valid when multiple effects are used; true to make the effect sequence random 
+			'cycle-align'			=>		'center',
+			'cycle-fx'			=>		'fade',			// name of transition effect (or comma separated names, ex: fade,scrollUp,shuffle) 
+			'cycle-timeout'			=>		'4000',			// milliseconds between slide transitions (0 to disable auto advance) 
+			'cycle-continuous'		=>		'0',			// true to start next transition immediately after current one completes 
+			'cycle-speed'			=>		'1000',			// speed of the transition (any valid fx speed value) 
+			'cycle-speedIn'			=>		'0',			// speed of the 'in' transition 
+			'cycle-speedOut'		=>		'0',			// speed of the 'out' transition 
+			'cycle-sync'			=>		'1',			// true if in/out transitions should occur simultaneously 
+			'cycle-random'			=>		'0',			// true for random, false for sequence (not applicable to shuffle fx) 
+			'cycle-pause'			=>		'1',			// true to enable "pause on hover" 
+			'cycle-autostop'		=>		'0',			// true to end slideshow after X transitions (where X == slide count) 
+			'cycle-autostopCount'		=>		'3',			// number of transitions (optionally used with autostop to define X) 
+			'cycle-delay'			=>		'0',			// additional delay (in ms) for first transition (hint: can be negative) 
+			'cycle-randomizeEffects'	=>		'1',			// valid when multiple effects are used; true to make the effect sequence random 
+			'cycle-pb_pager'		=>		'0',			// valid when multiple effects are used; true to make the effect sequence random 
 		);
 		
 		var $_widget = 'Display an image slideshow.';
@@ -141,68 +103,38 @@ if (!class_exists('pluginbuddy_slideshow')) {
 				if ( $group['slider-controlNavThumbs'] == 'true' ) {
 					add_image_size( 'pb_slideshow_thumb_' . $group['thumb_image_width'] . 'x' . $group['thumb_image_height'], $group['thumb_image_width'], $group['thumb_image_height'], true);
 				}
-			if ( isset( $group['rslider-controlNavThumbs'] ) ) {
-				if ( $group['rslider-controlNavThumbs'] == 'true' ) {
-					add_image_size( 'pb_slideshow_thumb_' . $group['thumb_image_width'] . 'x' . $group['thumb_image_height'], $group['thumb_image_width'], $group['thumb_image_height'], true);
-				}
-			}
 			}
 			
 			if ( is_admin() ) { // Runs when in the dashboard.
-				require_once( $this->_pluginPath . '/lib/medialibrary/load.php' );
-				add_action( 'init', array( &$this, 'init_medialibrary' ) );
 				add_action( 'init', array( &$this, 'upgrader_register' ), 50 );
 				add_action( 'init', array( &$this, 'upgrader_select' ), 100 );
 				add_action( 'init', array( &$this, 'upgrader_instantiate' ), 101 );
+				
+				require_once( $this->_pluginPath . '/lib/medialibrary/medialibrary.php' );
+				$this->_medialibrary = new PluginBuddyMediaLibrary( $this,
+					array(
+						'select_button_text'			=>			'Select this Image',
+						'tabs'					=>			array( 'pb_uploader' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
+						'show_input-image_alt_text'		=>			false,
+						'show_input-url'			=>			false,
+						'show_input-image_align'		=>			false,
+						'show_input-image_size'			=>			false,
+						'show_input-description'		=>			true,
+						'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
+						'custom_help-description'		=>			'Optional URL for this image to link to.',
+						'custom_label-description'		=>			'Link URL',
+						'use_textarea-caption'			=>			true,
+						'use_textarea-description'		=>			false,
+					)
+				);
+				
 				require_once( $this->_pluginPath . '/classes/admin.php' );
 			} else {
 				add_shortcode( 'pb_slideshow', array( &$this, 'shortcode' ) );
 			}
 		}
 		
-		/**
-		 * Inits the media library class
-		 *
-		*/
-		function init_medialibrary() {
-				global $wp_version;
-
-				// Check for Wordpress Version for media library. 
-				if ( version_compare( $wp_version, $this->_wp_minimum, '<=' ) ) {
-					$media_lib_version =  array(
-							'select_button_text'			=>			'Select this Image',
-							'tabs'					=>			array( 'pb_uploader' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
-							'show_input-image_alt_text'		=>			false,
-							'show_input-url'			=>			false,
-							'show_input-image_align'		=>			false,
-							'show_input-image_size'			=>			false,
-							'show_input-description'		=>			true,
-							'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
-							'custom_help-description'		=>			'Optional URL for this image to link to.',
-							'custom_label-description'		=>			'Link URL',
-							'use_textarea-caption'			=>			true,
-							'use_textarea-description'		=>			false,
-						);
-				}
-			
-				else { 
-					$media_lib_version =  array(
-							'select_button_text'			=>			'Select this Image',
-							'tabs'					=>			array( 'type' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
-							'show_input-image_alt_text'		=>			false,
-							'show_input-url'			=>			false,
-							'show_input-image_align'		=>			false,
-							'show_input-image_size'			=>			false,
-							'show_input-description'		=>			true,
-							'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
-							'custom_help-description'		=>			'Optional URL for this image to link to.',
-							'custom_label-description'		=>			'Link URL',
-							'use_textarea-caption'			=>			true,
-							'use_textarea-description'		=>			false,
-						);
-				}
-				$this->_medialibrary = new IT_Media_Library( $this, $media_lib_version );
-		}
+		
 		
 		/**
 		 *	alert()
@@ -322,24 +254,17 @@ if (!class_exists('pluginbuddy_slideshow')) {
 		// Same as widget but return.
 		function shortcode( $instance ) {
 			$this->load();
-				if ( ( $instance['group'] != '' ) && ( isset( $this->_options['groups'][$instance['group']] ) ) ) {
-					if ( $this->_options['groups'][$instance['group']]['type'] == 'slider' && !isset( $this->_options['groups'][$instance['group']]['render_mode'] )) {
-						return $this->run_slider( $instance['group'] );
-					} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && !isset( $this->_options['groups'][$instance['group']]['render_mode'] )) {
-						return $this->run_cycle( $instance['group'] );
-					} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'slider' && $this->_options['groups'][$instance['group']]['render_mode'] == 'fixed' ) {
-						return $this->run_slider( $instance['group'] );
-					} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && $this->_options['groups'][$instance['group']]['render_mode'] == 'fixed' ) {
-						return $this->run_cycle( $instance['group'] );
-					} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'slider' &&  $this->_options['groups'][$instance['group']]['render_mode'] == 'responsive' ) {
-						return $this->run_slider_responsive( $instance['group'] );
-					} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && $this->_options['groups'][$instance['group']]['render_mode'] == 'responsive' ) {
-						return $this->run_cycle_responsive( $instance['group'] );
-					} else {
-						return '{Unknown ' . $this->_name . ' group}';
-					}
+			if ( ( $instance['group'] != '' ) && ( isset( $this->_options['groups'][$instance['group']] ) ) ) {
+				if ( $this->_options['groups'][$instance['group']]['type'] == 'slider' ) {
+					return $this->run_slider( $instance['group'] );
+				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' ) {
+					return $this->run_cycle( $instance['group'] );
 				}
+			} else {
+				return '{Unknown ' . $this->_name . ' group}';
+			}
 		}
+		
 		
 		/**
 		 * widget()
@@ -353,21 +278,13 @@ if (!class_exists('pluginbuddy_slideshow')) {
 		function widget( $instance ) {
 			$this->load();
 			if ( ( $instance['group'] != '' ) && ( isset( $this->_options['groups'][$instance['group']] ) ) ) {
-				if ( $this->_options['groups'][$instance['group']]['type'] == 'slider' && !isset( $this->_options['groups'][$instance['group']]['render_mode'] ) ) { 
+				if ( $this->_options['groups'][$instance['group']]['type'] == 'slider' ) {
 					echo $this->run_slider( $instance['group'] );
-				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && !isset( $this->_options['groups'][$instance['group']]['render_mode'] ) ) { 
+				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' ) {
 					echo $this->run_cycle( $instance['group'] );
-				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'slider' && $this->_options['groups'][$instance['group']]['render_mode'] == 'fixed' ) {
-					echo $this->run_slider( $instance['group'] );
-				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && $this->_options['groups'][$instance['group']]['render_mode'] == 'fixed' ) {
-					echo $this->run_cycle( $instance['group'] );
-				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'slider' &&  $this->_options['groups'][$instance['group']]['render_mode'] == 'responsive' ) {
-					echo $this->run_slider_responsive( $instance['group'] );
-				} elseif ( $this->_options['groups'][$instance['group']]['type'] == 'cycle' && $this->_options['groups'][$instance['group']]['render_mode'] == 'responsive' ) {
-					echo $this->run_cycle_responsive( $instance['group'] );
-				} else {
-					echo '{Unknown ' . $this->_name . ' group}';
 				}
+			} else {
+				echo '{Unknown ' . $this->_name . ' group}';
 			}
 		}
 		
@@ -423,15 +340,15 @@ if (!class_exists('pluginbuddy_slideshow')) {
 				wp_enqueue_script( $this->_var . '-slider', $this->_pluginURL . '/js/nivo-slider.js' );
 				wp_print_scripts( $this->_var . '-slider' );
 			}
-			if ( !wp_style_is( $this->_var . '-slider-' . $group['slider-layout'] ) && ( $group['enable_css_files'] == 'true' ) ) {
-				wp_enqueue_style( $this->_var . '-slider-' . $group['slider-layout'], $this->_pluginURL . '/layouts/slider/' . $group['slider-layout'] . '/style.css' );
-				wp_print_styles( $this->_var . '-slider-' . $group['slider-layout'] );
+			if ( !wp_style_is( $this->_var . '-slider-' . $group['layout'] ) && ( $group['enable_css_files'] == 'true' ) ) {
+				wp_enqueue_style( $this->_var . '-slider-' . $group['layout'], $this->_pluginURL . '/layouts/slider/' . $group['layout'] . '/style.css' );
+				wp_print_styles( $this->_var . '-slider-' . $group['layout'] );
 			}
 			
 			$css = ''; // Usually added in init.txt.
 			
-			if ( file_exists( $this->_pluginPath . '/layouts/slider/' . $group['slider-layout'] . '/init.txt' ) ) {
-				eval( file_get_contents( $this->_pluginPath . '/layouts/slider/' . $group['slider-layout'] . '/init.txt' ) );
+			if ( file_exists( $this->_pluginPath . '/layouts/slider/' . $group['layout'] . '/init.txt' ) ) {
+				eval( file_get_contents( $this->_pluginPath . '/layouts/slider/' . $group['layout'] . '/init.txt' ) );
 			}
 			
 			$return = '';
@@ -449,14 +366,13 @@ if (!class_exists('pluginbuddy_slideshow')) {
 			$return .= '			controlNavThumbsFromRel: ' . $group['slider-controlNavThumbs'] . ',' . "\n";
 			$return .= '			keyboardNav: ' . $group['slider-keyboardNav'] . ',' . "\n";
 			$return .= '			pauseOnHover: ' . $group['slider-pauseOnHover'] . ',' . "\n";
-			$return .= '			randomStart: true,' . "\n";
 			$return .= '			captionOpacity: ' . $group['slider-captionOpacity'] . "\n";
 			$return .= '		});' . "\n";
 			$return .= '	});' . "\n";
 			$return .= '</script>' . "\n";
 			$return .= "\n";
-			$return .= '<div id="pb_slideshow_slider-container-' . $this->instance_count . '" style=" width: ' . $group['image_width'] . 'px;" >' . "\n";
-			$return .= '<div id="pb_slideshow_slider-' . $this->instance_count . '" class="nivoSlider" style="width: ' . $group['image_width'] . 'px;">' . "\n";
+			
+			$return .= '<div id="pb_slideshow_slider-' . $this->instance_count . '" class="nivoSlider" style="width: ' . $group['image_width'] . 'px;">';
 			foreach( $group['images'] as $image ) {
 				$attachment_data = get_post( $image, ARRAY_A );
 				
@@ -465,7 +381,7 @@ if (!class_exists('pluginbuddy_slideshow')) {
 					$caption_count++;
 					
 					$title_val = ' title="#pb_slideshow_caption-' . $this->instance_count . '-' . $caption_count . '"';
-					$captions .= '<div id="pb_slideshow_caption-' . $this->instance_count . '-' . $caption_count . '" class="nivo-html-caption">' . "\n";
+					$captions .= '<div id="pb_slideshow_caption-' . $this->instance_count . '-' . $caption_count . '" class="nivo-html-caption">';
 					$captions .= $attachment_data['post_excerpt'];
 					$captions .= '</div>';
 				} else {
@@ -486,14 +402,14 @@ if (!class_exists('pluginbuddy_slideshow')) {
 					$return .= ' rel="' . $image_dat_thumb[0] . '"';
 				}
 				$return .= ' alt="' . $attachment_data['post_title'] . '"';
-				$return .= ' />' . "\n";
+				$return .= ' />';
 				
 				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '</a>' . "\n";
+					$return .= '</a>';
 				}
 			}
 			$return .= '</div>';
-			$return .= '</div>';
+			
 			$return .= $captions;
 			
 			$return .= "\n";
@@ -504,6 +420,7 @@ if (!class_exists('pluginbuddy_slideshow')) {
 			
 			return $return;
 		}
+		
 		
 		function run_cycle( $group_id ) {
 			$this->instance_count++;
@@ -556,8 +473,8 @@ if (!class_exists('pluginbuddy_slideshow')) {
 			$return .= '	});' . "\n";
 			$return .= '</script>' . "\n";
 			$return .= "\n";
-			$return .= '<div id="pb_slideshow_cycle-container-' . $this->instance_count . '" style=" width: ' . $group['image_width'] . 'px;" >' . "\n";
-			$return .= '<div id="pb_slideshow_cycle-' . $this->instance_count . '" class="pb_slideshow_cycle">' . "\n";
+			
+			$return .= '<div id="pb_slideshow_cycle-' . $this->instance_count . '" class="pb_slideshow_cycle">';
 			foreach( $group['images'] as $image ) {
 				$slide_count++;
 				
@@ -572,17 +489,17 @@ if (!class_exists('pluginbuddy_slideshow')) {
 				
 				// Open link tag if defined.
 				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '<a href="' . $attachment_data['post_content'] . '">' . "\n";
+					$return .= '<a href="' . $attachment_data['post_content'] . '">';
 				}
 				
 				// Create actual image tag.
 				$image_dat = wp_get_attachment_image_src( $image, 'pb_slideshow_' . $group['image_width'] . 'x' . $group['image_height'] );
 				$return .= '<img src="' . $image_dat[0] . '"' . $title_val;
 				$return .= ' width="' . $group['image_width'] . '" height="' . $group['image_height'] . '" ';
-				$return .= ' />' . "\n";
+				$return .= ' />';
 				
 				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '</a>' . "\n";
+					$return .= '</a>';
 				}
 			}
 			$return .= '</div>';
@@ -591,252 +508,15 @@ if (!class_exists('pluginbuddy_slideshow')) {
 			
 			if ( $group['cycle-pb_pager'] == '1' ) {
 				$return .= '<div id="pb_slideshow_cycle_pager-' . $this->instance_count . '">';
-				$return .= '</div>' . "\n";
+				$return .= '</div>';
 			}
 			
-			$return .= '</div>' . "\n";
 			$return .= '<style type="text/css">' . "\n";
 			$return .=	$css;
 			$return .= '</style>' . "\n";
 			
 			return $return;
 		}
-		
-		function run_slider_responsive ( $group_id ) { 
-					$this->instance_count++;
-
-			$captions = '';
-			$caption_count = 0;
-
-			$group = &$this->get_group( $group_id );
-
-			if ( !wp_script_is( 'jquery' ) ) {
-				wp_print_scripts( 'jquery' );
-			}
-
-			if ( !wp_script_is( $this->_var . '-rslider' ) ) {
-				wp_enqueue_script( $this->_var . '-rslider', $this->_pluginURL . '/js/jquery.nivo.slider.js' );
-				wp_print_scripts( $this->_var . '-rslider' );
-			}
-
-			if ( !wp_style_is( $this->_var . '-rslider-' . $group['rslider-layout'] ) && ( $group['enable_css_files'] == 'true' ) ) {
-				wp_enqueue_style( $this->_var . '-rslider-' . $group['rslider-layout'], $this->_pluginURL . '/layouts/rslider/' . $group['rslider-layout'] . '/nivo-slider.css' );
-				wp_print_styles( $this->_var . '-rslider-' . $group['rslider-layout'] );
-			} 
-
-			$css = ''; // Usually added in init.txt.
-
-			if ( file_exists( $this->_pluginPath . '/layouts/rslider/' . $group['rslider-layout'] . '/init.txt' ) ) {
-				eval( file_get_contents( $this->_pluginPath . '/layouts/rslider/' . $group['rslider-layout'] . '/init.txt' ) );
-			}
-
-			$return = '';
-			$return .= '<script type="text/javascript">' . "\n";
-			$return .= '	jQuery(window).load(function() {' . "\n";
-			$return .= '		jQuery(\'#pb_slideshow_rslider-' . $this->instance_count . '\').nivoSlider({' . "\n";
-			$return .= '			effect: \'' . $group['rslider-effect'] . '\',' . "\n";
-			$return .= '			slices: ' . $group['rslider-slices'] . ',' . "\n";
-			$return .= '			boxCols: ' . $group['rslider-boxCols'] . ',' . "\n";
-			$return .= '			boxRows: ' . $group['rslider-boxRows'] . ',' . "\n";
-			$return .= '			animSpeed: ' . $group['rslider-animSpeed'] . ',' . "\n";
-			$return .= '			pauseTime: ' . $group['rslider-pauseTime'] . ',' . "\n";
-			$return .= '			startSlide: ' . $group['rslider-startSlide'] . ',' . "\n";
-			$return .= '			directionNav: ' . $group['rslider-directionNav'] . ',' . "\n";
-			$return .= '			controlNav: ' . $group['rslider-controlNav'] . ',' . "\n";
-			$return .= '			controlNavThumbs: ' . $group['rslider-controlNavThumbs'] . ',' . "\n";
-			$return .= '			pauseOnHover: ' . $group['rslider-pauseOnHover'] . ',' . "\n";
-			$return .= '			manualAdvance: ' . $group['rslider-manualAdvance'] . ',' . "\n";
-			$return .= '			randomStart: ' . $group['rslider-randomStart'] . "\n";
-			$return .= '		});' . "\n";
-			$return .= '	});' . "\n";
-			$return .= '</script>' . "\n";
-			$return .= "\n";
-
-			$return .= '<div id="pb_slideshow_rslider-container-' . $this->instance_count . '" style=" max-width: 100%; width: ' . $group['image_width'] . 'px;" >' . "\n";
-			$return .= '<div id="pb_slideshow_rslider-' . $this->instance_count . '" class="nivoSlider" style=" max-width: 100%; width: ' . $group['image_width'] . 'px;">' . "\n";
-
-			foreach( $group['images'] as $image ) {
-				$attachment_data = get_post( $image, ARRAY_A );
-
-				if ( !empty( $attachment_data['post_excerpt'] ) ) {
-					$caption_count++;
-
-					$title_val = ' title="#pb_rslider_caption-' . $this->instance_count . '-' . $caption_count . '"';
-					$captions .= '<div id="pb_rslider_caption-' . $this->instance_count . '-' . $caption_count . '" class="nivo-html-caption" >' . "\n";
-					$captions .= $attachment_data['post_excerpt'];
-					$captions .= '</div>';
-				} else {
-					$title_val = '';
-				}
-
-				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '<a href="' . $attachment_data['post_content'] . '" >' . "\n";
-				}
-				
-				$image_dat = wp_get_attachment_image_src( $image, 'pb_slideshow_' . $group['image_width'] . 'x' . $group['image_height'] );
-				$return .= '<img src="' . $image_dat[0] . '"' . $title_val;
-				
-				if ( 'true' == $group['rslider-controlNavThumbs'] ) { // If thumbnail nav enabled then set rel parameter to be URL to thumbs.
-					$image_dat_thumb = wp_get_attachment_image_src( $image, 'pb_slideshow_thumb_' . $group['thumb_image_width'] . 'x' . $group['thumb_image_height'] );
-					$return .= ' data-thumb="' . $image_dat_thumb[0] . '"';
-				}
-				$return .= ' alt="' . $attachment_data['post_title'] . '"';
-				$return .= ' style=" max-width: 100%;" />' . "\n";
-				
-				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '</a>' . "\n";
-				}
-				
-				}
-				$return .= '</div>' . "\n";
-				$return .= $captions;
-				$return .= "\n";
-				$return .= '</div>' . "\n";
-				
-				$return .= '<style type="text/css">' . "\n";
-				$return .=	$css;
-				$return .= '</style>' . "\n";
-				
-				return $return; 
-		}
-
-		function run_cycle_responsive ( $group_id ) { 
-			$this->instance_count++;
-			$slide_count = 0;
-			$captions = '';
-			$pager = '';
-			$css = '';
-			
-			$group = &$this->get_group( $group_id );
-
-			if ( !wp_script_is( 'jquery' ) ) {
-				wp_print_scripts( 'jquery' );
-			}
-			if ( !wp_script_is( $this->_var . '-rcycle' ) ) {
-				wp_enqueue_script( $this->_var . '-rcycle', $this->_pluginURL . '/js/jquery.cycle2.js' );
-				wp_print_scripts( $this->_var . '-rcycle' );
-			}
-			
-			if ( 'shuffle' == $group['rcycle-fx'] || 'shuffleEasing' == $group['rcycle-fx'] ) {
-				if ( !wp_script_is( $this->_var . '-rcycle-shuffle' ) ) {
-					wp_enqueue_script( $this->_var . '-rcycle-shuffle', $this->_pluginURL . '/js/jquery.cycle2.shuffle.min.js' );
-					wp_print_scripts( $this->_var . '-rcycle-shuffle' );
-				}
-			}
-			
-			if ( 'scrollVert' == $group['rcycle-fx'] ) {
-				if ( !wp_script_is( $this->_var . '-rcycle-scrollVert' ) ) {
-					wp_enqueue_script( $this->_var . '-rcycle-scrollVert', $this->_pluginURL . '/js/jquery.cycle2.scrollVert.min.js' );
-					wp_print_scripts( $this->_var . '-rcycle-scrollVert' );
-				}
-			}
-			
-			if ( 'tileBlind' == $group['rcycle-fx'] || 'tileSlide' == $group['rcycle-fx'] ) {
-				if ( !wp_script_is( $this->_var . '-rcycle-tile' ) ) {
-					wp_enqueue_script( $this->_var . '-rcycle-tile', $this->_pluginURL . '/js/jquery.cycle2.tile.min.js' );
-					wp_print_scripts( $this->_var . '-rcycle-tile' );
-				}
-			}
-			
-			if ( 'shuffleEasing' == $group['rcycle-fx'] ) {
-				if ( !wp_script_is( $this->_var . '-rcycle-easing' ) ) {
-					wp_enqueue_script( $this->_var . '-rcycle-easing', $this->_pluginURL . '/js/jquery.easing.1.3.js' );
-					wp_print_scripts( $this->_var . '-rcycle-easing' );
-				}
-			}
-			
-			if ( 'true' == $group['rcycle-swipe'] ) {
-				if ( !wp_script_is( $this->_var . '-rcycle-swipe' ) ) {
-					wp_enqueue_script( $this->_var . '-rcycle-swipe', $this->_pluginURL . '/js/jquery.cycle2.swipe.min.js' );
-					wp_print_scripts( $this->_var . '-rcycle-swipe' );
-				}
-			}
-			
-			$css = ''; // Usually added in init.txt.
-
-			if ( file_exists( $this->_pluginPath . '/layouts/rcycle/' . $group['layout'] . '/init.txt' ) ) {
-				eval( file_get_contents( $this->_pluginPath . '/layouts/rcycle/' . $group['layout'] . '/init.txt' ) );
-			}
-
-			$return = '';
-			$return .= '<script type="text/javascript">' . "\n";
-			$return .= '	jQuery(document).ready(function() {' . "\n";
-			$return .= '		jQuery(\'#pb_slideshow_rcycle-' . $this->instance_count . '\').cycle({' . "\n";
-			if ( 'shuffleEasing' == $group['rcycle-fx'] ) { 
-			$return .= '			fx: \'shuffle\',' . "\n";
-			} else {
-			$return .= '			fx: \'' . $group['rcycle-fx'] . '\',' . "\n";
-			}
-			$return .= '			allowWrap: ' . $group['rcycle-allow-wrap'] . ',' . "\n";
-			$return .= '			autoHeight: ' . $group['rcycle-auto-height'] . ',' . "\n";
-			$return .= '			delay: ' . $group['rcycle-delay'] . ',' . "\n";
-			$return .= '			hideNonActive: ' . $group['rcycle-hide-non-active'] . ',' . "\n";
-			$return .= '			loader: ' . $group['rcycle-loader'] . ',' . "\n";
-			$return .= '			loop: ' . $group['rcycle-loop'] . ',' . "\n";
-			$return .= '			manualSpeed: ' . $group['rcycle-manual-speed'] . ',' . "\n";
-			$return .= '			pauseOnHover: ' . $group['rcycle-pause-on-hover'] . ',' . "\n";
-			$return .= '			reverse: ' . $group['rcycle-reverse'] . ',' . "\n";
-			$return .= '			speed: ' . $group['rcycle-speed'] . ',' . "\n";
-			$return .= '			startingSlide: ' . $group['rcycle-starting-slide'] . ',' . "\n";
-			$return .= '			swipe: ' . $group['rcycle-swipe'] . ',' . "\n";
-			$return .= '			sync: ' . $group['rcycle-sync'] . ',' . "\n";
-			$return .= '			timeout: ' . $group['rcycle-timeout'] . "\n";
-			if ( '1' == $group['rcycle-pb_pager'] ) {
-				$return .= ',			pager: \'#pb_slideshow_rcycle_pager-' . $this->instance_count . '\'' . "\n";
-			}
-			$return .= '		});' . "\n";
-			$return .= '	});' . "\n";
-			$return .= '</script>' . "\n";
-			$return .= "\n";
-			$return .= '<div id="pb_slideshow_rcycle-container-' . $this->instance_count . '" style=" max-width: 100%; width: ' . $group['image_width'] . 'px;">' . "\n";
-			$return .= '<div id="pb_slideshow_rcycle-' . $this->instance_count . '" class="pb_slideshow_rcycle" style=" max-width: 100%;" ' . "\n";
-			if ( 'shuffleEasing' == $group['rcycle-fx'] ) {
-				$return .= 'data-cycle-easing=easeInOutBack ' . "\n";
-				$return .= 'data-cycle-easing=easeOutBack ' . "\n";
-			}
-			if ( 'shuffle' == $group['rcycle-fx'] ) { 
-				$return .= 'data-cycle-shuffle-top="-75" ' . "\n";
-			}
-				$return .= '>' . "\n";
-			
-			foreach( $group['images'] as $image ) {
-				$slide_count++;
-
-				$attachment_data = get_post( $image, ARRAY_A );
-				//seems there is a bug in cycle where this is not working correctly. 
-				// Open link tag if defined.
-				$return .= '<div class="rcycle-slide" style=" max-width: 100%; width: ' . $group['image_width'] . 'px;">';
-				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '<a href="' . $attachment_data['post_content'] . '">' . "\n";
-				}
-				
-				// Create actual image tag.
-				$image_dat = wp_get_attachment_image_src( $image, 'pb_slideshow_' . $group['image_width'] . 'x' . $group['image_height'] );
-				$return .= '<img src="' . $image_dat[0] . '" style=" max-width: 100%;" />' . "\n";
-
-				if ( !empty( $attachment_data['post_content'] ) && stristr( $attachment_data['post_content'], 'http' ) ) {
-					$return .= '</a>' . "\n";
-				}
-				$return .= '</div>';
-			}
-			
-			
-			$return .= '</div>';
-			$return .= "\n";
-
-			if ( '1' == $group['rcycle-pb_pager'] ) {
-				$return .= '<div id="pb_slideshow_rcycle_pager-' . $this->instance_count . '" class="pb_slideshow_rcycle_pager" style="max-width: 100%;">';
-				$return .= '</div>';
-			}
-			$return .= '</div>' . "\n";
-			$return .= '<style type="text/css">' . "\n";
-			$return .=	$css;
-			$return .= '</style>' . "\n";
-
-			return $return;
-
-		}
-
 		//Register the updater version
 		function upgrader_register() {
 			$GLOBALS['pb_classes_upgrade_registration_list'][$this->_var] = $this->_updater;

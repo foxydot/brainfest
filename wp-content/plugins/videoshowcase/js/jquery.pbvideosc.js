@@ -252,12 +252,12 @@
 						toInject = settings.vimeo_oldmarkup.replace(/{width}/g,correctSizes['width']).replace(/{height}/g,correctSizes['height']).replace(/{path}/g,movie);
 					break;
 					
-					/*case 'quicktime':
+					case 'quicktime':
 						correctSizes = _fitToViewport(movie_width,movie_height); // Fit item to viewport
 						correctSizes['height']+=15; correctSizes['contentHeight']+=15; correctSizes['containerHeight']+=15; // Add space for the control bar
 				
 						toInject = settings.quicktime_markup.replace(/{width}/g,correctSizes['width']).replace(/{height}/g,correctSizes['height']).replace(/{wmode}/g,settings.wmode).replace(/{path}/g,pbv_images[set_position]).replace(/{autoplay}/g,settings.autoplay);
-					break;*/
+					break;
 					
 					case 'flash':
 						correctSizes = _fitToViewport(movie_width,movie_height); // Fit item to viewport
@@ -279,7 +279,7 @@
 				
 						toInject = settings.iframe_markup.replace(/{width}/g,correctSizes['width']).replace(/{height}/g,correctSizes['height']).replace(/{path}/g,frame_url);
 					break;
-					case 'quicktime':
+					
 					case 'openplayer':
 						correctSizes = _fitToViewport(movie_width,movie_height); // Fit item to viewport
 					

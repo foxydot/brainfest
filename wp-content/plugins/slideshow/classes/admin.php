@@ -12,7 +12,6 @@ if ( !class_exists( "pluginbuddy_slideshow_admin" ) ) {
 			$this->_selfLink = &$parent->_selfLink;
 			
 			add_action('admin_menu', array(&$this, 'admin_menu')); // Add menu in admin.
-			add_action( 'media_view_strings', array( $this, 'add_media_gallery_strings' ) );
 		}
 		
 		
@@ -77,13 +76,15 @@ if ( !class_exists( "pluginbuddy_slideshow_admin" ) ) {
 			}
 			
 			$this->_parent->save();
-			$this->alert( __('Settings saved.', 'it-l10n-backupbuddy') );
+			$this->alert( __('Settings saved...', 'it-l10n-backupbuddy') );
 		}
 		
 		
 		function admin_scripts() {
 			wp_enqueue_script( 'pluginbuddy-tooltip-js', $this->_parent->_pluginURL . '/js/tooltip.js' );
 			wp_print_scripts( 'pluginbuddy-tooltip-js' );
+			wp_enqueue_script( 'pluginbuddy-swiftpopup-js', $this->_parent->_pluginURL . '/js/swiftpopup.js' );
+			wp_print_scripts( 'pluginbuddy-swiftpopup-js' );
 			wp_enqueue_script( 'pluginbuddy-'.$this->_var.'-admin-js', $this->_parent->_pluginURL . '/js/admin.js' );
 			wp_print_scripts( 'pluginbuddy-'.$this->_var.'-admin-js' );
 			echo '<link rel="stylesheet" href="'.$this->_pluginURL . '/css/admin.css" type="text/css" media="all" />';
@@ -158,12 +159,12 @@ if ( !class_exists( "pluginbuddy_slideshow_admin" ) ) {
 				global $menu;
 				$found_series = false;
 				foreach ( $menu as $menus => $item ) {
-					if ( $item[2] == 'pluginbuddy-' . strtolower( $this->_parent->_series ) ) {
+					if ( $item[0] == $this->_parent->_series ) {
 						$found_series = true;
 					}
 				}
 				if ( $found_series === false ) {
-					add_menu_page( $this->_parent->_series . ' Getting Started', $this->_parent->_series, 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted'), $this->_parent->_pluginURL.'/images/displaybuddy16.png' );
+					add_menu_page( $this->_parent->_series . ' Getting Started', $this->_parent->_series, 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted'), $this->_parent->_pluginURL.'/images/pluginbuddy.png' );
 					add_submenu_page( 'pluginbuddy-' . strtolower( $this->_parent->_series ), $this->_parent->_name.' Getting Started', 'Getting Started', 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted') );
 				}
 				// Register for getting started page
@@ -182,16 +183,6 @@ if ( !class_exists( "pluginbuddy_slideshow_admin" ) ) {
 				//add_submenu_page( $this->_parent->_var, $this->_parent->_name.' Themes & Devices', 'Themes & Devices', 'administrator', $this->_parent->_var.'-themes', array(&$this, 'view_themes'));
 				add_submenu_page( $this->_parent->_var, $this->_parent->_name.' Settings', 'Settings', 'administrator', $this->_parent->_var.'-settings', array(&$this, 'view_settings'));
 			}
-		}
-
-		/**
-		 * This adds ITSlideshowImage strings
-		 *
-		*/
-		function add_media_gallery_strings( $strings ) {
-			$strings['itMediaLibraryAddImageTitle'] = __( 'Add a Slideshow Image', 'it-l10n-slideshow' );
-			$strings['setITMediaLibraryAddImage']   = __( 'Add image', 'it-l10n-slideshow' );
-			return $strings;
 		}
 		
 		

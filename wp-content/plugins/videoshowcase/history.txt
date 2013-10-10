@@ -140,34 +140,3 @@
 	Updated Vimeo code to use new iframe display method to add IOS (iPad, iPhone, etc) support.
 1.1.21 - 2011-09-29 - Ronald Huereca
 	Updated to fix YouTube issues
-1.1.25 - 2011-10-24 - Daniel Harzheim
-	fixed thickbox issue
-1.1.26 - 2011-10-26 - Daniel Harzheim
-	thickboxes should be 3.3 ready now
-1.1.27 - 2011-12-7 - Josh Benham
-	Added support for new 3.3 media uploader
-1.1.28 - 2011-12-12 - Daniel Harzheim
-	Added new displaybuddy admin icon
-1.1.29 - 2011-12-16 - Josh Benham 
-	Updated updater 
-1.1.31 - 2012-02-10 - Daniel Harzheim
-	Updating getting started page for compatibility with new framework
-1.1.32 - 2012-5-30 - Josh Benham
-	Fixed security issue of not escaping outputted values.
-1.1.33 - 2012-6-4 - Josh Benham 
-	updated version number
-1.1.34 - 2012-6-14 - Josh Benham
-	fixed 3.4 medialibrary bug
-1.1.35 - 2012-6-21 - Josh Benham
-	Fixed issue Bug report PBVS-14
-1.1.36 - 2012-7-25 - Josh Benham
-	Added index.php to directories to prevent search engines from indexing - for some weird reason. 
-1.1.37 - 2012-12-10 - Glenn Ansley
-    * Fixed some tabbing
-	* Removed inline CSS and placed in block. Still not enqueued
-	* Added height and width CSS rules to video thumbnail images
-	* Fixed bad index for  height and width on ajax calls
-1.1.38 - 2012-12-11 - Josh Benham
-	Added fix for 3.5 media library.
-1.1.39 - 2012-12-11 - Glenn Ansley
-	Fix thumbnail preview on edit

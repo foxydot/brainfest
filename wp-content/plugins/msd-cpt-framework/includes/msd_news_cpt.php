@@ -47,7 +47,6 @@ class MSDNewsCPT {
 	    );
 	
 	    register_post_type( 'msd_news', $args );
-	    flush_rewrite_rules();
 	}
 		
 	function list_news_stories( $atts ) {

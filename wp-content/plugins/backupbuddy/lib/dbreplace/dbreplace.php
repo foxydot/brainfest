@@ -26,26 +26,9 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 		 *	@return		null
 		 *
 		 */
-		function __construct( &$status_callback = '' ) {
-			$this->status_callback = &$status_callback;
+		function __construct( ) {
 		}
 		
-		
-		/**
-		 *	status()
-		 *	
-		 *	Pass status back to callback class. If there is no callback then this this is ignored.
-		 *	
-		 *	@param		string		$table		Status message type.
-		 *	@param		string		$message	Status message.
-		 *	@return		null
-		 *
-		 */
-		function status( $type = '', $message = '' ) {
-			if ( isset( $this->status_callback ) ) {
-				$this->status_callback->status( $type, $message );
-			}
-		}
 		
 		
 		/**
@@ -115,13 +98,13 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 			$this->remove_matching_array_elements( $olds, $news );
 			$key_result = mysql_query( "show keys from {$table} WHERE Key_name='PRIMARY';" );
 			if ( $key_result === false ) {
-				$this->status( 'details', 'Table `' . $table . '` does not exist; skipping migration of this table.' );
+				pb_backupbuddy::status( 'details', 'Table `' . $table . '` does not exist; skipping migration of this table.' );
 				return;
 			}
 			
 			// No primary key found; unsafe to edit this table. @since 2.2.32.
 			if ( mysql_num_rows( $key_result ) == 0 ) {
-				$this->status( 'message', 'Error #9029: Table `'.  $table .'` does not contain a primary key; BackupBuddy cannot safely modify the contents of this table. Skipping migration of this table. (serialized()).' );
+				pb_backupbuddy::status( 'message', 'Error #9029: Table `'.  $table .'` does not contain a primary key; BackupBuddy cannot safely modify the contents of this table. Skipping migration of this table. (serialized()).' );
 				return;
 			}
 			
@@ -154,7 +137,7 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 			}
 			
 			if ( $updated === true ) {
-				$this->status( 'details', 'Updated serialized data in ' . $table . '.' );
+				pb_backupbuddy::status( 'details', 'Updated serialized data in ' . $table . '.' );
 			}
 		}
 		
@@ -163,6 +146,7 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 		 *	replace_maybe_serialized()
 		 *	
 		 *	Replaces possibly serialized (or non-serialized) text if a change is needed. Returns false if there was no change.
+		 *  Note: As of BB v3.2.x supports double serialized data.
 		 *	
 		 *	@param		string		$table		Text (possibly serialized) to update.
 		 *	@param		mixed		$olds		Text to search for to replace. May be an array of strings to search for.
@@ -185,12 +169,24 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 			}
 			if ( $unserialized !== false ) { // Serialized data.
 				$type = 'serialized';
+				
+				$double_serialized = false;
+				if ( is_serialized( $unserialized ) ) { // double-serialized data (opposite of a double rainbow). Some plugins seem to double-serialize for some unknown wacky reason...
+					$unserialized = @unserialize( $unserialized ); // unserialise - if false is returned we won't try to process it as serialised.
+					$double_serialized = true;
+				}
+				
 				$i = 0;
 				foreach ( $olds as $old ) {
 					$this->recursive_array_replace( $old, $news[$i], $unserialized );
 					$i++;
 				}
+				
 				$edited_data = serialize( $unserialized );
+				if ( true === $double_serialized ) {
+					$edited_data = serialize( $edited_data );
+				}
+				
 			}	else { // Non-serialized data.
 				$type = 'text';
 				$edited_data = $data;
@@ -212,17 +208,18 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 		
 		/**
 		 *	bruteforce_table()
-		 *	
+		 *
+		 *	!!! HANDLES SERIALIZED DATA !!!!
 		 *	Replaces text, serialized or not, within the entire table. Bruteforce method iterates through every row & column in the entire table and replaces if needed.
 		 *	
 		 *	@param		string		$table		Text (possibly serialized) to update.
 		 *	@param		mixed		$olds		Text to search for to replace. May be an array of strings to search for.
 		 *	@param		mixed		$news		New value(s) to be replaced with. May be a string or array. If array there must be the same number of values as $olds.
-		 *	@return		boolean					Always true currently.
+		 *	@return		int						Number of rows changed.
 		 *
 		 */
 		function bruteforce_table( $table, $olds, $news ) {
-			$this->status( 'message', 'Starting brute force data migration for table `' . $table . '`...' );
+			pb_backupbuddy::status( 'message', 'Starting brute force data migration for table `' . $table . '`...' );
 			if ( !is_array( $olds ) ) {
 				$olds = array( $olds );
 			}
@@ -251,13 +248,13 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 			
 			// Skips migration of this table if there is no primary key. Modifying on any other key is not safe. mysql automatically returns a PRIMARY if a UNIQUE non-primary is found according to http://dev.mysql.com/doc/refman/5.1/en/create-table.html  @since 2.2.32.
 			if ( $found_primary_key === false ) {
-				$this->status( 'message', 'Error #9029: Table `'.  $table .'` does not contain a primary key; BackupBuddy cannot safely modify the contents of this table. Skipping migration of this table. (bruteforce_table()).' );
+				pb_backupbuddy::status( 'message', 'Error #9029: Table `'.  $table .'` does not contain a primary key; BackupBuddy cannot safely modify the contents of this table. Skipping migration of this table. (bruteforce_table()).' );
 				return false;
 			}
 			
 			$data = mysql_query( "SELECT * FROM `" . $table . "`" );
 			if (!$data) {
-				$this->status( 'error', 'ERROR #44545343 ... SQL ERROR: ' . mysql_error() );
+				pb_backupbuddy::status( 'error', 'ERROR #44545343 ... SQL ERROR: ' . mysql_error() );
 			}
 			
 			$row_loop = 0;
@@ -271,8 +268,8 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 					$j++;
 					$count_items_checked++;
 					$row_loop++;
-					if ( $row_loop > 5000 ) {
-						$this->status( 'message', 'Working...' );
+					if ( $row_loop > 20000 ) {
+						pb_backupbuddy::status( 'message', 'Working... ' . $count_items_checked . ' rows checked.' );
 						$row_loop = 0;
 					}
 					
@@ -296,16 +293,16 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 					$UPDATE_SQL = $UPDATE_SQL . $WHERE_SQL;
 					$result = mysql_query( $UPDATE_SQL );
 					if ( !$result ) {
-						$this->status( 'error', 'ERROR: mysql error updating db: ' . mysql_error() . '. SQL Query: ' . htmlentities( $UPDATE_SQL ) );
+						pb_backupbuddy::status( 'error', 'ERROR: mysql error updating db: ' . mysql_error() . '. SQL Query: ' . htmlentities( $UPDATE_SQL ) );
 					} 
 				}
 				
 			}
 			
 			unset( $main_result );
-			$this->status( 'message', 'Brute force data migration for table `' . $table . '` complete. Checked ' . $count_items_checked . ' items; ' . $count_items_changed . ' changed.' );
+			pb_backupbuddy::status( 'message', 'Brute force data migration for table `' . $table . '` complete. Checked ' . $count_items_checked . ' items; ' . $count_items_changed . ' changed.' );
 			
-			return true;
+			return $count_items_changed;
 		}
 		
 		
@@ -406,6 +403,9 @@ if (!class_exists("pluginbuddy_dbreplace")) {
 					unset( $b[$i] );
 				}
 			}
+			
+			$a = array_merge( $a ); // Reset numbering of keys.
+			$b = array_merge( $b ); // Reset numbering of keys.
 		}
 		
 		

@@ -23,7 +23,7 @@ include_once('includes/msd_publication_functions.php');
 
 //Include CPT files
 include_once('includes/msd_publication_cpt.php');
-include_once('includes/msd_casestudy_cpt.php');
+include_once('includes/msd_success_cpt.php');
 include_once('includes/msd_news_cpt.php');
 
 //Include any metaboxes
@@ -31,4 +31,3 @@ include_once('includes/msd_cpt_metaboxes.php');
 
 //Include widget files
 include_once('includes/msd_publication_widget.php');
-include_once('includes/msd_news_widget.php');

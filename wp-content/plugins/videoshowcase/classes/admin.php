@@ -10,22 +10,13 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 			$this->_pluginPath = &$parent->_pluginPath;
 			$this->_pluginURL = &$parent->_pluginURL;
 			$this->_selfLink = &$parent->_selfLink;
-			add_action( 'media_view_strings', array( $this, 'add_media_gallery_strings' ) );
+
 			add_action('admin_menu', array(&$this, 'admin_menu')); // Add menu in admin.
 			// SHORTCODE THICKBOX HOOK
 			add_action('wp_ajax_vsc_shortgen', array(&$this, 'shortcodeGenerator'));
 			// Handle ajax attachment for instantly showing image on upload
 			add_action( 'wp_ajax_handle_attachment', array( &$this, 'handle_ajax_attachment' ) );
-			// handle scripts for thickbox
-			//wp_enqueue_script( 'thickbox' );
-			//wp_enqueue_style( 'thickbox' );
-			add_action('init', array( &$this, 'load_thick_box_script' ) ); //looks like we found a safe place to add thickboxes that works, and wp 3.3 doesn't complain about.
-			add_action('init', array( &$this, 'load_thick_box_style' ) );
-		}
-		function load_thick_box_script() {
 			wp_enqueue_script( 'thickbox' );
-		}
-		function load_thick_box_style() {
 			wp_enqueue_style( 'thickbox' );
 		}
 		function alert( $arg1, $arg2 = false ) {
@@ -34,15 +25,8 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 		
 		// Gets image id on upload to instantly show new image
 		function handle_ajax_attachment() {
-			$attachment_data = maybe_unserialize( stripslashes( $_POST['image'] ) );
-
-			if ( is_array( $attachment_data ) ) {
-				$imagedata = wp_get_attachment_image_src( $attachment_data['attachment_id'], 'thumbnail' );
-			} else {
-				$attachment_data = json_decode( $attachment_data );
-				$imagedata = wp_get_attachment_image_src( $attachment_data[0]->attachment_id, 'thumbnail' );
-			}
-
+			$attachment_data = unserialize( stripslashes( $_POST['image'] ) );
+			$imagedata = wp_get_attachment_image_src( $attachment_data['attachment_id'], 'thumbnail' );
 			die( $imagedata[0] );		
 		}
 		
@@ -554,14 +538,11 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 				$this->_options['groups'][$group]['order'][$ordkey] = $newID; // sets default order num
 				
 				// If upload custom image
-				if ( !empty( $_POST['attachment_data'] ) ) {
-					$attachment_data = maybe_unserialize( stripslashes( $_POST['attachment_data'] ) );
-				if ( is_string( $attachment_data ) ) {
-				  $attachment_data = json_decode($attachment_data);
-				  $attachment_data = get_object_vars($attachment_data[0]);
+				if (!empty($_POST['attachment_data'])) {
+					$attachment_data = unserialize( stripslashes( $_POST['attachment_data'] ) );
+					$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$newID]['vimage'] = $attachment_data['attachment_id'];
 				}
-				$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$newID]['vimage'] = $attachment_data['attachment_id'];
-				}
+				
 				$this->_showStatusMessage( 'The video has been updated.' );
 				$this->_parent->save();
 			}
@@ -580,20 +561,16 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 				$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$_POST[$this->_var . '-videoid']]['vtitle'] = $_POST[$this->_var . '-title'];
 				
 				// If upload custom image
-				if ( !empty( $_POST['attachment_data'] ) ) {
-					$attachment_data = maybe_unserialize( stripslashes( $_POST['attachment_data'] ) );
-				if ( is_string( $attachment_data ) ) {
-				  $attachment_data = json_decode($attachment_data);
-				  $attachment_data = get_object_vars($attachment_data[0]);
-				}
-				$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$_POST[$this->_var . '-videoid']]['vimage'] = $attachment_data['attachment_id'];
+				if (!empty($_POST['attachment_data'])) {
+					$attachment_data = unserialize( stripslashes( $_POST['attachment_data'] ) );
+					$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$_POST[$this->_var . '-videoid']]['vimage'] = $attachment_data['attachment_id'];
 				}
 				
 				$this->_showStatusMessage( 'The video has been updated.' );
 				$this->_parent->save();
 			}
 		}
-//$this->_options['groups'][$_POST[$this->_var . '-groupid']]['videos'][$_POST[$this->_var . '-videoid']]['vimage'] = $attachment_data['attachment_id'];
+
 		function _deleteVideos() {
 			$names = array();
 
@@ -737,12 +714,12 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 				global $menu;
 				$found_series = false;
 				foreach ( $menu as $menus => $item ) {
-					if ( $item[2] == 'pluginbuddy-' . strtolower( $this->_parent->_series ) ) { //if ( $item[0] == $this->_parent->_series ) {
+					if ( $item[0] == $this->_parent->_series ) {
 						$found_series = true;
 					}
 				}
 				if ( $found_series === false ) {
-					add_menu_page( $this->_parent->_series . ' Getting Started', $this->_parent->_series, 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted'), $this->_parent->_pluginURL.'/images/displaybuddy16.png' );
+					add_menu_page( $this->_parent->_series . ' Getting Started', $this->_parent->_series, 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted'), $this->_parent->_pluginURL.'/images/pluginbuddy.png' );
 					add_submenu_page( 'pluginbuddy-' . strtolower( $this->_parent->_series ), $this->_parent->_name.' Getting Started', 'Getting Started', 'edit_posts', 'pluginbuddy-' . strtolower( $this->_parent->_series ), array(&$this, 'view_gettingstarted') );
 				}
 				// Register for getting started page
@@ -761,12 +738,6 @@ if ( !class_exists( "PluginBuddyVideoShowcase_admin" ) ) {
 				//add_submenu_page( $this->_parent->_var, $this->_parent->_name.' Themes & Devices', 'Themes & Devices', 'administrator', $this->_parent->_var.'-themes', array(&$this, 'view_themes'));
 				add_submenu_page( $this->_parent->_var, $this->_parent->_name.' Settings', 'Settings', 'administrator', $this->_parent->_var.'-settings', array(&$this, 'view_settings'));
 			}
-		}
-		
-		function add_media_gallery_strings( $strings ) {
-			$strings['itMediaLibraryAddImageTitle'] = __( 'Add a Slideshow Image', 'it-l10n-videoshowcase' );
-			$strings['setITMediaLibraryAddImage']   = __( 'Add image', 'it-l10n-videoshowcase' );
-			return $strings;
 		}
 
 

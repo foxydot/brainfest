@@ -145,9 +145,7 @@ if ( isset( $_GET['edit'] ) ) {
 						echo ' disabled';
 					}
 					?>>
-					<?php if ( is_multisite() ) { ?>
 						<option value="manage_network" <?php if ( $this->_options['access'] == 'manage_network' ) { echo 'selected'; } ?>>Network Administrator</option>
-						<?php } ?>
 						<option value="activate_plugins" <?php if ( $this->_options['access'] == 'activate_plugins' ) { echo 'selected'; } ?>>Administrator</option>
 						<option value="moderate_comments" <?php if ( $this->_options['access'] == 'moderate_comments' ) { echo 'selected'; } ?>>Editor</option>
 						<option value="edit_published_posts" <?php if ( $this->_options['access'] == 'edit_published_posts' ) { echo 'selected'; } ?>>Author</option>

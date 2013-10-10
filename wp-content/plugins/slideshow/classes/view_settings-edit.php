@@ -1,14 +1,7 @@
 <?php
-// Add thickbox support
 wp_enqueue_script( 'thickbox' );
 wp_print_scripts( 'thickbox' );
 wp_print_styles( 'thickbox' );
-
-// Add WP 3.5 Media Library dependants
-if ( ! $this->_parent->_medialibrary->_pre_wp_3_5_compatibility ) {
-	wp_enqueue_media();
-	wp_enqueue_script( 'it-medialibrary-add-image', $this->_parent->_pluginURL . '/lib/medialibrary/medialibrary.js' );
-}
 
 // Handles resizing thickbox.
 if ( !wp_script_is( 'media-upload' ) ) {
@@ -21,13 +14,12 @@ wp_print_scripts( 'pluginbuddy-reorder-js' );
 
 $group = &$this->_parent->get_group( $_GET['edit'] );
 
+if ( !empty( $_POST['save'] ) ) {
+	$this->savesettings();
+}
 
 if ( !empty( $_POST['attachment_data'] ) ) {
-    $attachment_data = maybe_unserialize( stripslashes( $_POST['attachment_data'] ) );
-    if ( is_string( $attachment_data ) ) { 
-        $attachment_data = json_decode($attachment_data);
-        $attachment_data = get_object_vars($attachment_data[0]);
-    }   
+	$attachment_data = unserialize( stripslashes( $_POST['attachment_data'] ) );
 	
 	array_push( $group['images'], $attachment_data['attachment_id'] );
 	$this->_parent->save();
@@ -77,7 +69,7 @@ if ( !empty( $_POST['save_order'] ) ) {
 }
 ?>
 
-<h2><?php echo $this->_name; ?> Group Settings for "<?php echo stripslashes( $group['title'] ); ?>" (<a href="<?php echo $this->_parent->_selfLink; ?>-settings">group list</a>)</h2>
+<h2><?php echo $this->_name; ?> Group Settings for "<?php echo $group['title']; ?>" (<a href="<?php echo $this->_parent->_selfLink; ?>-settings">group list</a>)</h2>
 
 <br />
 
@@ -103,30 +95,6 @@ if ( !empty( $_POST['save_order'] ) ) {
 			dragHandle: "dragHandle"
 		});
 	});
-	jQuery(document).ready(function() {
-	var saved_slider_type = "<?php echo $group['type'] ?>";
-	var saved_render_mode = "<?php echo $group['render_mode'] ?>";
-		if ( 'responsive' == saved_render_mode ) {
-			jQuery( '#' + saved_slider_type + '_responsive_settings' ).show();
-		} else { 
-				jQuery( '#' + saved_slider_type + '_settings' ).show();
-			}
-			
-		jQuery( '.settings_picker' ).click(function() {
-
-			var slider_type = jQuery( 'input[name="#type"]:checked' ).val();
-			var render_mode = jQuery( 'input[name="#render_mode"]:checked' ).val();
-
-			jQuery( '#slider_settings, #slider_responsive_settings, #cycle_settings, #cycle_responsive_settings' ).hide();
-
-			if ( 'responsive' == render_mode ) { // Responsive.
-				jQuery( '#' + slider_type + '_responsive_settings' ).show();
-			} else { // Normal.
-				jQuery( '#' + slider_type + '_settings' ).show();
-			}
-
-		});
-	});
 </script>
 
 
@@ -135,10 +103,7 @@ if ( !empty( $_POST['save_order'] ) ) {
 		<div class="alignleft actions">
 			<input type="submit" name="delete_images" value="Remove" class="button-secondary delete" title="Remove image from this group. It will not be deleted from the Media Library." />
 			
-			<?php
-			$link_args = array( 'title' => __( '+ Add Image', 'it-l10n-slideshow' ) );
-			echo $this->_parent->_medialibrary->get_add_link( $link_args );
-			?>
+			<a href="<?php echo $this->_parent->_medialibrary->get_link(); ?>" class="button button-primary thickbox">+ Add Image</a>
 			<input type="hidden" name="order" id="pb_order" value="" />
 		</div>
 		
@@ -226,7 +191,7 @@ if ( !empty( $_POST['save_order'] ) ) {
 	<div class="tablenav">
 		<div class="alignleft actions">
 			<input type="submit" name="delete_images" value="Remove" class="button-secondary delete" title="Remove image from this group. It will not be deleted from the Media Library." />
-			<?php echo $this->_parent->_medialibrary->get_add_link( $link_args ); ?>
+			<a href="<?php echo $this->_parent->_medialibrary->get_link(); ?>" class="button button-primary thickbox">+ Add Image</a>
 		</div>
 		
 		<div class="alignright actions">
@@ -236,13 +201,13 @@ if ( !empty( $_POST['save_order'] ) ) {
 	<?php $this->nonce(); ?>
 </form><br />
 
-<form method="post" id="slideshow_settings" action="<?php echo $this->_selfLink; ?>-settings&edit=<?php echo htmlentities( $_GET['edit'] ); ?>">
-	<p><label for="enable_css_files" style=" padding-right: 40px;">Enable CSS Files     <?php $this->tip( 'Warning! When disabled will prevent the css files used for image transitions to load.'); ?> </label>
+<form method="post" action="<?php echo $this->_selfLink; ?>-settings&edit=<?php echo htmlentities( $_GET['edit'] ); ?>">
+	<p><label for="enable_css_files">Enable CSS Files     <?php $this->tip( 'Warning! When disabled will prevent the css files used for image transitions to load.'); ?> </label>
 	<label for="enable_css_files-1">
-		<input class="radio_toggle" type="radio" name="#enable_css_files" id="enable_css_files-1" value="true" <?php if ( $group[ 'enable_css_files' ] == 'true' ) { echo 'checked'; } ?>/>Yes</label>
+		<input class="radio_toggle" type="radio" name="#enable_css_files" id="enable_css_files-1" value="true" <?php if ( $group[ 'enable_css_files' ] == 'true' ) { echo 'checked'; } ?>/>yes</label>
 		&nbsp;
 	<label for="enable_css_file-0">
-		<input class="radio_toggle" type="radio" name="#enable_css_files" id="enable_css_files-0" value="false" <?php if ( $group[ 'enable_css_files' ] == 'false' ) { echo 'checked'; } ?> />No</label>
+		<input class="radio_toggle" type="radio" name="#enable_css_files" id="enable_css_files-0" value="false" <?php if ( $group[ 'enable_css_files' ] == 'false' ) { echo 'checked'; } ?> />no</label>
 		&nbsp;</p>
 
 
@@ -259,7 +224,7 @@ if ( !empty( $_POST['save_order'] ) ) {
 	
 	<h3>
 		<label for="type_slider">
-			<input type="radio" name="#type" id="type_slider" class="settings_picker" value="slider" onclick="" <?php if ( $group['type'] == 'slider' ) { echo ' checked '; } ?>/>
+			<input type="radio" name="#type" id="type_slider" value="slider" onclick="jQuery('#slider_settings').show(); jQuery('#cycle_settings').hide();" <?php if ( $group['type'] == 'slider' ) { echo ' checked '; } ?>/>
 			Slider
 		</label>
 	</h3>
@@ -268,7 +233,7 @@ if ( !empty( $_POST['save_order'] ) ) {
 	<br />
 	<h3>
 		<label for="type_cycle">
-			<input type="radio" name="#type" class="settings_picker" id="type_cycle" value="cycle" onclick="" <?php if ( $group['type'] == 'cycle' ) { echo ' checked '; } ?>/>
+			<input type="radio" name="#type" id="type_cycle" value="cycle" onclick="jQuery('#cycle_settings').show(); jQuery('#slider_settings').hide();" <?php if ( $group['type'] == 'cycle' ) { echo ' checked '; } ?>/>
 			Cycle
 		</label>
 	</h3>
@@ -276,28 +241,8 @@ if ( !empty( $_POST['save_order'] ) ) {
 	
 	<br />
 	
-	<h2>Render Mode</h2>
-	
-	<h3>
-		<label for="type_slider_responsive">
-			<input type="radio" name="#render_mode" class="settings_picker" id="render_mode_responsive" value="responsive" onclick="" <?php if ( $group['render_mode'] == 'responsive' ) { echo ' checked '; } ?>/>
-			Responsive
-		</label>
-	</h3>
-	Make slideshow responsive and work with responsive themes.
-	
-	<br />
-	<h3>
-		<label for="type_cycle_responsive">
-			<input type="radio" name="#render_mode" class="settings_picker" id="render_mode_fixed" value="fixed" onclick="" <?php if ( $group['render_mode'] == 'fixed' ) { echo ' checked '; } ?>/>
-			Fixed
-		</label>
-	</h3>
-	Slideshow will be fixed and will not resize. 
-	
-	
-	<table class="form-table" id="slider_settings" style="display: none;" >
-		<tr><td><h2>Slider Fixed Mode Settings</h2></td><td style="min-width: 450px;"></td></tr>
+	<table class="form-table" id="slider_settings" <?php if ( $group['type'] != 'slider' ) { echo 'style="display: none;"'; } ?>>
+		<tr><td><h2>Slider Mode Settings</h2></td><td style="min-width: 450px;"></td></tr>
 		<tr>
 			<td><label for="slider-effect">Animation transition effect <?php $this->tip( 'Controls the animation/effect that will occur to transition between different slides.' ); ?></label></td>
 			<td>
@@ -466,8 +411,8 @@ if ( !empty( $_POST['save_order'] ) ) {
 	</table>
 	
 	
-	<table class="form-table" id="cycle_settings" style="display: none;">
-		<tr><td colspan="2"><h2>Cycle Fixed Mode Settings</h2></td><td style="min-width: 450px;"></td></tr>
+	<table class="form-table" id="cycle_settings" <?php if ( $group['type'] != 'cycle' ) { echo 'style="display: none;"'; } ?>>
+		<tr><td colspan="2"><h2>Cycle Mode Settings</h2></td></tr>
 		<tr>
 			<td><label for="cycle-fx">Animation transition effect(s)<?php $this->tip( 'Controls the animation/effect that will occur to transition between different slides. When a `Combo` is selected, all effects of that type will be alternated. The next option allows randomizing this order.' ); ?></label></td>
 			<td>
@@ -627,292 +572,6 @@ if ( !empty( $_POST['save_order'] ) ) {
 			<td><label for="cycle-speedOut">OUT Transition speed override<?php $this->tip( 'Override the `Transition animation speed` option for slides coming OUT of view (in milliseconds; ex: 4000ms = 4seconds).' ); ?></label></td>
 			<td><input type="text" name="#cycle-speedOut" id="cycle-speedOut" size="5" maxlength="5" value="<?php echo $group['cycle-speedOut']; ?>" style="text-align: right;" />ms</td>
 		</tr>
-	</table>
-	
-	<table class="form-table" id="slider_responsive_settings" <?php if ( $group['type'] != 'slider_responsive' ) { echo 'style="display: none;"'; } ?>>
-		<tr><td><h2>Slider Responsive Mode Settings</h2></td><td style="min-width: 450px;"></td></tr>
-		<tr>
-			<td><label for="rslider-effect">Animation transition effect <?php $this->tip( 'Controls the animation/effect that will occur to transition between different slides.' ); ?></label></td>
-			<td>
-				<select name="#rslider-effect" id="rslider-effect">
-					<option value="sliceDown" <?php if ( 'sliceDown' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Down</option>
-					<option value="sliceDownLeft" <?php if ( 'sliceDownLeft' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Down Left</option>
-					<option value="sliceUp" <?php if ( 'sliceUp' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Up</option>
-					<option value="sliceUpLeft" <?php if ( 'UpLeft' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Up Left</option>
-					<option value="sliceUpDown" <?php if ( 'sliceUpDown' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Up Down</option>
-					<option value="sliceUpDownLeft" <?php if ( 'sliceUpDownLeft' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slice Up Down Left</option>
-					<option value="fold" <?php if ( 'fold' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Fold</option>
-					<option value="fade" <?php if ( 'fade' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Fade</option>
-					<option value="slideInRight" <?php if ( 'slideInRight' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slide In Right</option>
-					<option value="slideInLeft" <?php if ( 'slideInLeft' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Slide In Left</option>
-					<option value="boxRandom" <?php if ( 'boxRandom' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Box Random</option>
-					<option value="boxRain" <?php if ( 'boxRain' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Box Rain</option>
-					<option value="boxRainReverse" <?php if ( 'boxRainReverse' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Box Rain Reverse</option>
-					<option value="boxRainGrow" <?php if ( 'boxRainGrow' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Box Rain Grow</option>
-					<option value="boxRainGrowReverse" <?php if ( 'boxRainGrowReverse' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Box Rain Grow Reverse</option>
-					<option value="random" <?php if ( 'random' == $group['rslider-effect'] ) { echo 'selected'; } ?> />Random (default)</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-directionNav">Enable directional navigation on images<?php $this->tip( 'When enabled, arrows will appear on the slideshow, allowing the user to move forward or backward in the slideshow.' ); ?></label></td>
-			<td>
-				<label for="rslider-directionNav-1">
-					<input class="radio_toggle" type="radio" name="#rslider-directionNav" id="rslider-directionNav-1" value="true" <?php if ( $group['rslider-directionNav'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rslider-directionNav-0">
-					<input class="radio_toggle" type="radio" name="#rslider-directionNav" id="rslider-directionNav-0" value="false" <?php if ( $group['rslider-directionNav'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-controlNav">Show navigation below slideshow<?php $this->tip( 'When enabled, bullets or thumbnails depending on the next option will be displayed below the slideshow for instant naviation to any slide. ' ); ?></label></td>
-			<td>
-				<label for="rslider-controlNav-1">
-					<input class="radio_toggle" type="radio" name="#rslider-controlNav" id="rslider-controlNav-1" value="true" onclick="jQuery('#pb_rslider_navstyle').show();" <?php if ( $group['rslider-controlNav'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rslider-controlNav-0">
-					<input class="radio_toggle" type="radio" name="#rslider-controlNav" id="rslider-controlNav-0" value="false" onclick="jQuery('#pb_rslider_navstyle').hide();" <?php if ( $group['rslider-controlNav'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr id="pb_rslider_navstyle" <?php if ( $group['rslider-controlNav'] == 'false' ) { echo ' style="display: none;" '; } ?>>
-			<td><label for="rslider-controlNavThumbs">Navigation style below slideshow<?php $this->tip( 'Determines whether bullets (dots) or smaller thumbnails of each respective slide is shown below the slideshow.' ); ?></label></td>
-			<td>
-				<select name="#rslider-controlNavThumbs" id="rslider-controlNavThumbs" onchange="
-					if ( jQuery(this).val() == 'true' ) {
-						jQuery('#pb_rslider_thumbsizes').show();
-					} else {
-						jQuery('#pb_rslider_thumbsizes').hide();
-					}
-				">
-					<option value="true" <?php if ( 'true' == $group['rslider-controlNavThumbs'] ) { echo 'selected'; } ?> />Thumbnails</option>
-					<option value="false" <?php if ( 'false' == $group['rslider-controlNavThumbs'] ) { echo 'selected'; } ?> />Bullets</option>
-				</select>
-				<span id="pb_rslider_thumbsizes" <?php if ( $group['rslider-controlNavThumbs'] == 'false' ) { echo ' style="display: none;" '; } ?>>
-					Dimensions: <input type="text" name="#thumb_image_width" id="thumb_image_width" size="5" maxlength="5" value="<?php echo $group['thumb_image_width']; ?>" style="text-align: right;" />px wide
-					<input type="text" name="#thumb_image_height" id="thumb_image_height" size="5" maxlength="5" value="<?php echo $group['thumb_image_height']; ?>" style="text-align: right;" />px high
-				</span>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-pauseOnHover">Pause on mouse hover<?php $this->tip( 'When enabled moving the mouse cursor over the slideshow will cause it to pause.' ); ?></label></td>
-			<td>
-				<label for="rslider-pauseOnHover-1">
-					<input class="radio_toggle" type="radio" name="#rslider-pauseOnHover" id="rslider-pauseOnHover-1" value="true" <?php if ( $group['rslider-pauseOnHover'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rslider-pauseOnHover-0">
-					<input class="radio_toggle" type="radio" name="#rslider-pauseOnHover" id="rslider-pauseOnHover-0" value="false" <?php if ( $group['rslider-pauseOnHover'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr> <?php
-			/*<td><label for="slider-shadows">Shadows around slideshow<?php $this->tip( 'When enabled a subtle shadow will be displayed around the slideshow and thumbnails (if enabled).' ); ?></label></td>
-			<td>
-				<label for="slider-shadows-1">
-					<input class="radio_toggle" type="radio" name="#slider-shadows" id="slider-shadows-1" value="true" <?php if ( $group['slider-shadows'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="slider-shadows-0">
-					<input class="radio_toggle" type="radio" name="#slider-shadows" id="slider-shadows-0" value="false" <?php if ( $group['slider-shadows'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>*/?>
-		<tr><?php
-			/*<td><label for="slider-captionOpacity">Caption opacity<?php $this->tip( 'Controls the opacity (translucency) the captions are. Higher numbers mean more `solid`.' ); ?></label></td>
-			<td>
-				<select name="#slider-captionOpacity" id="slider-captionOpacity">
-					<option value="0.1" <?php if ( '0.1' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />10%</option>
-					<option value="0.2" <?php if ( '0.2' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />20%</option>
-					<option value="0.3" <?php if ( '0.3' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />30%</option>
-					<option value="0.4" <?php if ( '0.4' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />40%</option>
-					<option value="0.5" <?php if ( '0.5' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />50%</option>
-					<option value="0.6" <?php if ( '0.6' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />60%</option>
-					<option value="0.7" <?php if ( '0.7' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />70%</option>
-					<option value="0.8" <?php if ( '0.8' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />80%</option>
-					<option value="0.9" <?php if ( '0.9' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />90%</option>
-					<option value="1.0" <?php if ( '1.0' == $group['slider-captionOpacity'] ) { echo 'selected'; } ?> />100%</option>
-				</select>
-			</td>
-		</tr>*/?>
-		<tr>
-			<td><label for="rslider-slices">Slices<?php $this->tip( 'Number of slices that slides will be cut up into for transition effects. Note that more slices require more processing power and may slow down slower computers.' ); ?></label></td>
-			<td><input type="text" name="#rslider-slices" id="rslider-slices" size="5" maxlength="5" value="<?php echo $group['rslider-slices']; ?>" style="text-align: right;" />slices</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-boxCols">Box Columns<?php $this->tip( 'How many columns of boxes the slideshow wil be cut up into for transition effects.' ); ?></label></td>
-			<td><input type="text" name="#rslider-boxCols" id="slider-boxCols" size="5" maxlength="5" value="<?php echo $group['rslider-boxCols']; ?>" style="text-align: right;" />Columns</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-boxRows">Box Rows<?php $this->tip( 'How many rows of boxes the slideshow wil be cut up into for transition effects.' ); ?></label></td>
-			<td><input type="text" name="#rslider-boxRows" id="rslider-boxRows" size="5" maxlength="5" value="<?php echo $group['rslider-boxRows']; ?>" style="text-align: right;" />Rows</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-animSpeed">Animation Speed<?php $this->tip( 'Amount of time to display a slide before transitioning to the next slide (in milliseconds; ex: 4000 = 4 seconds).' ); ?></label></td>
-			<td><input type="text" name="#rslider-animSpeed" id="rslider-animSpeed" size="5" maxlength="5" value="<?php echo $group['rslider-animSpeed']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-startSlide">Starting slide number<?php $this->tip( 'The slide number that the slideshow will start on.' ); ?></label></td>
-			<td><input type="text" name="#rslider-startSlide" id="rslider-startSlide" size="5" maxlength="5" value="<?php echo $group['rslider-startSlide']; ?>" style="text-align: right;" /></td>
-		</tr>
-		<tr>
-			<td><label for="rslider-pauseTime">Pause time between slide changes<?php $this->tip( 'Amount of time to display a slide before transitioning to the next slide (in milliseconds; ex: 4000 = 4 seconds).' ); ?></label></td>
-			<td><input type="text" name="#rslider-pauseTime" id="rslider-pauseTime" size="5" maxlength="5" value="<?php echo $group['rslider-pauseTime']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-manualAdvance">Manual Advance<?php $this->tip( 'When enabled the slideshow will only be able to advance manually' ); ?></label></td>
-			<td>
-				<label for="rslider-manualAdvance-1">
-					<input class="radio_toggle" type="radio" name="#rslider-manualAdvance" id="rslider-manualAdvance-1" value="true" <?php if ( $group['rslider-manualAdvance'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rslider-manualAdvance-0">
-					<input class="radio_toggle" type="radio" name="#rslider-manualAdvance" id="rslider-manualAdvance-0" value="false" <?php if ( $group['rslider-manualAdvance'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rslider-randomStart">Random Start<?php $this->tip( 'This will enable slideshow to start on a random slide' ); ?></label></td>
-			<td>
-				<label for="rslider-randomStart-1">
-					<input class="radio_toggle" type="radio" name="#rslider-randomStart" id="rslider-randomStart-1" value="true" <?php if ( $group['rslider-randomStart'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rslider-randomStart-0">
-					<input class="radio_toggle" type="radio" name="#rslider-randomStart" id="rslider-randomStart-0" value="false" <?php if ( $group['rslider-randomStart'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-	</table>
-	
-	<table class="form-table" id="cycle_responsive_settings" <?php if ( $group['type'] != 'cycle_responsive' ) { echo 'style="display: none;"'; } ?>>
-		<tr><td><h2>Cycle Responsive Mode Settings</h2></td><td style="min-width: 450px;"></td></tr>
-		<tr>
-			<td><label for="rcycle-fx">Animation transition effect(s)<?php $this->tip( 'Controls the animation/effect that will occur to transition between different slides.' ); ?></label></td>
-			<td>
-				<select name="#rcycle-fx" id="rcycle-fx">
-				    <option value="none" <?php if ( 'none' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />none</option>
-					<option value="fade" <?php if ( 'fade' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />fade</option>
-					<option value="fadeout" <?php if ( 'fadeout' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />fadeout</option>
-					<option value="shuffle" <?php if ( 'shuffle' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />shuffle</option>
-					<option value="shuffleEasing" <?php if ( 'shuffleEasing' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />shuffleEasing</option>
-					<option value="scrollVert" <?php if ( 'scrollVert' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />scrollVert</option>
-					<option value="scrollHorz" <?php if ( 'scrollHorz' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />scrollHorz</option>
-					<option value="tileBlind" <?php if ( 'tileBlind' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />tileBlind</option>
-					<option value="tileSlide" <?php if ( 'tileSlide' == $group['rcycle-fx'] ) { echo 'selected'; } ?> />tileSlide</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-pb_pager">Display bullet navigation below Cycler<?php $this->tip( 'When enabled bullets will be displayed below the slideshow allowing users to select which slide to view.' ); ?></label></td>
-			<td>
-				<label for="rcycle-pb_pager-1">
-					<input class="radio_toggle" type="radio" name="#rcycle-pb_pager" id="rcycle-pb_pager-1" value="1" <?php if ( $group['rcycle-pb_pager'] == '1' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rcycle-pb_pager-0">
-					<input class="radio_toggle" type="radio" name="#rcycle-pb_pager" id="rcycle-pb_pager-0" value="0" <?php if ( $group['rcycle-pb_pager'] == '0' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-sync">Sync in/out transitions to occur simultaneously (changes look of effect)<?php $this->tip( 'When enabled, the animation for the slide that is entering view will be displayed at the same time as the slide leaving view. Changing this option can drastically change the look of the selected transition effect. Experiment!' ); ?></label></td>
-			<td>
-				<label for="rcycle-sync-1">
-					<input class="radio_toggle" type="radio" name="#rcycle-sync" id="rcycle-sync-1" value="true" <?php if ( $group['rcycle-sync'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rcycle-sync-0">
-					<input class="radio_toggle" type="radio" name="#rcycle-sync" id="rcycle-sync-0" value="false" <?php if ( $group['rcycle-sync'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-pause-on-hover">Pause on mouse hover<?php $this->tip( 'When enabled moving the mouse cursor over the slideshow will cause it to pause.' ); ?></label></td>
-			<td>
-				<label for="rcycle-pause-on-hover-1">
-					<input class="radio_toggle" type="radio" name="#rcycle-pause-on-hover" id="rcycle-pause-on-hover-1" value="true" <?php if ( $group['rcycle-pause-on-hover'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rcycle-pause-on-hover-0">
-					<input class="radio_toggle" type="radio" name="#rcycle-pause-on-hover" id="rcycle-pause-on-hover-0" value="false" <?php if ( $group['rcycle-pause-on-hover'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-reverse">Reverse transition order<?php $this->tip( 'This option will reverse the order in which the slideshow transitions.' ); ?></label></td>
-			<td>
-				<label for="rcycle-reverse-1">
-					<input class="radio_toggle" type="radio" name="#rcycle-reverse" id="rcycle-reverse-1" value="true" <?php if ( $group['rcycle-reverse'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rcycle-reverse-0">
-					<input class="radio_toggle" type="radio" name="#rcycle-reverse" id="rcycle-reverse-0" value="false" <?php if ( $group['rcycle-reverse'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-swipe">Swipe for touch capable devices<?php $this->tip( 'When enabled you can swipe the slideshow with touch capable devices to navigate the slideshow.' ); ?></label></td>
-			<td>
-				<label for="rcycle-swipe-1">
-					<input class="radio_toggle" type="radio" name="#rcycle-swipe" id="rcycle-swipe-1" value="true" <?php if ( $group['rcycle-swipe'] == 'true' ) { echo ' checked '; } ?>/>
-					Yes
-				</label>
-				&nbsp;
-				<label for="rcycle-swipe-0">
-					<input class="radio_toggle" type="radio" name="#rcycle-swipe" id="rcycle-swipe-0" value="false" <?php if ( $group['rcycle-swipe'] == 'false' ) { echo ' checked '; } ?>/>
-					No
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-starting-slide">Starting slide<?php $this->tip( 'This will allow you start on a slide of which you choose' ); ?></label></td>
-			<td><input type="text" name="#rcycle-starting-slide" id="rcycle-starting-slide" size="5" maxlength="5" value="<?php echo $group['rcycle-starting-slide']; ?>" style="text-align: right;" /></td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-loop">Loop through the slideshow a certain amount of times<?php $this->tip( 'This option will allow you to run(loop) through the slideshow a desired amount of times, and then it will stop.' ); ?></label></td>
-			<td><input type="text" name="#rcycle-loop" id="rcycle-loop" size="5" maxlength="5" value="<?php echo $group['rcycle-loop']; ?>" style="text-align: right;" /></td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-delay">Delay before first slide change occurs<?php $this->tip( 'Time to hold the first slide on the screen before transitioning to the next (in milliseconds; ex: 4000ms = 4seconds).' ); ?></label></td>
-			<td><input type="text" name="#rcycle-delay" id="rcycle-delay" size="5" maxlength="5" value="<?php echo $group['rcycle-delay']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-timeout">Time between slide changes<?php $this->tip( 'Time to display each slide before transitioning to the next slide (in milliseconds; ex: 4000ms = 4seconds).' ); ?></label></td>
-			<td><input type="text" name="#rcycle-timeout" id="rcycle-timeout" size="5" maxlength="5" value="<?php echo $group['rcycle-timeout']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-speed">Transition animation speed<?php $this->tip( 'Speed of the animation transition (in milliseconds; ex: 4000ms = 4seconds).' ); ?></label></td>
-			<td><input type="text" name="#rcycle-speed" id="rcycle-speed" size="5" maxlength="5" value="<?php echo $group['rcycle-speed']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		<tr>
-			<td><label for="rcycle-manual-speed">Manual transition speed<?php $this->tip( 'Override the `Transition animation speed` option for slides coming IN to view (in milliseconds; ex: 4000ms = 4seconds).' ); ?></label></td>
-			<td><input type="text" name="#rcycle-manual-speed" id="rcycle-manual-speed" size="5" maxlength="5" value="<?php echo $group['rcycle-manual-speed']; ?>" style="text-align: right;" />ms</td>
-		</tr>
-		
 	</table>
 	
 	<p class="submit"><input type="submit" name="save" value="Save Settings" class="button-primary" id="save" /></p>

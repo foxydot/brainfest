@@ -4,7 +4,7 @@
  * Plugin Name: Video Showcase
  * Plugin URI: http://pluginbuddy.com/purchase/displaybuddy/
  * Description: DisplayBuddy Series - Embed thickbox videos with image links.
- * Version: 1.1.39
+ * Version: 1.1.21
  * Author: The PluginBuddy Team
  * Author URI: http://pluginbuddy.com/
  *
@@ -28,9 +28,9 @@
 
 if (!class_exists("PluginBuddyVideoShowcase")) {
 	class PluginBuddyVideoShowcase {
-		var $_version = '1.1.39';
-		var $_updater = '1.0.8';
-		var $_wp_minimum = '3.2.1';
+		var $_version = '1.1.21';
+		var $_updater = '1.0.7';
+		
 		var $_var = 'pluginbuddy-videoshowcase'; // Format: pluginbuddy-pluginnamehere. All lowecase, no dashes.
 		var $_name = 'Video Showcase'; // front end plugin name.
 		var $_series = 'DisplayBuddy'; // Series name if applicable.
@@ -69,15 +69,32 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			add_image_size('default_thumb', 120, 90, true);
 			
 			if ( is_admin() ) { // Runs when an admin is in the dashboard.
-				require_once( $this->_pluginPath . '/lib/medialibrary/load.php' );
-				add_action( 'init', array( &$this, 'init_medialibrary' ) );
 				add_action( 'init', array( &$this, 'upgrader_register' ), 50 );
 				add_action( 'init', array( &$this, 'upgrader_select' ), 100 );
 				add_action( 'init', array( &$this, 'upgrader_instantiate' ), 101 );
 				require_once( $this->_pluginPath . '/classes/admin.php' );
 				require_once( $this->_pluginPath . '/lib/updater/updater.php' );
-				register_activation_hook( $this->_pluginPath, array( &$this, 'activate' ) );
-			} else { // Runs when in non-dashboard parts of the site.
+				register_activation_hook( $this->_pluginPath, array( &$this, 'activate' ) ); // Run some code when plugin is activated in dashboard.
+				// Require custom media uploader
+				require_once( $this->_pluginPath . '/lib/medialibrary/medialibrary.php' );
+				$this->_medialibrary = new PluginBuddyMediaLibrary( $this,
+					array(
+						'select_button_text'			=>			'Select this Image',
+						'tabs'					=>			array( 'pb_uploader' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
+						'show_input-image_alt_text'		=>			false,
+						'show_input-url'			=>			false,
+						'show_input-image_align'		=>			false,
+						'show_input-image_size'			=>			false,
+						'show_input-description'		=>			true,
+						'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
+						'custom_help-description'		=>			'Optional URL for this image to link to.',
+						'custom_label-description'		=>			'Link URL',
+						'use_textarea-caption'			=>			true,
+						'use_textarea-description'		=>			false,
+					)
+				);
+			}
+			else { // Runs when in non-dashboard parts of the site.
 				add_shortcode( 'pb_videoshowcase', array( &$this, 'shortcode' ) );
 				add_action( $this->_var . '-widget', array( &$this, 'widget' ), 10, 2 ); // Add action to run widget function.
 				add_action('wp_print_scripts', array( &$this, 'vsc_scripts' ) );
@@ -86,53 +103,11 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			add_action('wp_ajax_vscdoom', array(&$this, 'vscdoom') );
 			add_action('wp_ajax_nopriv_vscdoom', array(&$this, 'vscdoom') );
 		}
-
-				// Run some code when plugin is activated in dashboard.
-				// Require custom media uploader
-				function init_medialibrary() {
-				global $wp_version;
-				// Check for Wordpress Version for media library. 
-				if ( version_compare( $wp_version, $this->_wp_minimum, '<=' ) ) {
-					$media_lib_version =  array(
-							'select_button_text'			=>			'Select this Image',
-							'tabs'					=>			array( 'pb_uploader' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
-							'show_input-image_alt_text'		=>			false,
-							'show_input-url'			=>			false,
-							'show_input-image_align'		=>			false,
-							'show_input-image_size'			=>			false,
-							'show_input-description'		=>			true,
-							'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
-							'custom_help-description'		=>			'Optional URL for this image to link to.',
-							'custom_label-description'		=>			'Link URL',
-							'use_textarea-caption'			=>			true,
-							'use_textarea-description'		=>			false,
-						);
-				}
-			
-				else { 
-					$media_lib_version =  array(
-							'select_button_text'			=>			'Select this Image',
-							'tabs'					=>			array( 'type' => 'Upload Images to Media Library', 'library' => 'Select from Media Library' ),
-							'show_input-image_alt_text'		=>			false,
-							'show_input-url'			=>			false,
-							'show_input-image_align'		=>			false,
-							'show_input-image_size'			=>			false,
-							'show_input-description'		=>			true,
-							'custom_help-caption'			=>			'Overlaying text to be displayed if captions are enabled.',
-							'custom_help-description'		=>			'Optional URL for this image to link to.',
-							'custom_label-description'		=>			'Link URL',
-							'use_textarea-caption'			=>			true,
-							'use_textarea-description'		=>			false,
-						);
-				}
-					$this->_medialibrary = new IT_Media_Library( $this, $media_lib_version );
-				}
-
-			
 		
 		// FUNCTIONS TO CALL FRONT END SCRIPTS & STYLES
 		function vsc_scripts() {
-			wp_enqueue_script('videoshowcase_script', $this->_pluginURL . "/js/jquery.pbvideosc.js", array('jquery'));
+			wp_enqueue_script('jquery');
+			wp_enqueue_script('videoshowcase_script', $this->_pluginURL . "/js/jquery.pbvideosc.js");
 		}
 		function vsc_styles() {
 			wp_enqueue_style('videoshowcase_style', $this->_pluginURL . "/css/vsc.css");
@@ -191,11 +166,33 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 		function shortcode($atts) {
 			$group = $atts['group'];
 			
-			// Set Args
-			$max   = isset( $atts['max'] ) ? $atts['max'] : 'all';
-			$align = isset( $atts['align'] ) ? $atts['align'] : 'center';
-			$order = isset( $atts['order'] ) ? 'random': 'ordered';
-			$theme = isset( $atts['theme'] ) ? $atts['theme'] : 'default';
+			if(!isset($atts['max'])) {
+				$max = 'all';
+			}
+			else {
+				$max = $atts['max'];
+			}
+			
+			if(!isset($atts['align'])) {
+				$align = 'center';
+			}
+			else {
+				$align = $atts['align'];
+			}
+			
+			if(!isset($atts['order'])) {
+				$order = 'ordered';
+			}
+			else {
+				$order = 'random';
+			}
+			
+			if(!isset($atts['theme'])) {
+				$theme = 'default';
+			}
+			else {
+				$theme = $atts['theme'];
+			}
 			
 			return $this->_display_showbox($group, $align, $max, $order, $theme);
 		}
@@ -203,7 +200,7 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 		function widget($instance) {
 			$group = $instance['group'];
 			$align = $instance['align'];
-			$max   = $instance['max'];
+			$max = $instance['max'];
 			$order = $instance['order'];
 			$theme = $instance['theme'];
 			
@@ -217,12 +214,13 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			$this->_instance++;
 
 			$gpath = $this->_options['groups'][$group];
-
 			if($max == 'all') {
 				$max = count($gpath['videos']);
-			} else if ( $max > ( count( $gpath['videos'] ) ) ) {
+			}
+			elseif ( $max > (count($gpath['videos'])) ) {
 				$max = count($gpath['videos']);		
-			} else {
+			}
+			else {
 				$max = $max;
 			}
 			
@@ -230,60 +228,44 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			
 			// ORDER FILTER
 			if ( $order === 'random' ) {
-				$preorder = (array)( array_rand( (array) $gpath['order'], $max ) );
+				$preorder = (array)(array_rand((array)$gpath['order'], $max));
 				for($i=0; $i<$max; $i++){
 					$neworder[$i] = $gpath['order'][$preorder[$i]];
 				}
-				shuffle( $neworder );
-			} else {
+				shuffle($neworder);
+			}
+			else {
 				$neworder = array_values((array)$gpath['order']);
 			}
 			
 			// HORIZONTAL ALIGNMENT
-			$alignment = ( 'none' === $align ) ? '': ' style="text-align:' . $align . ';"';
-
-			// CSS VARS
-			$alignment = ( 'none' === $align ) ? '' : 'text-align: ' . esc_attr( $align ) . ';';
-			$height    = 'height: ' . esc_attr( $gpath['height'] ) . 'px;';
-			$width     = 'width: ' . esc_attr( $gpath['width'] ) . 'px;';
-			$tvert     = 'vertical-align: top;';
-
-			if ( isset( $gpath['tlink'] ) ) {
-				if( $gpath['tlink'] == 'above' ) {
-					$tvert = 'vertical-align: bottom;';
-				} else if( $gpath['tlink'] == 'both' ) {
-					$tvert = 'vertical-align: middle;';
-				} else {
-					$tvert = 'vertical-align: top;';
-				}
+			$alignment = '';
+			if ( $align !== 'none' ) {
+				$alignment = ' style="text-align:' . $align . ';"';
 			}
-
-			// Print CSS
-			$return .= '<style type="text/css">';
-			$return .=     '#videoshowcaseid-' . esc_attr( $this->_instance ) . ' {';
-			$return .=          $alignment;
-			$return .=     '}';
-			$return .=     '#videoshowcaseid-' . esc_attr( $this->_instance ) . ' .vsc-video-container {';
-			$return .=          $width;
-			$return .=          $tvert;
-			$return .=     '}';
-			$return .=     '#videoshowcaseid-' . esc_attr( $this->_instance ) . ' .vsc-video-container a,';
-			$return .=     '#videoshowcaseid-' . esc_attr( $this->_instance ) . ' .vsc-video-container a img {';
-			$return .=          $width;
-			$return .=          $height;
-			$return .=     '}';
-			$return .= '</style>';
 			
 			// START CONTAINER
-			$return .= '<div id="videoshowcaseid-' . $this->_instance . '" class="videoshowcase">';
+			$return .= '<div id="videoshowcaseid-' . $this->_instance . '" class="videoshowcase"' . $alignment . '>';
 				
 				// TEST CORRECT CALL WITH MAX ADDED IN
 				for($i=0; $i<$max; $i++){
-					$vidnum    = $neworder[$i];
-					$video     = $gpath['videos'][$vidnum];
+					$vidnum = $neworder[$i];
+					$video = $gpath['videos'][$vidnum];
 					$imagedata = wp_get_attachment_image_src( $video['vimage'], 'pb_videoshowcase_' . $gpath['width'] . 'x' . $gpath['height'] );
+					$tvert = 'top';
+					if (isset($gpath['tlink'])) {
+						if($gpath['tlink'] == 'above') {
+							$tvert = 'bottom';
+						}
+						elseif($gpath['tlink'] == 'both') {
+							$tvert = 'middle';
+						}
+						else {
+							$tvert = 'top';
+						}
+					}
 					
-					$return .= '<div id="vsc-video' . $this->_instance . '-' . $i . '" class="vsc-video-container">';
+					$return .= '<div id="vsc-video' . $this->_instance . '-' . $i . '" class="vsc-video-container" style="width:' . $gpath['width'] . 'px; vertical-align: ' . $tvert . '">';
 					if (isset($gpath['tlink'])) {
 						if(($gpath['tlink'] == 'above') || ($gpath['tlink'] == 'both')) {
 							if ($video['vsourc'] == 'custom') {
@@ -294,14 +276,15 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 							}
 						}
 					}
-					if ($video['vsourc'] == 'custom' || $video['vsourc'] == 'youtube' || $video['vsourc'] == 'quick') {
-						$return .= '<a href="' . admin_url('admin-ajax.php') . '?action=vscdoom&movie=' . $video['vurl'] . '" rel="' . $this->_var . "-" . $this->_instance . '" title="' . stripslashes($video['vtitle']) . '"><img src="' . $imagedata['0'] . '" alt="' . stripslashes($video['vtitle']) . '" /></a>';
+					if ($video['vsourc'] == 'custom' || $video[ 'vsourc' ] == 'youtube') {
+						$return .= '<a href="' . admin_url('admin-ajax.php') . '?action=vscdoom&movie=' . $video['vurl'] . '" rel="' . $this->_var . "-" . $this->_instance . '" title="' . stripslashes($video['vtitle']) . '" width="' . $gpath['width'] . 'px" height="' . $gpath['height'] . 'px" ><img src="' . $imagedata['0'] . '" alt="' . stripslashes($video['vtitle']) . '" /></a>';
 					}
 					else {
+						
 
 						$video_url = preg_replace( '/http:\/\/(.)+\//i', 'http://player.vimeo.com/video/', $video['vurl'] );
 						
-						$return .= '<a href="' . $video_url . '" rel="' . $this->_var . "-" . $this->_instance . '" title="' . stripslashes($video['vtitle']) . '"><img src="' . $imagedata['0'] . '" alt="' . stripslashes($video['vtitle']) . '" /></a>';
+						$return .= '<a href="' . $video_url . '" rel="' . $this->_var . "-" . $this->_instance . '" title="' . stripslashes($video['vtitle']) . '" width="' . $gpath['width'] . 'px" height="' . $gpath['height'] . 'px" ><img src="' . $imagedata['0'] . '" alt="' . stripslashes($video['vtitle']) . '" /></a>';
 					}
 					if (isset($gpath['tlink'])) {
 						if(($gpath['tlink'] == 'below') || ($gpath['tlink'] == 'both')) {
@@ -343,6 +326,7 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			
 		}
 		
+		
 		// Ajax custom video iframe
 		function vscdoom() {
 			?>
@@ -350,12 +334,10 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 			<body style="padding:0,margin:0">
 			<?php
 			$pluginpath = "'" . $this->_pluginURL . "'";
-			$height     = isset( $_GET['height'] ) ? $_GET['height'] : '';
-			$width      = isset( $_GET['width'] ) ? $_GET['width'] : '';
 			$test = '<script type="text/javascript" src="' . $this->_pluginURL . '/js/swfobject.js"></script>
 				<script type="text/javascript">
 					var flashvars = {
-						src: "' . esc_url($_GET['movie']) . '",
+						src: "' . $_GET['movie'] . '",
 						autostart: "true",
 						themeColor: "0395d3",
 						mode: "sidebyside",
@@ -366,7 +348,7 @@ if (!class_exists("PluginBuddyVideoShowcase")) {
 					};
 					var params = {allowFullScreen: "true"};
 					var attributes = {id: "myPlayer",name: "myPlayer"};
-					swfobject.embedSWF("' . $this->_pluginURL . '/js/AkamaiFlashPlayer.swf","myPlayerGoesHere","' . htmlentities($width) . '","' . htmlentities($height) . '","9.0.0","' . $this->_pluginURL . '/js/expressInstall.swf",flashvars,params,attributes);
+					swfobject.embedSWF("' . $this->_pluginURL . '/js/AkamaiFlashPlayer.swf","myPlayerGoesHere","' . $_GET['width'] . '","' . $_GET['height'] . '","9.0.0","' . $this->_pluginURL . '/js/expressInstall.swf",flashvars,params,attributes);
 				</script>
 				<div id="myPlayerGoesHere">
 					<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>
