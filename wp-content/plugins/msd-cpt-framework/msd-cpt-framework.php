@@ -15,7 +15,7 @@ $msd_cpt_path = plugin_dir_path(__FILE__);
 $msd_cpt_url = plugin_dir_url(__FILE__);
 
 if(!class_exists('WPAlchemy_MetaBox')){
-	include_once ($msd_cpt_path.'/WPAlchemy/MetaBox.php');
+	include_once ($msd_cpt_path.'/wpalchemy/MetaBox.php');
 }
 
 //Include utility functions
