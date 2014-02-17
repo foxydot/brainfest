@@ -15,6 +15,10 @@ class WPMDBPro_Base {
 	protected $multipart_boundary = 'bWH4JVmYCnf6GfXacrcc';
 	protected $attempting_to_connect_to;
 	protected $error;
+<<<<<<< HEAD
+=======
+	protected $temp_prefix = '_mig_';
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 	protected $invalid_content_verification_error = 'Invalid content verification signature, please verify the connection information on the remote site and try again.';
 
 	function __construct( $plugin_file_path ) {
@@ -48,6 +52,12 @@ class WPMDBPro_Base {
 			$this->plugin_base = 'tools.php?page=wp-migrate-db-pro';
 		}
 
+<<<<<<< HEAD
+=======
+		// allow devs to change the temporary prefix applied to the tables
+		$this->temp_prefix = apply_filters( 'wpmdb_temporary_prefix', $this->temp_prefix );
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 		// Seen when the user clicks "view details" on the plugin listing page
 		add_action( 'install_plugins_pre_plugin-information', array( $this, 'plugin_update_popup' ) );
 
@@ -122,7 +132,13 @@ class WPMDBPro_Base {
 		) );
 
 		$args['method'] = 'POST';
+<<<<<<< HEAD
 		$args['body'] = $this->array_to_multipart( $data );
+=======
+		if( ! isset( $args['body'] ) ) {
+			$args['body'] = $this->array_to_multipart( $data );
+		}
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 		$args['headers']['Content-Type'] = 'multipart/form-data; boundary=' . $this->multipart_boundary;
 		$args['headers']['Referer'] = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 
@@ -136,6 +152,7 @@ class WPMDBPro_Base {
 
 		if ( is_wp_error( $response ) ) {
 			if( strpos( $url, 'https://' ) === 0 && $scope == 'ajax_verify_connection_to_remote_site' ) {
+<<<<<<< HEAD
 				$url = substr_replace( $url, 'http', 0, 5 );
 				if( $response = $this->remote_post( $url, $data, $scope, $args, $expecting_serial ) ) {
 					return $response;
@@ -143,6 +160,9 @@ class WPMDBPro_Base {
 				else {
 					return false;
 				}
+=======
+				return $this->retry_remote_post( $url, $data, $scope, $args, $expecting_serial );
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			}
 			else if( isset( $response->errors['http_request_failed'][0] ) && strstr( $response->errors['http_request_failed'][0], 'timed out' ) ) {
 				$this->error = 'The connection to the remote server has timed out, no changes have been committed. (#134 - scope: ' . $scope . ')';
@@ -162,6 +182,7 @@ class WPMDBPro_Base {
 		}
 		elseif ( (int) $response['response']['code'] < 200 || (int) $response['response']['code'] > 399 ) {
 			if( strpos( $url, 'https://' ) === 0 && $scope == 'ajax_verify_connection_to_remote_site' ) {
+<<<<<<< HEAD
 				$url = substr_replace( $url, 'http', 0, 5 );
 				if( $response = $this->remote_post( $url, $data, $scope, $args, $expecting_serial ) ) {
 					return $response;
@@ -169,6 +190,9 @@ class WPMDBPro_Base {
 				else {
 					return false;
 				}
+=======
+				return $this->retry_remote_post( $url, $data, $scope, $args, $expecting_serial );
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			}
 			else if( $response['response']['code'] == '401' ) {
 				$this->error = 'The remote site is protected with Basic Authentication. Please enter the username and password above to continue. (401 Unauthorized)';
@@ -182,11 +206,23 @@ class WPMDBPro_Base {
 			}
 		}
 		elseif ( $expecting_serial && is_serialized( $response['body'] ) == false ) {
+<<<<<<< HEAD
+=======
+			if( strpos( $url, 'https://' ) === 0 && $scope == 'ajax_verify_connection_to_remote_site' ) {
+				return $this->retry_remote_post( $url, $data, $scope, $args, $expecting_serial );
+			}
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			$this->error = 'There was a problem with the AJAX request, we were expecting a serialized response, instead we received:<br />' . htmlentities( $response['body'] );
 			$this->log_error( $this->error, $response );
 			return false;
 		}
 		elseif ( $response['body'] === '0' ) {
+<<<<<<< HEAD
+=======
+			if( strpos( $url, 'https://' ) === 0 && $scope == 'ajax_verify_connection_to_remote_site' ) {
+				return $this->retry_remote_post( $url, $data, $scope, $args, $expecting_serial );
+			}
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			$this->error = 'WP Migrate DB Pro does not seem to be installed or active on the remote site. (#131 - scope: ' . $scope . ')';
 			$this->log_error( $this->error, $response );
 			return false;
@@ -195,6 +231,17 @@ class WPMDBPro_Base {
 		return $response['body'];
 	}
 
+<<<<<<< HEAD
+=======
+	function retry_remote_post( $url, $data, $scope, $args = array(), $expecting_serial = false ) {
+		$url = substr_replace( $url, 'http', 0, 5 );
+		if( $response = $this->remote_post( $url, $data, $scope, $args, $expecting_serial ) ) {
+			return $response;
+		}
+		return false;
+	}
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 	function array_to_multipart( $data ) {
 		if ( !$data || !is_array( $data ) ) {
 			return $data;
@@ -226,6 +273,29 @@ class WPMDBPro_Base {
 		return $result;
 	}
 
+<<<<<<< HEAD
+=======
+	function file_to_multipart( $file ) {
+		$result = '';
+
+		if( false == file_exists( $file ) ) return false;
+
+		$filetype = wp_check_filetype( $file );
+		$contents = file_get_contents( $file );
+
+		$result .= '--' . $this->multipart_boundary . "\r\n" .
+			sprintf( 'Content-Disposition: form-data; name="media[]"; filename="%s"', basename( $file ) );
+
+		$result .= sprintf( "\r\nContent-Type: %s", $filetype['type'] );
+
+		$result .= "\r\n\r\n" . $contents . "\r\n";
+
+		$result .= "--" . $this->multipart_boundary . "--\r\n";
+
+		return $result;
+	}
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 	function log_error( $wpmdb_error, $additional_error_var = false ){
 		$error_header = "********************************************\n******  Log date: " . date( 'Y/m/d H:i:s' ) . " ******\n********************************************\n\n";
 		$error = $error_header . "WPMDB Error: " . $wpmdb_error . "\n\n";
@@ -294,6 +364,10 @@ class WPMDBPro_Base {
 		) );
 
 		if ( is_wp_error( $response ) || (int) $response['response']['code'] < 200 || (int) $response['response']['code'] > 399 ) {
+<<<<<<< HEAD
+=======
+			$this->log_error( print_r( $response, true ) );
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			return json_encode( array( 'errors' => array( 'connection_failed' => $url . 'Could not connect to deliciousbrains.com.' ) ) );
 		}
 
@@ -547,6 +621,17 @@ class WPMDBPro_Base {
 		return add_query_arg( $query_args, $this->dbrains_api_url );
 	}
 
+<<<<<<< HEAD
+=======
+	function diverse_array( $vector ) {
+		$result = array();
+		foreach( $vector as $key1 => $value1 )
+			foreach( $value1 as $key2 => $value2 )
+				$result[$key2][$key1] = $value2;
+		return $result;
+	}
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 	function set_time_limit_available() {
 		if ( ! function_exists( 'set_time_limit' ) || ! function_exists( 'ini_get' ) ) return false;
 		$current_max_execution_time = ini_get( 'max_execution_time' );
@@ -570,4 +655,21 @@ class WPMDBPro_Base {
 		return $plugins[$plugin_basename]['Name'];
 	}
 
+<<<<<<< HEAD
+=======
+	// Get only the table beginning with our DB prefix or temporary prefix, also skip views
+	function get_tables( $scope = 'regular' ) {
+		global $wpdb;
+		$prefix = ( $scope == 'temp' ? $this->temp_prefix : $wpdb->prefix );
+		$tables = $wpdb->get_results( 'SHOW FULL TABLES', ARRAY_N );
+		foreach ( $tables as $table ) {
+			if ( ( ( $scope == 'temp' || $scope == 'prefix' ) && 0 !== strpos( $table[0], $prefix ) ) || $table[1] == 'VIEW' ) {
+				continue;
+			}
+			$clean_tables[] = $table[0];
+		}
+		return apply_filters( 'wpmdb_tables', $clean_tables, $scope );
+	}
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 }

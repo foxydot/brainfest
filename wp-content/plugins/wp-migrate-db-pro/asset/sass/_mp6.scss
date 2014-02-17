@@ -302,7 +302,11 @@ body.mp6 {
 			border-left: 4px solid #ffba00;
 		}
 
+<<<<<<< HEAD
 		.inline-message.success, .notication-message.success-notice {
+=======
+		.inline-message.success, .notification-message.success-notice {
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 			border-left: 4px solid #7ad03a;
 		}
 
@@ -313,6 +317,16 @@ body.mp6 {
 		.different-plugin-version-notice, .directory-permission-notice {
 			margin-bottom: 10px;
 		}
+<<<<<<< HEAD
+=======
+
+		.licence-status {
+			color: #444;
+			margin-top: 15px;
+			float: left;
+			font-weight: normal;
+		}
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 		
 	}
 
@@ -327,6 +341,14 @@ body.mp6 {
 			font-size: 22px;
 		}
 
+<<<<<<< HEAD
+=======
+		.dashicons-yes {
+			font-size: 42px;
+			line-height: 0.5em;
+		}
+
+>>>>>>> 11d59c856dd6939ddd4dcf4a4de2c50b799bb5b0
 		.progress-bar {
 			background-image: none;
 			background-color: #0074a2;
