@@ -4,7 +4,7 @@
 Plugin name: KC Widget Enhancements
 Plugin URI: http://kucrut.org/2011/04/kc-widget-enhancements/
 Description: Get the most of WordPress Widgets.
-Version: 0.1
+Version: 0.2
 Author: Dzikri Aziz
 Author URI: http://kucrut.org/
 License: GPL v2

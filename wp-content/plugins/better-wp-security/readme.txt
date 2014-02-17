@@ -1,11 +1,11 @@
 
 === Better WP Security ===
-Contributors: Bit51, ChrisWiegman
+Contributors: ithemes, ChrisWiegman, mattdanner, chrisbliss18
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
-Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 3.5.3
+Requires at least: 3.7
+Tested up to: 3.8
+Stable tag: 3.6.2
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -16,7 +16,11 @@ Released under the terms of the GNU General Public License.
 
 = #1 WORDPRESS SECURITY PLUGIN =
 
-Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
+= Better WP Security now by iThemes =
+
+Get ready for Better WP Security to get even better! It's now being maintained and developed full-time by Chris Wiegman for <a href="http://ithemes.com">iThemes</a>. Not only will this take Better WP Security to the next level but it will bring a new level of security to the best ecommerce solution on the market, <a href="http://ithemes.com/exchange/">iThemes Exchange</a> as well as all of iThemes excellent <a href="http://ithemes.com/find/plugins/">plugins</a> and <a href="http://ithemes.com/find/themes/">themes</a>.
+
+Better WP Security takes the best WordPress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
 
 With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
 
@@ -81,7 +85,11 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Translations =
+* Brazilian Portuguese by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
+* Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a> and <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
+* Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
+* German by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
@@ -160,6 +168,65 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.6.2 =
+* Fixed error message in above support widget when WordPress debug active.
+* Fixed error when creating user in iThemes Exchange
+
+= 3.6.1 =
+* Fixed iThemes image path for case-sensitive
+* Add iThemes BWPS survey to help plan further updates
+* Added Customizable email to support form
+
+= 3.6 =
+* Added WP Security Lock as a partner for sites that have already been compromised.
+* Changed social information to iThemes
+* Better domain support (Mark Boudreau)
+* Add username to notification email (Andreas Geibert)
+* Changed author to iThemes
+* Added links to backup buddy and iThemes subscription
+* Fixed inconsistent count in logs
+* updated German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
+
+= 3.5.6 =
+* Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
+* Removed all instances of the deprecated $wpdb->escape
+* Fixed possible XSS issue (Github Issue #64 with patch from i0wn)
+* Wrapped all wp_mail calls in function_exists checks as it no longer seems to be reliably available after plugins_loaded in WordPress 3.6
+* Minor refactoring
+* Added (.*) to Zues in hackrepair.com list to mitigate possible issues
+* Typo correction on SSL options courtesy of <a href="http://karthost.com">Roy Randolph</a>.
+* Changed minimum version to 3.6
+
+= 3.5.5 =
+* Fixed error that prevented manual backups from executing
+* Updated Turkish translation by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* Updated shield logo by Martin Halachev
+* Minor fixes for strict warnings occuring when on PHP 5.4
+* Fix for lstat error for files in the better-wp-security/backups/ directory
+* Fixed an error that prevented manual filecheck
+
+= 3.5.4 =
+* Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Chinese (Traditional) translation by Toine Cheung
+* Fixed an XSS vulnerability in the logevent function. Fix by <a href="http://www.nccgroup.com/en/blog/?author=Richard%20Warren">Richard Warren</a>
+* Updated Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* 404 Logs now only accessible via the link on the logs page (thank you Marc-Alexandre Montpas)
+* Added .htaccess to protect saved backups (thank you Marc-Alexandre Montpas)
+* Added extra sanitization when downloading host info from database (was sanitized on upload) (thank you Marc-Alexandre Montpas)
+* Brazilian Portuguese translation by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
+* German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
+* Removed timezone from email lockout notifications (GitHub Issue #35)
+* Better variable checking to prevent error messages
+* Force user 0 when logging filechecking (GitHub Issue #7)
+* CSS update for MP6 from shivapoudel
+* Small tweak to prevent email notifications being sent when they shouldn't
+* Cleaned up variable checking throughout to eliminate activation errors if php errors or WP_DEBUG is turned on
+* Added further checks to reduce errors if file change log is invalid
+* Memory should now display correctly in file change email
+* Use maybe_unserialize instead of unserialize
+* Added option to filter foreign charcters as part of filter suspicious query string
+* Updated .pot file
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>

@@ -1,6 +1,6 @@
 <?php
 
-// Version 4.0.0
+// Version 4.0.2
 
 // include TweetBlender library
 include_once(dirname(__FILE__).'/lib/lib.php');
@@ -229,7 +229,7 @@ function tb_admin_page() {
 ?>
 
 <script type="text/javascript">
-	var lastUsedTabId = <?php if (isset($_POST['tb_tab_index'])) { echo $_POST['tb_tab_index']; } else { echo 0; } ?>,
+	var lastUsedTabId = <?php if (isset($_POST['tb_tab_index'])) { echo intval($_POST['tb_tab_index']); } else { echo 0; } ?>,
 	TB_pluginPath = '<?php echo plugins_url("tweet-blender") ?>',
 	TB_CM_pluginPath = '<?php echo plugins_url('tweet-blender-cache-manager'); ?>',
 	TB_cacheManagerAvailable = <?php if ($tb_installed_addons[1] && $tb_active_addons[1]) { echo 'true'; } else { echo 'false'; } ?>,

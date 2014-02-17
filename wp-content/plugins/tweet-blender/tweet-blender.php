@@ -3,12 +3,12 @@
 Plugin Name: Tweet Blender
 Plugin URI: http://www.tweetblender.com
 Description: Provides several Twitter widgets: show your own tweets, show tweets relevant to post's tags, show tweets for Twitter lists, show tweets for hashtags, show tweets for keyword searches, show favorite tweets. Multiple widgets on the same page are supported. Can combine sources and blend all of them into a single stream.
-Version: 4.0.1
+Version: 4.0.2
 Author: Kirill Novitchenko
 Author URI: http://kirill-novitchenko.com
 */
 
-/*  Copyright 2009-2013  Kirill Novitchenko  (email : knovitchenko@gmail.com)
+/*  Copyright 2009-2013  Kirill Novitchenko  (email : tweetblender@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

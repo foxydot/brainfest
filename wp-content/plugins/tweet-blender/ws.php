@@ -1,6 +1,6 @@
 <?php
 
-// version 4.0.0b4
+// version 4.0.2
 
 // include WP functions
 require_once("../../../wp-config.php");
@@ -148,7 +148,12 @@ if (in_array($_GET['action'],array('search','list_timeline','user_timeline','fav
 	}
 
 	// figure out optimal delay = 15min in seconds divided by max requests
-	$optimal_seconds_between_requests = 15 * 60 / $tb_o['rate_limit_data'][$api_endpoint]['limit'];
+	if (isset($tb_o['rate_limit_data'][$api_endpoint]['limit'])) {
+		$optimal_seconds_between_requests = 15 * 60 / $tb_o['rate_limit_data'][$api_endpoint]['limit'];
+	}
+	else {
+		$optimal_seconds_between_requests = 15 * 60 / 100;
+	}
 	
 	// time since last request
 	if (isset($tb_o['rate_limit_data'][$api_endpoint]['last_used'])) {

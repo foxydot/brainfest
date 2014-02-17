@@ -4,11 +4,14 @@ Donate link: http://kucrut.org/
 Tags: widget
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 0.1
+Stable tag: 0.2
 
 Get the most of WordPress widgets
 
 == Description ==
+
+**Important!**
+This plugin is being retired. Please install [Widget Attributes](http://kucrut.org/widget-attributes/) instead.
 
 This plugin provides enhancements for widgets, such as the ability to set custom ID and/or classes.
 
@@ -21,10 +24,10 @@ This plugin provides enhancements for widgets, such as the ability to set custom
 == Frequently Asked Questions ==
 
 = Can I only activate components I need? =
-#### Short answer:
+##### Short answer:
 Sure!
 
-#### Long Answer:
+##### Long Answer:
 By default, all components are enabled. If you have [KC Settings plugin] (http://wordpress.org/extend/plugins/kc-settings/) installed and activated, you'll have the luxury to select the components you need by visiting *Settings* &raquo; *KC Widget Enhancements* in you dashboard.
 
 If you don't want to use KC Setting plugin but still want to enable only certain components, you'll need to this block of code to your theme's `functions.php` file and change each unwanted component's value to `false`:

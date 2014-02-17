@@ -3,7 +3,7 @@
  * 
  */
 
-var TB_version = '4.0.1',	// Plugin version 
+var TB_version = '4.0.0b4',	// Plugin version 
 TB_rateLimitData,
 TB_tmp,
 TB_mode = 'widget',

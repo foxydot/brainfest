@@ -55,6 +55,10 @@ class kcWidgetCustoms {
 		global $wp_registered_widgets;
 		$widget_id	= $params[0]['widget_id'];
 		$widget_obj	= $wp_registered_widgets[$widget_id];
+
+		if ( !isset($widget_obj['callback'][0]) || !is_object($widget_obj['callback'][0]) )
+			return $params;
+
 		$widget_opt	= get_option($widget_obj['callback'][0]->option_name);
 		$widget_num	= $widget_obj['params'][0]['number'];
 

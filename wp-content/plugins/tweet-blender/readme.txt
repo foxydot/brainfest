@@ -2,8 +2,8 @@
 Contributors: kirilln
 Tags: sidebar, twitter, tweets, multiple authors, favorites, tweet, tags, lists, hashtags, archive, widget, admin, AJAX, jquery, keywords, BuddyPress, blender
 Requires at least: 2.8.0
-Tested up to: 3.5.2
-Stable tag: 4.0.1
+Tested up to: 3.7.1
+Stable tag: 4.0.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5907095
 
 Provides several Twitter widgets: show your own tweets, show tweets relevant to post's tags, show tweets for Twitter lists, show tweets for hashtags, show tweets for keyword searches. Multiple widgets on the same page are supported. Can combine sources and blend all of them into a single stream.
@@ -17,7 +17,7 @@ Submit ideas, ask questions, or report problems on the [GetSatisfaction.com comm
 Follow [Tweet Blender on Twitter](http://twitter.com/tweetblender "@tweetblender")  to keep up to date on bug fixes and releases and join the conversation using [#tweetblender](http://search.twitter.com/search?q=%23tweetblender "#tweetblender") hashtag
 
 = Features =
-* NEW: Checkboxes on the archive page allowing to see archive for just some of the sources
+* Checkboxes on the archive page allowing to see archive for just some of the sources
 * Fully localizable! Russian translation available as of 3.3.6, more languages coming soon (please get in touch if you can help)
 * Ability to apply filtering to lists e.g. @tweetblender/testlist|plugin will pull all tweets from that list that contain word "plugin"
 * Ability to get Cache Manager addon ($) that allows to backup/restore cache and delete individual tweets
@@ -61,12 +61,6 @@ Follow [Tweet Blender on Twitter](http://twitter.com/tweetblender "@tweetblender
 * Provides advanced distributed caching mechanism to store Twitter data and work around Twitter API's connection limit
 * Allows to reroute all Twitter API requests via blog's web server to take advantage of white-listed server (with oAuth)
 * Allows to filter tweets by language (for hashtags and keyword sources only)
-
-= Translations =
-Russian - @knovitchenko
-Dutch - @afoka  (for help in Dutch use http://www.werkgroepen.net/wordpress/plugins/tweet-blender/)
-
-Please send translations for your language. POT file is in the /lang folder
 
 == Installation ==
 
@@ -166,35 +160,19 @@ Note: the tag would be ignored on regular blog posts, only pages are supported.
 
 == Getting Help ==
 
-Best place to get help is on the [Tweet Blender support community page](http://getsatisfaction.com/tweet_blender "Get Satisfaction!")
+[Tweet Blender support community page](http://getsatisfaction.com/tweet_blender "Get Satisfaction!")
 
-My goal is to make sure that Tweet Blender works on *your* site.
-
-If you experience a problem please don't simply disable and delete the plugin; instead, do let me know about your issue! You'd be helping me make TweetBlender better, you'd be helping other users who could be experiencing the same issue, and you'd get a kick-ass plugin working for you as a result.
-
-When reporting an issue please state the following things in your initial message:
-1. The URL of the page where the issue can be seen
-2. The version of TweetBlender you are using
-3. The version of WordPress you are using
-4. Your browser type and version
-5. Your OS type and version
-If you don't tell me these things right away I usually have to write back and ask for them and that delays the fix.
-
-Here are the places I monitor regularly:
-
-* Facebook: [Tweet Blender fan page](http://www.facebook.com/pages/Tweet-Blender/96201618006 "Facebook Fan Page") discussion board
-* Twitter: hashtag #tweetblender, mentions of @tweetblender, keywords "tweetblender" and "tweet blender"
-* WordPress Support Forums: [tweet-blender tag](http://wordpress.org/tags/tweet-blender?forum_id=10 "WP forum")
-
-Additional resources:
-
-* Email: tweetblender AT gmail DOT com
+Email: tweetblender AT gmail DOT com
 
 *Note #1: I might not get back to you immediately.* This software is written and supported by an individual, not a company or a group. I have a demanding full time job and family with two kids. All of my free time is spent on fun projects like this one.
 
 *Note #2: Please don't flame me for bugs.* Twitter is notoriously unstable and has some bugs in the API. On top of it, I use jQuery library that has some bugs in it as well. On top of it you might have other plugins installed that have bugs or introduce conflicts. Finally, 90% of the code works within browsers which have all sorts of different bugs of their own. Before calling TweetBlender "crap" give it a benefit of a doubt - it might not be its problem. I'm really striving to make it the best it could be
 
 == Changelog ==
+
+= 4.0.2 =
+* Bug fix: XSS in admin script as covered by security advisory https://www.htbridge.com/advisory/HTB23180
+* Bug fix: php error from ws.php on line 151 - division by zero error
 
 = 4.0.1 =
 * Bug fix: timestamp parsing issues "Warning: gmmktime() expects parameter 5 to be long, string given in ...wp-content/plugins/tweet-blender/lib/lib.php on line 381
