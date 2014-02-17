@@ -1,13 +1,89 @@
 <?php
 class MSDSessionCPT {
 	public function MSDSessionCPT(){
-		add_action( 'init', array(&$this,'register_cpt_session') );
+        add_action( 'init', array(&$this,'register_tax_track') );
+        add_action( 'init', array(&$this,'register_tax_timeslot') );
+        add_action( 'init', array(&$this,'register_cpt_session') );
 		add_shortcode( 'list-sessions', array(&$this,'list_sessions') );
 		add_filter( 'enter_title_here', array(&$this,'msd_change_default_title' ));
 		add_action('admin_footer',array(&$this,'subtitle_footer_hook'));
 		add_image_size('session_headshot',75,75,true);
 	}
 	
+    function register_tax_track() {
+    
+        $labels = array( 
+            'name' => _x( 'Tracks', 'session' ),
+            'singular_name' => _x( 'Track', 'session' ),
+            'search_items' => _x( 'Search Tracks', 'session' ),
+            'popular_items' => _x( 'Popular Tracks', 'session' ),
+            'all_items' => _x( 'All Tracks', 'session' ),
+            'parent_item' => _x( 'Parent Track', 'session' ),
+            'parent_item_colon' => _x( 'Parent Track:', 'session' ),
+            'edit_item' => _x( 'Edit Track', 'session' ),
+            'update_item' => _x( 'Update Track', 'session' ),
+            'add_new_item' => _x( 'Add New Track', 'session' ),
+            'new_item_name' => _x( 'New Track Name', 'session' ),
+            'separate_items_with_commas' => _x( 'Separate Tracks with commas', 'session' ),
+            'add_or_remove_items' => _x( 'Add or remove Tracks', 'session' ),
+            'choose_from_most_used' => _x( 'Choose from the most used Pratice areas', 'session' ),
+            'menu_name' => _x( 'Tracks', 'session' ),
+        );
+    
+        $args = array( 
+            'labels' => $labels,
+            'public' => true,
+            'show_in_nav_menus' => true,
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => false,
+            'meta_box_cb' => false,
+    
+            'rewrite' => false,
+            'query_var' => true
+        );
+    
+        register_taxonomy( 'msd_track', array('msd_session'), $args );
+    }
+
+function register_tax_timeslot() {
+    
+        $labels = array( 
+            'name' => _x( 'Timeslots', 'session' ),
+            'singular_name' => _x( 'Timeslot', 'session' ),
+            'search_items' => _x( 'Search Timeslots', 'session' ),
+            'popular_items' => _x( 'Popular Timeslots', 'session' ),
+            'all_items' => _x( 'All Timeslots', 'session' ),
+            'parent_item' => _x( 'Parent Timeslot', 'session' ),
+            'parent_item_colon' => _x( 'Parent Timeslot:', 'session' ),
+            'edit_item' => _x( 'Edit Timeslot', 'session' ),
+            'update_item' => _x( 'Update Timeslot', 'session' ),
+            'add_new_item' => _x( 'Add New Timeslot', 'session' ),
+            'new_item_name' => _x( 'New Timeslot Name', 'session' ),
+            'separate_items_with_commas' => _x( 'Separate Timeslots with commas', 'session' ),
+            'add_or_remove_items' => _x( 'Add or remove Timeslots', 'session' ),
+            'choose_from_most_used' => _x( 'Choose from the most used Pratice areas', 'session' ),
+            'menu_name' => _x( 'Timeslots', 'session' ),
+        );
+    
+        $args = array( 
+            'labels' => $labels,
+            'public' => true,
+            'show_in_nav_menus' => true,
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => false,
+            'meta_box_cb' => false,
+    
+            'rewrite' => false,
+            'query_var' => true
+        );
+    
+        register_taxonomy( 'msd_timeslot', array('msd_session'), $args );
+    }
+
+ 
+    
 	function register_cpt_session() {
 	
 	    $labels = array( 
@@ -127,5 +203,5 @@ $msd_sessions = new MSDSessionCPT;
 		'prefix' => '_msd_'
 	));
 
-$tracks = array('Business Intelligence and Big Data','Digital Analytics','Digital Advertising Solutions','Digital CRM','Risk Management');
-$timeslots = array('7:30AM - 8:45AM','8:45AM - 9:30AM','9:40AM - 10:40AM','11:00AM - 12:00PM','12:00PM - 1:20PM','1:35PM - 2:50PM','3:00PM - 4:00PM');
+//$tracks = array('Business Intelligence and Big Data','Digital Analytics','Digital Advertising Solutions','Digital CRM','Risk Management');
+//$timeslots = array('7:30AM - 8:45AM','8:45AM - 9:30AM','9:40AM - 10:40AM','11:00AM - 12:00PM','12:00PM - 1:20PM','1:35PM - 2:50PM','3:00PM - 4:00PM');
