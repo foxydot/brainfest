@@ -164,12 +164,8 @@ body {
 }
 .header .logo a {
 	text-indent: -9999px;
-	background: url(images/dbf_logo_date.jpg) no-repeat center center transparent;
-	background-size: cover;
+	background: url(images/dbf_logo_date.jpg) no-repeat center left transparent;
 	/*other browser specific */
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
 	height: 80px;
 	width: 400px;
 	display: block;
