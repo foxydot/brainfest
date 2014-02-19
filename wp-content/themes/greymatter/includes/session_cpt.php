@@ -170,7 +170,7 @@ function register_tax_timeslot() {
 		//table header
 		$headerrow = '<tr><th></th>';
 		foreach($tracks AS $track){
-			$headerrow .= '<th class="track"></th>';
+			$headerrow .= '<th class="track">'.$track->name.'</th>';
 		}
 		$headerrow .= '</tr>';
         $table = $headerrow;
@@ -189,7 +189,7 @@ function register_tax_timeslot() {
 
 		}
 		$width = (100-$num_tracks)/($num_tracks+1);
-		$style = '<style>table.agenda th.track{width:'.$width.'%;}</style>';
+		$style = '<style>table.agenda th.track{width:'.$width.'%;visibility: hidden;}</style>';
 	    //return
 		return '<table class="agenda">'.$table.'</table><div class="clear"></div>'.$style;
 	}	

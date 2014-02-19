@@ -150,14 +150,13 @@ global $subtitle;
 		</div><!-- #post-## -->
 <?php /* How to display session posts. */ ?>
 		<?php elseif('msd_session' == $post->post_type ) : ?>
-		<?php global $session_info,$timeslots,$tracks; 
+		<?php global $session_info; 
 	    	$session_info->the_meta($post->ID);
 	    	?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<<?php print is_front_page()?'h2':'h1'; ?> class="entry-title"><?php the_title(); ?></<?php print is_front_page()?'h2':'h1'; ?>>
 			<h2>
-			<?php if($the_track = (int) $session_info->get_the_value('track')){print $tracks[$the_track].' | ';} ?>
-			<?php if($the_time = (int) $session_info->get_the_value('timeslot') + 1){print $timeslots[$the_time-1];} ?>
+			<?php if($session_info->get_the_value('timeslot')){$timeslot = get_term($session_info->get_the_value('timeslot'),'msd_timeslot'); print $timeslot->name;} ?>
 			</h2>
 			<?php while($session_info->have_fields('moderator')): ?>
 			<?php if($session_info->is_first()){ ?>
