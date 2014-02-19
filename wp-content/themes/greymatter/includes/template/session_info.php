@@ -1,8 +1,8 @@
 <?php
 global $speaker_title,$speakers,$tracks;
     for($i=2013;$i<=(int) date("Y");$i++){ $years[] = $i; } 
-    $tracks = get_terms('msd_track',array('hide_empty'=> false, ));
-    $timeslots = get_terms('msd_timeslot',array('hide_empty'=> false, ));
+    $tracks = get_terms('msd_track',array('hide_empty'=> false,'orderby'=> 'id' ));
+    $timeslots = get_terms('msd_timeslot',array('hide_empty'=> false,'orderby'=> 'id' ));
 	$args = array( 'post_type' => 'msd_speaker', 'numberposts' => -1, 'orderby'=> 'menu_order', 'meta_query' => array(
         array(
             'key' => '_msd_event-year',

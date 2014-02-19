@@ -146,11 +146,19 @@ function register_tax_timeslot() {
 	function list_sessions( $atts ) {
 		extract( shortcode_atts( array(
 		), $atts ) );
-		global $session_info,$tracks,$timeslots;
+		global $session_info;
+        $tracks = get_terms('msd_track',array('hide_empty'=> false,'orderby'=> 'id' ));
+        $timeslots = get_terms('msd_timeslot',array('hide_empty'=> false,'orderby'=> 'id', ));
 		$num_tracks = count($tracks);
 		$num_timeslots = count($timeslots);
 		
-		$args = array( 'post_type' => 'msd_session', 'numberposts' => -1, 'orderby'=> 'menu_order' );		
+		$args = array( 'post_type' => 'msd_session', 'numberposts' => -1, 'orderby'=> 'menu_order','meta_query' => array(
+        array(
+            'key' => '_msd_event-year',
+            'value' => serialize(strval((int) date("Y"))),
+            'compare' => 'LIKE'
+        )
+    ) );		
 		$items = get_posts($args);
 		$session_data = array();
 	    foreach($items AS $item){
@@ -162,24 +170,24 @@ function register_tax_timeslot() {
 		//table header
 		$headerrow = '<tr><th></th>';
 		foreach($tracks AS $track){
-			$headerrow .= '<th class="track">'.$track.'</th>';
+			$headerrow .= '<th class="track">'.$track->name.'</th>';
 		}
 		$headerrow .= '</tr>';
-		foreach($timeslots AS $timekey => $timeslot){
+        $table = $headerrow;
+        ts_data($timeslots);
+        foreach($timeslots AS $timeslot){
 			$table .= '<tr>
-	        		<th class="time">'.$timeslot.'</th>';
-				foreach($tracks AS $trackkey=>$track){
-					if($session_data[$timekey]['all']){
-						$table .= '<td colspan="'.$num_tracks.'"><a href="'.get_permalink($session_data[$timekey]['all']['post']->ID).'">'.$session_data[$timekey]['all']['post']->post_title.'</a></td>';
+	        		<th class="time">'.$timeslot->name.'</th>';
+				foreach($tracks AS $track){
+					if($session_data[$timeslot->term_id]['all']){
+						$table .= '<td colspan="'.$num_tracks.'"><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a></td>';
 						break 1;
 					} else {
-						$table .= '<td><a href="'.get_permalink($session_data[$timekey][$trackkey]['post']->ID).'">'.$session_data[$timekey][$trackkey]['post']->post_title.'</a></td>';
+						$table .= '<td><a href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a></td>';
 					}
 				}
 	        $table .= '</tr>';
-	        if($timekey == 1){
-				$table .= $headerrow;
-			}
+
 		}
 		$width = (100-$num_tracks)/($num_tracks+1);
 		$style = '<style>table.agenda th.track{width:'.$width.'%;}</style>';
