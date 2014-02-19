@@ -174,7 +174,6 @@ function register_tax_timeslot() {
 		}
 		$headerrow .= '</tr>';
         $table = $headerrow;
-        ts_data($timeslots);
         foreach($timeslots AS $timeslot){
 			$table .= '<tr>
 	        		<th class="time">'.$timeslot->name.'</th>';
