@@ -173,7 +173,7 @@ function register_tax_timeslot() {
 			$headerrow .= '<th class="track">'.$track->name.'</th>';
 		}
 		$headerrow .= '</tr>';
-        $table = $headerrow;
+        //$table = $headerrow;
         foreach($timeslots AS $timeslot){
 			$table .= '<tr>
 	        		<th class="time">'.$timeslot->name.'</th>';
