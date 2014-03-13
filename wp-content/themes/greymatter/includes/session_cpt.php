@@ -185,7 +185,7 @@ function register_tax_timeslot() {
 						$table .= '<td colspan="'.$num_tracks.'"><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</td>';
 						break 1;
 					} else {
-						$table .= '<td class="track"><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a>'.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</td>';
+						$table .= '<td class="track"><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</td>';
 					}
 				}
 	        $table .= '</tr>';
