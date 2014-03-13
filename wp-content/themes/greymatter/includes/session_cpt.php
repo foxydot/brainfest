@@ -139,14 +139,15 @@ function register_tax_timeslot() {
 	function subtitle_footer_hook()
 	{
 		?><script type="text/javascript">
-		jQuery('#titlediv').after(jQuery('#_session_info_metabox'));
+        jQuery('#titlediv').after(jQuery('#_subtitle_metabox'));
+        jQuery('#_subtitle_metabox').after(jQuery('#_session_info_metabox'));
 		</script><?php
 	}
 		
 	function list_sessions( $atts ) {
 		extract( shortcode_atts( array(
 		), $atts ) );
-		global $session_info;
+		global $session_info,$subtitle;
         $tracks = get_terms('msd_track',array('hide_empty'=> false,'orderby'=> 'id' ));
         $timeslots = get_terms('msd_timeslot',array('hide_empty'=> false,'orderby'=> 'id', ));
 		$num_tracks = count($tracks);
@@ -162,7 +163,9 @@ function register_tax_timeslot() {
 		$items = get_posts($args);
 		$session_data = array();
 	    foreach($items AS $item){
+	        $subtitle->the_meta($item->ID);
 	    	$session_info->the_meta($item->ID);
+	    	$session_data[$session_info->get_the_value('timeslot')][$session_info->get_the_value('track')]['subtitle'] = $subtitle->get_the_value('subtitle');
 	    	$session_data[$session_info->get_the_value('timeslot')][$session_info->get_the_value('track')]['speaker'] = get_post($session_info->get_the_value('speaker'));
 	    	$session_data[$session_info->get_the_value('timeslot')][$session_info->get_the_value('track')]['post'] = $item;
 	     }
@@ -179,10 +182,10 @@ function register_tax_timeslot() {
 	        		<th class="time">'.$timeslot->name.'</th>';
 				foreach($tracks AS $track){
 					if($session_data[$timeslot->term_id]['all']){
-						$table .= '<td colspan="'.$num_tracks.'"><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a></td>';
+						$table .= '<td colspan="'.$num_tracks.'"><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</td>';
 						break 1;
 					} else {
-						$table .= '<td class="track"><a href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a></td>';
+						$table .= '<td class="track"><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a>'.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</td>';
 					}
 				}
 	        $table .= '</tr>';
@@ -209,6 +212,17 @@ $msd_sessions = new MSDSessionCPT;
 		'mode' => WPALCHEMY_MODE_EXTRACT,
 		'prefix' => '_msd_'
 	));
+    $subtitle = new WPAlchemy_MetaBox(array
+    (
+        'id' => '_subtitle',
+        'title' => 'Subtitle',
+        'types' => array('msd_session'), 
+        'context' => 'normal', 
+        'priority' => 'high', 
+        'template' => dirname(__FILE__).'/template/subtitle.php',
+        'mode' => WPALCHEMY_MODE_EXTRACT,
+        'prefix' => '_msd_'
+    ));
 
 //$tracks = array('Business Intelligence and Big Data','Digital Analytics','Digital Advertising Solutions','Digital CRM','Risk Management');
 //$timeslots = array('7:30AM - 8:45AM','8:45AM - 9:30AM','9:40AM - 10:40AM','11:00AM - 12:00PM','12:00PM - 1:20PM','1:35PM - 2:50PM','3:00PM - 4:00PM');

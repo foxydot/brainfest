@@ -155,6 +155,7 @@ global $subtitle;
 	    	?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<<?php print is_front_page()?'h2':'h1'; ?> class="entry-title"><?php the_title(); ?></<?php print is_front_page()?'h2':'h1'; ?>>
+			<?php do_subtitle(get_the_ID()); ?>
 			<h2>
 			<?php if($session_info->get_the_value('timeslot')){$timeslot = get_term($session_info->get_the_value('timeslot'),'msd_timeslot'); print $timeslot->name;} ?>
 			</h2>
