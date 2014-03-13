@@ -1263,9 +1263,14 @@ table.agenda {
 	font-size: .8em;
 }
 
+table.agenda tr.odd {background-color: #efefef;}
 table.agenda th {border: 1px solid #666;border-collapse:collapse;padding: 2px;v-align:center;text-align: center;}
 table.agenda th.track {background: #ccc;}
 table.agenda td {border: 1px solid #666;border-collapse:collapse;padding: 2px;v-align:center;text-align: center;}
+table.agenda td.track {
+    width: 20%;
+}
+
 
 /*Gravity Forms**************************/
 .gform_widget form {font-size: .8em;}

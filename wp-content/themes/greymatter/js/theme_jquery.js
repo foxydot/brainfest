@@ -3,6 +3,12 @@ jQuery(document).ready(function($) {
 	$('ul li:last-child').addClass('last');
 	$('ul li:even').addClass('even');
 	$('ul li:odd').addClass('odd');
+	
+    $('*:first-child').addClass('first-child');
+    $('*:last-child').addClass('last-child');
+    $('*:nth-child(even)').addClass('even');
+    $('*:nth-child(odd)').addClass('odd');
+
 
 	$('.cols-3 li:nth-child(3n)').addClass('endrow');
 	$('.cols-3 li:nth-child(3n+1)').addClass('startrow');

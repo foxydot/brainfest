@@ -173,7 +173,7 @@ function register_tax_timeslot() {
 			$headerrow .= '<th class="track">'.$track->name.'</th>';
 		}
 		$headerrow .= '</tr>';
-        $table = $headerrow;
+        //$table = $headerrow;
         foreach($timeslots AS $timeslot){
 			$table .= '<tr>
 	        		<th class="time">'.$timeslot->name.'</th>';
@@ -182,7 +182,7 @@ function register_tax_timeslot() {
 						$table .= '<td colspan="'.$num_tracks.'"><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a></td>';
 						break 1;
 					} else {
-						$table .= '<td><a href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a></td>';
+						$table .= '<td class="track"><a href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a></td>';
 					}
 				}
 	        $table .= '</tr>';
