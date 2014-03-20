@@ -21,7 +21,7 @@ global $speaker_title,$speakers,$tracks;
                 <div style="display: inline-block;width: 20%;"><input type="checkbox" name="<?php $mb->the_name(); ?>[]" value="<?php echo $year; ?>"<?php $mb->the_checkbox_state($year); ?>/> <?php echo $year; ?></div>
           <?php  } ?>
         </p>
- 		<p><label>Speaker(s)</label>
+ 		<p><label>Panelists</label>
  		<div style="-moz-column-count: 3;
         -moz-column-gap: 20px;
         -webkit-column-count: 3;

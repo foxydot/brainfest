@@ -161,7 +161,7 @@ global $subtitle;
 			</h2>
 			<?php while($session_info->have_fields('moderator')): ?>
 			<?php if($session_info->is_first()){ ?>
-			<h2>Moderator(s): 
+			<h2>Moderator: 
 			<?php } ?>
 			<?php $speaker = get_post($session_info->get_the_value());?>
 			<a href="<?php print get_permalink($speaker->ID);?>">
@@ -175,7 +175,7 @@ global $subtitle;
 			<?php endwhile; ?>
 			<?php while($session_info->have_fields('speaker')): ?>
 			<?php if($session_info->is_first()){ ?>
-			<h2>Presenter(s): 
+			<h2>Panelists: 
 			<?php } ?>
 			<?php $speaker = get_post($session_info->get_the_value());?>
 			<a href="<?php print get_permalink($speaker->ID);?>">
