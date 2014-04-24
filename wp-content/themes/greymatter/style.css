@@ -1357,6 +1357,7 @@ table.agenda td.track {
     font-size: 11px !important;
     margin-top: -3px;
 }
+.twitter-stream p,
 .tweet-message {
     color: #333333;
     font-family: Arial,sans-serif;
