@@ -1357,7 +1357,6 @@ table.agenda td.track {
     font-size: 11px !important;
     margin-top: -3px;
 }
-.twitter-stream p,
 .tweet-message {
     color: #333333;
     font-family: Arial,sans-serif;
@@ -1369,7 +1368,17 @@ table.agenda td.track {
     width: 160px;
     word-wrap: break-word;
 }
-
+.twitter-stream p {
+    color: #333333;
+    font-family: Arial,sans-serif;
+    font-size: 11px;
+    line-height: 14px;
+    margin-top: 0 !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 10px !important;
+    word-wrap: break-word;
+}
 /*Utility Styles************************/
 .clear {
 	float: none;
