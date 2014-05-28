@@ -34,7 +34,7 @@ class MSDVideoCPT {
         add_shortcode( 'video-slider', array(&$this,'msd_video_slider') );  
         add_shortcode( 'video-popup-slider', array(&$this,'msd_video_popup_slider') );  
         add_shortcode( 'video-all', array(&$this,'all_video_items') );
-        add_filter( 'the_content', array(&$this,'add_lazy_src_to_allowed_attributes') );
+        //add_filter( 'the_content', array(&$this,'add_lazy_src_to_allowed_attributes') );
         add_filter( 'enter_title_here', array(&$this,'change_default_title') );
         wp_enqueue_script('lazy-bootstrap-carousel',$this->plugin_url.'lib/js/lazy-bootstrap-carousel.js',array('jquery','bootstrap-jquery'));
         wp_enqueue_script('msd-video-jquery',$this->plugin_url.'lib/js/msd-video.jquery.js',array('jquery','bootstrap-jquery'));
