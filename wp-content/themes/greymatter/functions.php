@@ -596,12 +596,14 @@ include_once('includes/cpt.php');
 include_once('includes/speaker_cpt.php');
 include_once('includes/session_cpt.php');
 
-	/*
-	 * A useful troubleshooting function.
-	 */
-	function ts_data($data){
-		$ret = '<textarea cols="100" rows="20" class="troubleshoot">';
-		$ret .= print_r($data,true);
-		$ret .= '</textarea>';
-		print $ret;
-	}
+/*
+ * A useful troubleshooting function. Displays arrays in an easy to follow format in a textarea.
+*/
+if ( ! function_exists( 'ts_data' ) ) :
+function ts_data($data){
+    $ret = '<textarea class="troubleshoot" cols="100" rows="20">';
+    $ret .= print_r($data,true);
+    $ret .= '</textarea>';
+    print $ret;
+}
+endif;
