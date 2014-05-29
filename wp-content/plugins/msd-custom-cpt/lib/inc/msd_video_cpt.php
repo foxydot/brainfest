@@ -29,6 +29,8 @@ class MSDVideoCPT {
         
         add_action('admin_print_scripts', array(&$this,'add_admin_scripts') );
         add_action('admin_print_styles', array(&$this,'add_admin_styles') );
+        add_action('wp_enqueue_scripts', array(&$this,'add_display_styles') );
+        add_action('wp_enqueue_scripts', array(&$this,'add_display_scripts') );
         
         add_shortcode( 'video-grid', array(&$this,'msd_video_grid') );
         add_shortcode( 'video-slider', array(&$this,'msd_video_slider') );  
@@ -128,9 +130,13 @@ class MSDVideoCPT {
         if($current_screen->post_type == $this->cpt){
             wp_enqueue_script('media-upload');
             wp_enqueue_script('thickbox');
-            wp_register_script('my-upload', plugin_dir_url(dirname(__FILE__)).'/js/msd-upload-file.js', array('jquery','media-upload','thickbox'),FALSE,TRUE);
+            wp_register_script('my-upload', plugin_dir_url(dirname(__FILE__)).'js/msd-upload-file.js', array('jquery','media-upload','thickbox'),FALSE,TRUE);
             wp_enqueue_script('my-upload');
         }
+    }
+
+    function add_display_scripts() {
+        wp_enqueue_script('bootstrap',plugin_dir_url(dirname(__FILE__)).'js/bootstrap.min.js','jquery',FALSE,TRUE);
     }
     
     function add_admin_styles() {
@@ -139,6 +145,12 @@ class MSDVideoCPT {
             wp_enqueue_style('thickbox');
             wp_enqueue_style('custom_meta_css',plugin_dir_url(dirname(__FILE__)).'/css/meta.css');
         }
+    }  
+    
+    function add_display_styles() {
+        wp_enqueue_style('bootstrap',plugin_dir_url(dirname(__FILE__)).'css/bootstrap.css');
+        wp_enqueue_style('bootstrap-theme',plugin_dir_url(dirname(__FILE__)).'css/bootstrap-theme.css');
+        wp_enqueue_style('video_css',plugin_dir_url(dirname(__FILE__)).'css/video.css');
     }  
            
     function register_thumbnail(){
@@ -278,7 +290,7 @@ class MSDVideoCPT {
 
         function msd_video_grid( $atts ){
             global $video,$post;
-            if($atts['tags']){$atts['tags'] = explode(',',$atts['tags']);}
+            if(isset($atts['tags'])){$atts['tags'] = explode(',',$atts['tags']);}
             extract( shortcode_atts( array(
             'tags' => array(),
             'cols' => 2,
@@ -286,8 +298,8 @@ class MSDVideoCPT {
             $ID = $tags[0];
                 
             $items = $this->get_video_items($tags);
-            $count = (floor(count($items)/$cols))*$cols;
-            $items = array_slice($items, 0, $count);
+            //$count = (floor(count($items)/$cols))*$cols;
+            //$items = array_slice($items, 0, $count);
             $i = 1;
             foreach($items AS $item){
                 $video->the_meta($item->ID);

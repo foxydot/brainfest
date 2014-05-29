@@ -154,3 +154,11 @@ if(!function_exists('msd_str_fmt')){
         return $ret;
     }
 }
+
+if(!function_exists('remove_wpautop')){
+    function remove_wpautop( $content ) { 
+        $content = do_shortcode( shortcode_unautop( $content ) ); 
+        $content = preg_replace( '#^<\/p>|^<br \/>|<p>$#', '', $content );
+        return $content;
+    }
+}

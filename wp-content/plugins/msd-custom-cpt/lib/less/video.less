@@ -1,0 +1,25 @@
+.video-grid{
+  ul.grid{
+    list-style: none outside none;
+    margin: 0;
+    li{
+      list-style: none outside none;
+      margin: 1rem 0;
+      float: left;
+      width: 50%;
+      min-height: 1px;
+      padding-left: 15px;
+      padding-right: 15px;
+      position: relative;
+      a.thumb{
+        display: block;
+        height: 180px;
+        width: 100%;
+        text-indent: -9999px;
+      }
+    }
+    li:before{
+      content: "";
+    }
+  }
+}
