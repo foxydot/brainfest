@@ -1,3 +1,6 @@
+.video-grid {
+  display: block;
+}
 .video-grid ul.grid {
   list-style: none outside none;
   margin: 0;
