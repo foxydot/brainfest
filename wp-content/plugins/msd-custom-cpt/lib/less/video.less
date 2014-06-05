@@ -1,5 +1,4 @@
 .video-grid{
-  display: block;
   ul.grid{
     list-style: none outside none;
     margin: 0;
@@ -21,6 +20,11 @@
     }
     li:before{
       content: "";
+    }
+    li.last-child:after{
+      content: " ";
+      display: table;
+      clear: both;
     }
   }
 }
