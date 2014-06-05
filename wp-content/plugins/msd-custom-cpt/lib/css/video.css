@@ -22,7 +22,18 @@
   content: "";
 }
 .video-grid ul.grid li.last-child:after {
-  content: " ";
-  display: table;
+  content: ".";
+  display: block;
   clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.video-grid ul.grid:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
 }

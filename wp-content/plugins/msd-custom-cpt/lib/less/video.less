@@ -22,9 +22,20 @@
       content: "";
     }
     li.last-child:after{
-      content: " ";
-      display: table;
-      clear: both;
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
     }
+  }
+  ul.grid:after{
+      content: ".";
+      display: block;
+      clear: both;
+      visibility: hidden;
+      line-height: 0;
+      height: 0;
   }
 }
