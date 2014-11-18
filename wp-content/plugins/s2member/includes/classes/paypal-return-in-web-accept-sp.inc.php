@@ -35,21 +35,20 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in_web_accept_sp"))
 				*
 				* @param array $vars Required. An array of defined variables passed by {@link s2Member\PayPal\c_ws_plugin__s2member_paypal_return_in::paypal_return()}.
 				* @return array|bool The original ``$paypal`` array passed in (extracted) from ``$vars``, or false when conditions do NOT apply.
-				*
-				* @todo Optimize with ``empty()`` and ``isset()``.
 				*/
-				public static function /* Conditional phase for ``c_ws_plugin__s2member_paypal_notify_in::paypal_notify()``. */ cp ($vars = array ())
+				public static function /* Conditional phase for ``c_ws_plugin__s2member_paypal_notify_in::paypal_notify()``. */ cp ($vars = array())
 					{
-						extract /* Extract all vars passed in from: ``c_ws_plugin__s2member_paypal_notify_in::paypal_notify()``. */($vars);
+						extract /* Extract all vars passed in from: ``c_ws_plugin__s2member_paypal_notify_in::paypal_notify()``. */($vars, EXTR_OVERWRITE | EXTR_REFS);
 
-						if ((!empty ($paypal["txn_type"]) && preg_match ("/^web_accept$/i", $paypal["txn_type"]))
-						&& (!empty ($paypal["item_number"]) && preg_match ($GLOBALS["WS_PLUGIN__"]["s2member"]["c"]["sp_access_item_number_regex"], $paypal["item_number"]))
-						&& (empty ($paypal["payment_status"]) || empty ($payment_status_issues) || !preg_match ($payment_status_issues, $paypal["payment_status"]))
-						&& (!empty ($paypal["txn_id"])))
+						if ((!empty($paypal["txn_type"]) && preg_match ("/^web_accept$/i", $paypal["txn_type"]))
+						&& (!empty($paypal["item_number"]) && preg_match ($GLOBALS["WS_PLUGIN__"]["s2member"]["c"]["sp_access_item_number_regex"], $paypal["item_number"]))
+						&& (empty($paypal["payment_status"]) || empty($payment_status_issues) || !preg_match ($payment_status_issues, $paypal["payment_status"]))
+						&& (!empty($paypal["txn_id"])) && (!empty($paypal["txn_baid"]) || ($paypal["txn_baid"] = $paypal["txn_id"]))
+						&& (!empty($paypal["txn_cid"]) || ($paypal["txn_cid"] = $paypal["txn_id"])))
 							{
 								foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-								do_action ("ws_plugin__s2member_during_paypal_return_before_sp_access", get_defined_vars ());
-								unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+								do_action("ws_plugin__s2member_during_paypal_return_before_sp_access", get_defined_vars ());
+								unset($__refs, $__v);
 
 								if (!get_transient ($transient_rtn = "s2m_rtn_" . md5 ("s2member_transient_" . $_paypal_s)) && set_transient ($transient_rtn, time (), 31556926 * 10))
 									{
@@ -69,26 +68,27 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in_web_accept_sp"))
 
 												$paypal["s2member_log"][] = "Transient Tracking Cookie set on ( `web_accept` ) for Specific Post/Page Access.";
 
-												if ($processing && ($code = $GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["sp_tracking_codes"]) && is_array ($cv = preg_split ("/\|/", $paypal["custom"])))
+												if ($processing && ($code = $GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["sp_tracking_codes"]) && is_array($cv = preg_split ("/\|/", $paypal["custom"])))
 													{
-														if (($code = preg_replace ("/%%cv([0-9]+)%%/ei", 'trim($cv[$1])', $code)) && ($code = preg_replace ("/%%amount%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["mc_gross"]), $code)) && ($code = preg_replace ("/%%txn_id%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["txn_id"]), $code)))
-															if (($code = preg_replace ("/%%item_number%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["item_number"]), $code)) && ($code = preg_replace ("/%%item_name%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["item_name"]), $code)))
-																if (($code = preg_replace ("/%%first_name%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["first_name"]), $code)) && ($code = preg_replace ("/%%last_name%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["last_name"]), $code)))
-																	if (($code = preg_replace ("/%%full_name%%/i", c_ws_plugin__s2member_utils_strings::esc_ds (trim ($paypal["first_name"] . " " . $paypal["last_name"])), $code)))
-																		if (($code = preg_replace ("/%%payer_email%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["payer_email"]), $code)))
-																			if (($code = preg_replace ("/%%user_ip%%/i", c_ws_plugin__s2member_utils_strings::esc_ds ($paypal["ip"]), $code)))
+														if (($code = preg_replace ("/%%cv([0-9]+)%%/ei", 'trim(@$cv[$1])', $code)) && ($code = preg_replace ("/%%amount%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["mc_gross"]), $code)) && ($code = preg_replace ("/%%txn_id%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["txn_id"]), $code)))
+															if (($code = preg_replace ("/%%txn_baid%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["txn_baid"]), $code)) && ($code = preg_replace ("/%%txn_cid%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["txn_cid"]), $code)))
+																if (($code = preg_replace ("/%%item_number%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["item_number"]), $code)) && ($code = preg_replace ("/%%item_name%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["item_name"]), $code)))
+																	if (($code = preg_replace ("/%%first_name%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["first_name"]), $code)) && ($code = preg_replace ("/%%last_name%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["last_name"]), $code)))
+																		if (($code = preg_replace ("/%%full_name%%/i", c_ws_plugin__s2member_utils_strings::esc_refs (trim ($paypal["first_name"] . " " . $paypal["last_name"])), $code)))
+																			if (($code = preg_replace ("/%%payer_email%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["payer_email"]), $code)))
+																				if (($code = preg_replace ("/%%user_ip%%/i", c_ws_plugin__s2member_utils_strings::esc_refs ($paypal["ip"]), $code)))
 
-																				if (($code = trim (preg_replace ("/%%(.+?)%%/i", "", $code)))) // This gets stored into a Transient Queue.
-																					{
-																						$paypal["s2member_log"][] = "Storing Specific Post/Page Tracking Codes into a Transient Queue. These will be processed on-site.";
-																						set_transient ("s2m_" . md5 ("s2member_transient_sp_tracking_codes_" . $paypal["txn_id"]), $code, 43200);
-																					}
+																					if (($code = trim (preg_replace ("/%%(.+?)%%/i", "", $code)))) // This gets stored into a Transient Queue.
+																						{
+																							$paypal["s2member_log"][] = "Storing Specific Post/Page Tracking Codes into a Transient Queue. These will be processed on-site.";
+																							set_transient ("s2m_" . md5 ("s2member_transient_sp_tracking_codes_" . $paypal["txn_id"]), $code, 43200);
+																						}
 													}
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-												do_action ("ws_plugin__s2member_during_paypal_return_during_sp_access", get_defined_vars ());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												do_action("ws_plugin__s2member_during_paypal_return_during_sp_access", get_defined_vars ());
+												unset($__refs, $__v);
 
-												if (apply_filters ("ws_plugin__s2member_immediate_sp_access_redirection", false, get_defined_vars ()))
+												if (apply_filters("ws_plugin__s2member_immediate_sp_access_redirection", false, get_defined_vars ()))
 													{
 														$paypal["s2member_log"][] = "Redirecting Customer immediately to the Specific Post/Page.";
 
@@ -124,20 +124,19 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in_web_accept_sp"))
 									{
 										$paypal["s2member_log"][] = "Page Expired. Duplicate Return-Data.";
 										$paypal["s2member_log"][] = "s2Member `txn_type` identified as ( `web_accept` ) for Specific Post/Page Access.";
-										$paypal["s2member_log"][] = "Page Expired. Redirecting Customer to the Home Page (after displaying an error message).";
+										$paypal['s2member_log'][] = 'Page Expired. Instructing customer to check their email for further details about how to obtain access to what they purchased.';
 
-										echo c_ws_plugin__s2member_return_templates::return_template ($paypal["subscr_gateway"],
-											_x ('<strong>Page Expired:</strong> Duplicate Return-Data.<br />Please contact Support if you need any assistance.', "s2member-front", "s2member"),
-											_x ("Back To Home Page", "s2member-front", "s2member"), home_url ("/"));
+										echo c_ws_plugin__s2member_return_templates::return_template($paypal['subscr_gateway'],
+					                                                             '<strong>'._x('Thank you! Please check your email for further details regarding your purchase.', 's2member-front', 's2member').'</strong>',
+					                                                             _x('Return to Home Page', 's2member-front', 's2member'), home_url("/"));
 									}
 								foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-								do_action ("ws_plugin__s2member_during_paypal_return_after_sp_access", get_defined_vars ());
-								unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+								do_action("ws_plugin__s2member_during_paypal_return_after_sp_access", get_defined_vars ());
+								unset($__refs, $__v);
 
-								return apply_filters ("c_ws_plugin__s2member_paypal_return_in_web_accept_sp", $paypal, get_defined_vars ());
+								return apply_filters("c_ws_plugin__s2member_paypal_return_in_web_accept_sp", $paypal, get_defined_vars ());
 							}
-						else return apply_filters ("c_ws_plugin__s2member_paypal_return_in_web_accept_sp", false, get_defined_vars ());
+						else return apply_filters("c_ws_plugin__s2member_paypal_return_in_web_accept_sp", false, get_defined_vars ());
 					}
 			}
 	}
-?>

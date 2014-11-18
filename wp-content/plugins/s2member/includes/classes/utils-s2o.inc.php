@@ -30,18 +30,21 @@ if (!class_exists ("c_ws_plugin__s2member_utils_s2o"))
 				* @package s2Member\Utilities
 				* @since 110912
 				*
-				* @param str $starting_dir A directory to start searching from.
-				* @param str $alt_starting_dir An alternate directory to search from.
-				* @return str|null WordPress directory, else exits script execution on failure.
+				* @param string $starting_dir A directory to start searching from.
+				* @param string $alt_starting_dir An alternate directory to search from.
+				* @return string|null WordPress directory, else exits script execution on failure.
 				*/
 				public static function wp_dir ($starting_dir = FALSE, $alt_starting_dir = FALSE)
 					{
+						if(!empty($_SERVER['WP_DIR']))
+							return (string)$_SERVER['WP_DIR'];
+
 						foreach(array($starting_dir, $alt_starting_dir) as $directory)
 							if($directory && is_string($directory) && is_dir($directory))
 								for($i = 0, $dir = $directory; $i <= 20; $i++, $dir = dirname($dir))
 									if(file_exists($dir."/wp-settings.php"))
 										return ($wp_dir = $dir);
-							
+
 						header ("HTTP/1.0 500 Error");
 						header ("Content-Type: text/plain; charset=UTF-8");
 						while (@ob_end_clean ()); // Clean any existing output buffers.
@@ -53,11 +56,11 @@ if (!class_exists ("c_ws_plugin__s2member_utils_s2o"))
 				* @package s2Member\Utilities
 				* @since 110912
 				*
-				* @param str $wp_dir WordPress directory path.
-				* @param str $o_file Location of calling `*-o.php` file.
+				* @param string $wp_dir WordPress directory path.
+				* @param string $o_file Location of calling `*-o.php` file.
 				* @return str|bool WordPress settings, else false on failure.
 				*/
-				public static function wp_settings_as ($wp_dir = FALSE, $o_file = FALSE)
+				public static function wp_settings_as ($wp_dir = '', $o_file = '')
 					{
 						if ($wp_dir && is_dir ($wp_dir) && is_readable (($wp_settings = $wp_dir . "/wp-settings.php")) && $o_file && file_exists ($o_file) && ($_wp_settings = trim (file_get_contents ($wp_settings))))
 							{
@@ -102,9 +105,9 @@ if (!class_exists ("c_ws_plugin__s2member_utils_s2o"))
 				* @package s2Member\Utilities
 				* @since 110917
 				*
-				* @param str $string Input string.
+				* @param string $string Input string.
 				* @param int $times Mumber of escapes. Defaults to 1.
-				* @return str Output string after dollar signs are escaped.
+				* @return string Output string after dollar signs are escaped.
 				*/
 				public static function esc_ds ($string = FALSE, $times = FALSE)
 					{
@@ -117,8 +120,8 @@ if (!class_exists ("c_ws_plugin__s2member_utils_s2o"))
 				* @package s2Member\Utilities
 				* @since 110917
 				*
-				* @param str $code A string of data, possibly with embedded PHP code.
-				* @return str Output after PHP evaluation.
+				* @param string $code A string of data, possibly with embedded PHP code.
+				* @return string Output after PHP evaluation.
 				*/
 				public static function evl ($code = FALSE)
 					{

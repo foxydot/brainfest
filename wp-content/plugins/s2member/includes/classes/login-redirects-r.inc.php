@@ -59,8 +59,12 @@ if (!class_exists ("c_ws_plugin__s2member_login_redirects_r"))
 							if($redirect_to && is_string ($redirect_to) && strpos($redirect_to, "wp-admin") === FALSE)
 								{
 									$redirect_to = preg_replace("/^https\:\/\//i", "http://", $redirect_to);
-									if(stripos($redirect_to, "http://") !== 0) // Force an absolute URL in this case.
-										$redirect_to = home_url($redirect_to, "http");
+									if(stripos($redirect_to, "http://") !== 0) // Force absolute.
+										{
+											$home_path = trim((string)@parse_url(home_url('/'), PHP_URL_PATH), '/');
+											$http_home_base = trim(preg_replace('/\/'.preg_quote($home_path, '/').'\/$/', '', home_url('/', 'http')), '/');
+											$redirect_to = $http_home_base.'/'.ltrim($redirect_to, '/');
+										}
 								}
 						return $redirect_to;
 					}
@@ -74,17 +78,17 @@ if (!class_exists ("c_ws_plugin__s2member_login_redirects_r"))
 				*/
 				public static function remove_login_redirect_filters ()
 					{
-						do_action ("ws_plugin__s2member_before_remove_login_redirect_filters", get_defined_vars ());
+						do_action("ws_plugin__s2member_before_remove_login_redirect_filters", get_defined_vars ());
 
-						if (!apply_filters ("ws_plugin__s2member_allow_other_login_redirect_filters", false, get_defined_vars ()))
+						if (!apply_filters("ws_plugin__s2member_allow_other_login_redirect_filters", false, get_defined_vars ()))
 							{
 								remove_all_filters /* Removes all `login_redirect` Filters. */("login_redirect");
 								add_filter ("login_redirect", "c_ws_plugin__s2member_login_redirects_r::_empty_login_redirect_filter");
 								add_filter ("login_redirect", "c_ws_plugin__s2member_login_redirects_r::_http_login_redirect_filter");
 
-								do_action ("ws_plugin__s2member_during_remove_login_redirect_filters", get_defined_vars ());
+								do_action("ws_plugin__s2member_during_remove_login_redirect_filters", get_defined_vars ());
 							}
-						do_action ("ws_plugin__s2member_after_remove_login_redirect_filters", get_defined_vars ());
+						do_action("ws_plugin__s2member_after_remove_login_redirect_filters", get_defined_vars ());
 
 						return /* Return for uniformity. */;
 					}

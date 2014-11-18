@@ -41,32 +41,36 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 					{
 						global /* For Multisite support. */ $current_site, $current_blog;
 
-						do_action ("ws_plugin__s2member_before_paypal_return", get_defined_vars ());
+						do_action("ws_plugin__s2member_before_paypal_return", get_defined_vars ());
 
-						if (!empty ($_GET["s2member_paypal_return"]) && ($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["paypal_business"] || !empty ($_GET["s2member_paypal_proxy"])))
+						if (!empty($_GET["s2member_paypal_return"]) && ($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["paypal_business"] || !empty($_GET["s2member_paypal_proxy"])))
 							{
-								$custom_success_redirection = (!empty ($_GET["s2member_paypal_return_success"])) ? esc_html (trim (stripslashes ($_GET["s2member_paypal_return_success"]))) : false;
-								$custom_success_redirection = ($custom_success_redirection) ? str_ireplace (array ("&#038;", "&amp;"), "&", $custom_success_redirection) : $custom_success_redirection;
+								$paypal = array(); // Initialize PayPal array; we also reference this with a variable for a possible proxy handler.
+								if(!empty($_GET["s2member_paypal_proxy"]) && in_array($_GET["s2member_paypal_proxy"], array("alipay", "stripe", "authnet", "clickbank", "ccbill", "google"), TRUE))
+									${esc_html(trim(stripslashes($_GET["s2member_paypal_proxy"])))} = &$paypal; // Internal alias by reference.
 
-								if (is_array ($paypal = c_ws_plugin__s2member_paypal_utilities::paypal_postvars ()) && ($_paypal = $paypal) && ($_paypal_s = serialize ($_paypal)))
+								$custom_success_redirection = (!empty($_GET["s2member_paypal_return_success"])) ? esc_html (trim (stripslashes ($_GET["s2member_paypal_return_success"]))) : false;
+								$custom_success_redirection = ($custom_success_redirection) ? str_ireplace (array("&#038;", "&amp;"), "&", $custom_success_redirection) : $custom_success_redirection;
+
+								if (is_array($paypal = c_ws_plugin__s2member_paypal_utilities::paypal_postvars ()) && ($_paypal = $paypal) && ($_paypal_s = serialize ($_paypal)))
 									{
 										$paypal["s2member_log"][] = "Return-Data received on: " . date ("D M j, Y g:i:s a T");
-										$paypal["s2member_log"][] = "s2Member POST vars verified " . ((!empty ($paypal["proxy_verified"])) ? "with a Proxy Key" : "through a POST back to PayPal.");
+										$paypal["s2member_log"][] = "s2Member POST vars verified " . ((!empty($paypal["proxy_verified"])) ? "with a Proxy Key" : "through a POST back to PayPal.");
 
-										$paypal["subscr_gateway"] = (!empty ($_GET["s2member_paypal_proxy"])) ? esc_html (trim (stripslashes ($_GET["s2member_paypal_proxy"]))) : "paypal";
+										$paypal["subscr_gateway"] = (!empty($_GET["s2member_paypal_proxy"])) ? esc_html (trim (stripslashes ($_GET["s2member_paypal_proxy"]))) : "paypal";
 
-										if (empty ($_GET["s2member_paypal_proxy"]) || empty ($_GET["s2member_paypal_proxy_use"]) || !preg_match ("/ty-email/", $_GET["s2member_paypal_proxy_use"]))
+										if (empty($_GET["s2member_paypal_proxy"]) || empty($_GET["s2member_paypal_proxy_use"]) || !preg_match ("/ty-email/", $_GET["s2member_paypal_proxy_use"]))
 											{
 												$payment_status_issues = "/^(failed|denied|expired|refunded|partially_refunded|reversed|reversal|canceled_reversal|voided)$/i";
 
-												if (!empty ($paypal["custom"]) && preg_match ("/^" . preg_quote (preg_replace ("/\:([0-9]+)$/", "", $_SERVER["HTTP_HOST"]), "/") . "/i", $paypal["custom"]))
+												if (!empty($paypal["custom"]) && preg_match ("/^" . preg_quote (preg_replace ("/\:([0-9]+)$/", "", $_SERVER["HTTP_HOST"]), "/") . "/i", $paypal["custom"]))
 													{
 														$paypal["s2member_log"][] = "s2Member originating domain ( `\$_SERVER[\"HTTP_HOST\"]` ) validated.";
 
 														foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-														if (!apply_filters ("ws_plugin__s2member_during_paypal_return_conditionals", false, get_defined_vars ()))
+														if (!apply_filters("ws_plugin__s2member_during_paypal_return_conditionals", false, get_defined_vars ()))
 															{
-																unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+																unset($__refs, $__v);
 
 																if (($_paypal_cp = c_ws_plugin__s2member_paypal_return_in_web_accept_sp::cp (get_defined_vars ())))
 																	$paypal = $_paypal_cp;
@@ -91,8 +95,7 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 																			_x ("Back To Home Page", "s2member-front", "s2member"), home_url ("/"));
 																	}
 															}
-														else // Else a custom conditional has been applied by filters.
-															unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+														else unset($__refs, $__v); // Else a custom conditional has been applied by filters.
 													}
 												else // Else, use the default ``$_SERVER["HTTP_HOST"]`` error.
 													{
@@ -111,10 +114,10 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 										else // In this case ... a Proxy has explicitly requested `ty-email` processing.
 											$paypal = $_paypal_cp = c_ws_plugin__s2member_paypal_return_in_proxy_ty_email::cp (get_defined_vars ());
 									}
-								else if (!empty ($_GET["s2member_paypal_proxy"]) && !empty ($_GET["s2member_paypal_proxy_use"]) && preg_match ("/x-preview/", $_GET["s2member_paypal_proxy_use"]) && ($paypal["subscr_gateway"] = esc_html (trim (stripslashes ($_GET["s2member_paypal_proxy"])))))
+								else if (!empty($_GET["s2member_paypal_proxy"]) && !empty($_GET["s2member_paypal_proxy_use"]) && preg_match ("/x-preview/", $_GET["s2member_paypal_proxy_use"]) && ($paypal["subscr_gateway"] = esc_html (trim (stripslashes ($_GET["s2member_paypal_proxy"])))))
 									$paypal = $_paypal_cp = c_ws_plugin__s2member_paypal_return_in_proxy_x_preview::cp (get_defined_vars ());
 
-								else if (empty ($_GET["tx"]) && empty ($_GET["s2member_paypal_proxy"]) && ($paypal["subscr_gateway"] = "paypal"))
+								else if (empty($_GET["tx"]) && empty($_GET["s2member_paypal_proxy"]) && ($paypal["subscr_gateway"] = "paypal"))
 									$paypal = $_paypal_cp = c_ws_plugin__s2member_paypal_return_in_no_tx_data::cp (get_defined_vars ());
 
 								else // Extensive log reporting here. This is an area where many site owners find trouble. Depending on server configuration; remote HTTPS connections may fail.
@@ -136,28 +139,28 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 								/*
 								Add RTN proxy (when available) to the ``$paypal`` array.
 								*/
-								if (!empty ($_GET["s2member_paypal_proxy"]))
-									$paypal["s2member_paypal_proxy"] = $_GET["s2member_paypal_proxy"];
+								if (!empty($_GET["s2member_paypal_proxy"]))
+									$paypal["s2member_paypal_proxy"] = esc_html(trim(stripslashes((string)$_GET["s2member_paypal_proxy"])));
 								/*
 								Add IPN proxy use vars (when available) to the ``$paypal`` array.
 								*/
-								if (!empty ($_GET["s2member_paypal_proxy_use"]))
-									$paypal["s2member_paypal_proxy_use"] = $_GET["s2member_paypal_proxy_use"];
+								if (!empty($_GET["s2member_paypal_proxy_use"]))
+									$paypal["s2member_paypal_proxy_use"] = esc_html(trim(stripslashes((string)$_GET["s2member_paypal_proxy_use"])));
 								/*
 								Also add RTN proxy self-verification (when available) to the ``$paypal`` array.
 								*/
-								if (!empty ($_GET["s2member_paypal_proxy_verification"]))
-									$paypal["s2member_paypal_proxy_verification"] = $_GET["s2member_paypal_proxy_verification"];
+								if (!empty($_GET["s2member_paypal_proxy_verification"]))
+									$paypal["s2member_paypal_proxy_verification"] = esc_html(trim(stripslashes((string)$_GET["s2member_paypal_proxy_verification"])));
 								/*
 								Also add RTN success redirection URL (when available) to the ``$paypal`` array.
 								*/
-								if (!empty ($_GET["s2member_paypal_return_success"]))
-									$paypal["s2member_paypal_return_success"] = $_GET["s2member_paypal_return_success"];
+								if (!empty($_GET["s2member_paypal_return_success"]))
+									$paypal["s2member_paypal_return_success"] = esc_html(trim(stripslashes((string)$_GET["s2member_paypal_return_success"])));
 								/*
 								Also add RTN t and r Attributes (when available) to the ``$paypal`` array.
 								*/
-								if (!empty ($_GET["s2member_paypal_return_tra"]))
-									$paypal["s2member_paypal_return_tra"] = $_GET["s2member_paypal_return_tra"];
+								if (!empty($_GET["s2member_paypal_return_tra"]))
+									$paypal["s2member_paypal_return_tra"] = esc_html(trim(stripslashes((string)$_GET["s2member_paypal_return_tra"])));
 								/*
 								If debugging/logging is enabled; we need to append $paypal to the log file.
 									Logging now supports Multisite Networking as well.
@@ -165,7 +168,7 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 								$logt = c_ws_plugin__s2member_utilities::time_details ();
 								$logv = c_ws_plugin__s2member_utilities::ver_details ();
 								$logm = c_ws_plugin__s2member_utilities::mem_details ();
-								$log4 = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "\nUser-Agent: " . $_SERVER["HTTP_USER_AGENT"];
+								$log4 = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "\nUser-Agent: " . @$_SERVER["HTTP_USER_AGENT"];
 								$log4 = (is_multisite () && !is_main_site ()) ? ($_log4 = $current_blog->domain . $current_blog->path) . "\n" . $log4 : $log4;
 								$log2 = (is_multisite () && !is_main_site ()) ? "gateway-core-rtn-4-" . trim (preg_replace ("/[^a-z0-9]/i", "-", $_log4), "-") . ".log" : "gateway-core-rtn.log";
 
@@ -178,15 +181,14 @@ if (!class_exists ("c_ws_plugin__s2member_paypal_return_in"))
 											                   FILE_APPEND);
 
 								foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-								do_action ("ws_plugin__s2member_during_paypal_return", get_defined_vars ());
-								unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+								do_action("ws_plugin__s2member_during_paypal_return", get_defined_vars ());
+								unset($__refs, $__v);
 
 								exit /* Clean exit. */ ();
 							}
 						foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
-						do_action ("ws_plugin__s2member_after_paypal_return", get_defined_vars ());
-						unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+						do_action("ws_plugin__s2member_after_paypal_return", get_defined_vars ());
+						unset($__refs, $__v);
 					}
 			}
 	}
-?>

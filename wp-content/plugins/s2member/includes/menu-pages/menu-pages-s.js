@@ -15,9 +15,32 @@
 */
 jQuery(document).ready(function($)
 	{
-		var esc_attr = esc_html = /* Convert special characters. */ function(str)
+		var esc_attr = esc_html = function(string/* Convert special characters. */)
+		{
+			if(/[&\<\>"']/.test(string = String(string)))
+				string = string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+					string = string.replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+			return string;
+		};
+		ws_plugin__s2member_generateSecurityKey = /* Generates a unique Security Key. */ function(obj)
 			{
-				return String(str).replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+				if(!obj) obj = '#ws-plugin--s2member-sec-encryption-key';
+
+				var mt_rand = /* The JS equivalent to mt_rand(). */ function(min, max)
+					{
+						min = (arguments.length < 1) ? 0 : min;
+						max = (arguments.length < 2) ? 2147483647 : max;
+
+						return Math.floor(Math.random() * (max-min+1))+min;
+					};
+				var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%^&*()';
+
+				for(var i = 0, key = ''; i < 64; i++)
+					key += chars.substr(mt_rand(0, chars.length-1), 1);
+
+				$(obj).val(key);
+
+				return false;
 			};
 		if(location.href.match /* Any & all s2Member pages. */(/page\=ws-plugin--s2member/))
 			{
@@ -99,25 +122,6 @@ jQuery(document).ready(function($)
 			}
 		if(location.href.match(/page\=ws-plugin--s2member-gen-ops/))
 			{
-				ws_plugin__s2member_generateSecurityKey = /* Generates a unique Security Key. */ function()
-					{
-						var mt_rand = /* The JS equivalent to mt_rand(). */ function(min, max)
-							{
-								min = (arguments.length < 1) ? 0 : min;
-								max = (arguments.length < 2) ? 2147483647 : max;
-
-								return Math.floor(Math.random() * (max-min+1))+min;
-							};
-
-						var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
-
-						for(var i = 0, key = ''; i < 64; i++)
-							key += chars.substr(mt_rand(0, chars.length-1), 1);
-
-						$('input#ws-plugin--s2member-sec-encryption-key').val(key);
-
-						return false;
-					};
 				ws_plugin__s2member_enableSecurityKey = /* Allow Security Key editing?? */ function()
 					{
 						if(confirm('Edit Key? Are you sure?\nThis could break your installation!\n\n*Note* If you\'ve been testing s2Member, feel free to change this Key before you go live. Just don\'t go live, and then change it. You\'ll have unhappy Customers. Data corruption WILL occur! For your safety, s2Member keeps a history of the last 10 Keys that you\'ve used. If you get yourself into a real situation, s2Member will let you revert back to a previous Key.'))
@@ -248,7 +252,7 @@ jQuery(document).ready(function($)
 													{
 														var row = 'tr.ws-plugin--s2member-custom-reg-field-configuration-table-row-'+(fields.length-1);
 														alert('Field created successfully.\n* Remember to "Save All Changes".');
-														$(row).effect('highlight', 1500);
+														//$(row).effect('highlight');
 													}, 500);
 											}
 									};
@@ -270,7 +274,7 @@ jQuery(document).ready(function($)
 													{
 														var row = 'tr.ws-plugin--s2member-custom-reg-field-configuration-table-row-'+index;
 														alert('Field updated successfully.\n* Remember to "Save All Changes".');
-														$(row).effect('highlight', 1500);
+														//$(row).effect('highlight');
 													}, 500);
 											}
 									};
@@ -579,8 +583,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Any Character Combination">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="any-'+i+'"'+((field.expected === 'any-'+i) ? ' selected="selected"' : '')+'">Any Character Combination ( '+i+' character minimum )</option>';
-														form += '<option value="any-'+i+'-e"'+((field.expected === 'any-'+i+'-e') ? ' selected="selected"' : '')+'">Any Character Combination ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="any-'+i+'"'+((field.expected === 'any-'+i) ? ' selected="selected"' : '')+'">Any Character Combination ('+i+' character minimum)</option>';
+														form += '<option value="any-'+i+'-e"'+((field.expected === 'any-'+i+'-e') ? ' selected="selected"' : '')+'">Any Character Combination (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -589,8 +593,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Alphanumerics, Spaces &amp; Punctuation Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="alphanumerics-spaces-punctuation-'+i+'"'+((field.expected === 'alphanumerics-spaces-punctuation-'+i) ? ' selected="selected"' : '')+'">Alphanumerics, Spaces &amp; Punctuation ( '+i+' character minimum )</option>';
-														form += '<option value="alphanumerics-spaces-punctuation-'+i+'-e"'+((field.expected === 'alphanumerics-spaces-punctuation-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics, Spaces &amp; Punctuation ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="alphanumerics-spaces-punctuation-'+i+'"'+((field.expected === 'alphanumerics-spaces-punctuation-'+i) ? ' selected="selected"' : '')+'">Alphanumerics, Spaces &amp; Punctuation ('+i+' character minimum)</option>';
+														form += '<option value="alphanumerics-spaces-punctuation-'+i+'-e"'+((field.expected === 'alphanumerics-spaces-punctuation-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics, Spaces &amp; Punctuation (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -599,8 +603,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Alphanumerics &amp; Spaces Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="alphanumerics-spaces-'+i+'"'+((field.expected === 'alphanumerics-spaces-'+i) ? ' selected="selected"' : '')+'">Alphanumerics &amp; Spaces ( '+i+' character minimum )</option>';
-														form += '<option value="alphanumerics-spaces-'+i+'-e"'+((field.expected === 'alphanumerics-spaces-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics &amp; Spaces ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="alphanumerics-spaces-'+i+'"'+((field.expected === 'alphanumerics-spaces-'+i) ? ' selected="selected"' : '')+'">Alphanumerics &amp; Spaces ('+i+' character minimum)</option>';
+														form += '<option value="alphanumerics-spaces-'+i+'-e"'+((field.expected === 'alphanumerics-spaces-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics &amp; Spaces (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -609,8 +613,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Alphanumerics &amp; Punctuation Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="alphanumerics-punctuation-'+i+'"'+((field.expected === 'alphanumerics-punctuation-'+i) ? ' selected="selected"' : '')+'">Alphanumerics &amp; Punctuation ( '+i+' character minimum )</option>';
-														form += '<option value="alphanumerics-punctuation-'+i+'-e"'+((field.expected === 'alphanumerics-punctuation-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics &amp; Punctuation ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="alphanumerics-punctuation-'+i+'"'+((field.expected === 'alphanumerics-punctuation-'+i) ? ' selected="selected"' : '')+'">Alphanumerics &amp; Punctuation ('+i+' character minimum)</option>';
+														form += '<option value="alphanumerics-punctuation-'+i+'-e"'+((field.expected === 'alphanumerics-punctuation-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics &amp; Punctuation (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -619,8 +623,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Alphanumerics Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="alphanumerics-'+i+'"'+((field.expected === 'alphanumerics-'+i) ? ' selected="selected"' : '')+'">Alphanumerics ( '+i+' character minimum )</option>';
-														form += '<option value="alphanumerics-'+i+'-e"'+((field.expected === 'alphanumerics-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="alphanumerics-'+i+'"'+((field.expected === 'alphanumerics-'+i) ? ' selected="selected"' : '')+'">Alphanumerics ('+i+' character minimum)</option>';
+														form += '<option value="alphanumerics-'+i+'-e"'+((field.expected === 'alphanumerics-'+i+'-e') ? ' selected="selected"' : '')+'">Alphanumerics (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -629,8 +633,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Alphabetics Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="alphabetics-'+i+'"'+((field.expected === 'alphabetics-'+i) ? ' selected="selected"' : '')+'">Alphabetics ( '+i+' character minimum )</option>';
-														form += '<option value="alphabetics-'+i+'-e"'+((field.expected === 'alphabetics-'+i+'-e') ? ' selected="selected"' : '')+'">Alphabetics ( exactly '+i+' character'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="alphabetics-'+i+'"'+((field.expected === 'alphabetics-'+i) ? ' selected="selected"' : '')+'">Alphabetics ('+i+' character minimum)</option>';
+														form += '<option value="alphabetics-'+i+'-e"'+((field.expected === 'alphabetics-'+i+'-e') ? ' selected="selected"' : '')+'">Alphabetics (exactly '+i+' character'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 
@@ -639,8 +643,8 @@ jQuery(document).ready(function($)
 												form += '<optgroup label="Numeric Digits Only">';
 												for(i = 1; i <= 25; i++)
 													{
-														form += '<option value="numerics-'+i+'"'+((field.expected === 'numerics-'+i) ? ' selected="selected"' : '')+'">Numeric Digits ( '+i+' digit minimum )</option>';
-														form += '<option value="numerics-'+i+'-e"'+((field.expected === 'numerics-'+i+'-e') ? ' selected="selected"' : '')+'">Numeric Digits ( exactly '+i+' digit'+((i > 1) ? 's' : '')+' )</option>';
+														form += '<option value="numerics-'+i+'"'+((field.expected === 'numerics-'+i) ? ' selected="selected"' : '')+'">Numeric Digits ('+i+' digit minimum)</option>';
+														form += '<option value="numerics-'+i+'-e"'+((field.expected === 'numerics-'+i+'-e') ? ' selected="selected"' : '')+'">Numeric Digits (exactly '+i+' digit'+((i > 1) ? 's' : '')+')</option>';
 													}
 												form += '</optgroup>';
 

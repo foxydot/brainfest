@@ -35,15 +35,15 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
          * @package s2Member\IP_Restrictions
          * @since 3.5
          *
-         * @param str $ip IP Address.
-         * @param str $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
+         * @param string $ip IP Address.
+         * @param string $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
          * @return bool True if IP Restrictions are OK, otherwise this function will exit script execution after issuing a warning.
          */
         public static function ip_restrictions_ok($ip = FALSE, $restriction = FALSE)
         {
             foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
             do_action("ws_plugin__s2member_before_ip_restrictions_ok", get_defined_vars());
-            unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+            unset($__refs, $__v);
 
             if(!apply_filters("ws_plugin__s2member_disable_all_ip_restrictions", false, get_defined_vars())
                 /* Also allow specific exclusions here. */ && !apply_filters("ws_plugin__s2member_disable_specific_ip_restriction", false, get_defined_vars())
@@ -76,15 +76,16 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
                     header /* Content-Type text/html with UTF-8. */("Content-Type: text/html; charset=UTF-8");
                     while (@ob_end_clean ()); // Clean any existing output buffers.
 
-                    $custom_template = (file_exists (TEMPLATEPATH . "/" . "ip-restrictions.php")) ? TEMPLATEPATH . "/" . "ip-restrictions.php" : false;
-                    $custom_template = (file_exists (WP_CONTENT_DIR . "/" . "ip-restrictions.php")) ? WP_CONTENT_DIR . "/" . "ip-restrictions.php" :  $custom_template;
+                    $custom_template = (is_file (TEMPLATEPATH . "/" . "ip-restrictions.php")) ? TEMPLATEPATH . "/" . "ip-restrictions.php" : '';
+                    $custom_template = (is_file (get_stylesheet_directory() . "/" . "ip-restrictions.php")) ? get_stylesheet_directory() . "/" . "ip-restrictions.php" : $custom_template;
+                    $custom_template = (is_file (WP_CONTENT_DIR . "/" . "ip-restrictions.php")) ? WP_CONTENT_DIR . "/" . "ip-restrictions.php" :  $custom_template;
 
                     $msg_503 = trim(file_get_contents((($custom_template) ? $custom_template : dirname(dirname(__FILE__))."/templates/errors/ip-restrictions.php")));
                     $msg_503 = trim(((!$custom_template || !is_multisite() || !c_ws_plugin__s2member_utils_conds::is_multisite_farm() || is_main_site()) ? c_ws_plugin__s2member_utilities::evl($msg_503) : $msg_503));
 
                     foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
                     do_action("ws_plugin__s2member_during_ip_restrictions_ok_no", get_defined_vars());
-                    unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+                    unset($__refs, $__v);
 
 					exit /* Clean exit with 503 error message. */($msg_503);
                 }
@@ -101,32 +102,31 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
                     header /* Content-Type text/html with UTF-8. */("Content-Type: text/html; charset=UTF-8");
                     while (@ob_end_clean ()); // Clean any existing output buffers.
 
-                    $custom_template = (file_exists (TEMPLATEPATH . "/" . "ip-restrictions.php")) ? TEMPLATEPATH . "/" . "ip-restrictions.php" : false;
-                    $custom_template = (file_exists (WP_CONTENT_DIR . "/" . "ip-restrictions.php")) ? WP_CONTENT_DIR . "/" . "ip-restrictions.php" :  $custom_template;
+                    $custom_template = (is_file (TEMPLATEPATH . "/" . "ip-restrictions.php")) ? TEMPLATEPATH . "/" . "ip-restrictions.php" : '';
+                    $custom_template = (is_file (get_stylesheet_directory() . "/" . "ip-restrictions.php")) ? get_stylesheet_directory() . "/" . "ip-restrictions.php" : $custom_template;
+                    $custom_template = (is_file (WP_CONTENT_DIR . "/" . "ip-restrictions.php")) ? WP_CONTENT_DIR . "/" . "ip-restrictions.php" :  $custom_template;
 
                     $msg_503 = trim(file_get_contents((($custom_template) ? $custom_template : dirname(dirname(__FILE__))."/templates/errors/ip-restrictions.php")));
                     $msg_503 = trim(((!$custom_template || !is_multisite() || !c_ws_plugin__s2member_utils_conds::is_multisite_farm() || is_main_site()) ? c_ws_plugin__s2member_utilities::evl($msg_503) : $msg_503));
 
                     foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
                     do_action("ws_plugin__s2member_during_ip_restrictions_ok_no", get_defined_vars());
-                    unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+                    unset($__refs, $__v);
 
                     exit /* Clean exit with 503 error message. */($msg_503);
                 }
-
                 else // OK, this looks legitimate. Apply Filters here and return true.
                 {
                     foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
                     do_action("ws_plugin__s2member_during_ip_restrictions_ok_yes", get_defined_vars());
-                    unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+                    unset($__refs, $__v);
 
                     return apply_filters("ws_plugin__s2member_ip_restrictions_ok", true, get_defined_vars());
                 }
             }
-
             foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
             do_action("ws_plugin__s2member_during_ip_restrictions_ok_yes", get_defined_vars());
-            unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+            unset($__refs, $__v);
 
             return apply_filters("ws_plugin__s2member_ip_restrictions_ok", true, get_defined_vars());
         }
@@ -136,7 +136,7 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
          * @package s2Member\IP_Restrictions
          * @since 130407
          *
-         * @param str $restriction Unique IP Restriction name/identifier. Such as Username, or a unique access code.
+         * @param string $restriction Unique IP Restriction name/identifier. Such as Username, or a unique access code.
          * @return bool TRUE if at or above max allowable IPs; else FALSE.
          */
         public static function specific_ip_restriction_at_or_above_max($restriction = FALSE)
@@ -170,7 +170,7 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
          * @package s2Member\IP_Restrictions
          * @since 3.5
          *
-         * @param str $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
+         * @param string $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
          * @return bool True if the specific IP Restriction is associated with a security breach, else false.
          */
         public static function specific_ip_restriction_breached_security($restriction = FALSE)
@@ -189,7 +189,7 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
          * @package s2Member\IP_Restrictions
          * @since 3.5
          *
-         * @param str $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
+         * @param string $restriction Unique IP Restriction name/identifier. Such as a Username, or a unique access code.
          * @return bool Always returns a `true` value.
          *
          * @todo Make return value conditional, based on success.
@@ -204,8 +204,8 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
             $transient_entries = $prefix.md5("s2member_ip_restrictions_".(string)$restriction."_entries");
             $transient_security_breach = $prefix.md5("s2member_ip_restrictions_".(string)$restriction."_security_breach");
 
-            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '%".esc_sql(like_escape($transient_entries))."'");
-            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '%".esc_sql(like_escape($transient_security_breach))."'");
+            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '%".esc_sql(c_ws_plugin__s2member_utils_strings::like_escape($transient_entries))."'");
+            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '%".esc_sql(c_ws_plugin__s2member_utils_strings::like_escape($transient_security_breach))."'");
 
             do_action("ws_plugin__s2member_after_delete_reset_specific_ip_restrictions", get_defined_vars());
 
@@ -260,8 +260,8 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
 
             do_action("ws_plugin__s2member_before_delete_reset_all_ip_restrictions", get_defined_vars());
 
-            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '".esc_sql(like_escape("_transient_s2m_ipr_"))."%'");
-            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '".esc_sql(like_escape("_transient_timeout_s2m_ipr_"))."%'");
+            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '".esc_sql(c_ws_plugin__s2member_utils_strings::like_escape("_transient_s2m_ipr_"))."%'");
+            $wpdb->query("DELETE FROM `".$wpdb->options."` WHERE `option_name` LIKE '".esc_sql(c_ws_plugin__s2member_utils_strings::like_escape("_transient_timeout_s2m_ipr_"))."%'");
 
             do_action("ws_plugin__s2member_after_delete_reset_all_ip_restrictions", get_defined_vars());
 
@@ -298,4 +298,3 @@ if(!class_exists("c_ws_plugin__s2member_ip_restrictions"))
         }
     }
 }
-?>

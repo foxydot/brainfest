@@ -36,7 +36,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 				* @attaches-to ``add_action("edit_user_profile");``
 				* @attaches-to ``add_action("show_user_profile");``
 				*
-				* @param obj $user Expects a `WP_User` object passed in by the Action Hook.
+				* @param object $user Expects a `WP_User` object passed in by the Action Hook.
 				* @return null
 				*/
 				public static function users_list_edit_cols($user = FALSE)
@@ -45,7 +45,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 						foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 						do_action("ws_plugin__s2member_before_users_list_edit_cols", get_defined_vars());
-						unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+						unset($__refs, $__v);
 
 						$current_user = (is_user_logged_in()) ? wp_get_current_user() : false; // Current User.
 
@@ -64,14 +64,14 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										if(is_multisite() && is_super_admin()) // MUST be a Super Admin.
 											// On a Multisite Network, the Super Administrator can ALWAYS edit this.
 											{
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_before_originating_blog", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												echo '<tr>'."\n";
 												echo '<th><label for="ws-plugin--s2member-profile-s2member-originating-blog">Originating Blog ID#:</label> <a href="#" onclick="alert(\'On a Multisite Network, this is how s2Member keeps track of which Blog each User/Member originated from. So this ID#, is automatically associated with a Blog in your Network, matching the User\\\'s point of origin. ~ ONLY a Super Admin can modify this.\\n\\nOn a Multisite Blog Farm, the Originating Blog ID# for your own Customers, will ALWAYS be associated with your (Main Site). It is NOT likely that you\\\'ll need to modify this manually, but s2Member makes it available; just in case.\\n\\n*Tip* - If you add Users (and/or Blogs) with the `Super Admin` Network Administration panel inside WordPress, then you WILL need to set everything manually. s2Member does NOT tamper with automation routines whenever YOU (as a Super Administrator) are working in that area.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -80,15 +80,15 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_after_originating_blog", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 											}
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_subscr_gateway", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
-										echo '<th><label for="ws-plugin--s2member-profile-s2member-subscr-gateway">Paid Subscr. Gateway:</label> <a href="#" onclick="alert(\'A Payment Gateway code is associated with the Paid Subscr. ID below. A Paid Subscription ID (or a Buy Now Transaction ID) is only valid for paid Members. Also known as (a Recurring Profile ID, a ClickBank Receipt #, a Google Order ID, an AliPay Trade No.). This will be filled automatically by s2Member.\\n\\nThis field will be empty for Free Subscribers, and/or anyone who is NOT paying you. This field is only editable for Customer Service purposes; just in case you ever need to update the Paid Subscr. Gateway/ID manually.\\n\\nThe value of Paid Subscr. ID, can be a PayPal Standard `Subscription ID`, or a PayPal Pro `Recurring Profile ID`, or a PayPal `Transaction ID`; depending on the type of sale. Your PayPal account will supply this information. If you\\\'re using Google Wallet, use the Google Order ID. ClickBank provides a Receipt #, ccBill provides a Subscription ID, Authorize.Net provides a Subscription ID, and AliPay provides a Transaction ID. The general rule is... IF there\\\'s a Subscription ID, use that! If there\\\'s NOT, use the Transaction ID.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
+										echo '<th><label for="ws-plugin--s2member-profile-s2member-subscr-gateway">Paid Subscr. Gateway:</label> <a href="#" onclick="alert(\'A Payment Gateway Code is associated with the Paid Subscr. ID below. A Paid Subscription ID (or a Buy Now Transaction ID) is only valid for paid Members. Also known as a Recurring Profile ID, a ClickBank Receipt #, a Google Order ID, an AliPay Trade No.\\n\\nThis will be filled automatically by s2Member. This field will be empty for Free Subscribers, and/or anyone who is NOT paying you. This field is only editable for Customer Service purposes; just in case you ever need to update the Paid Subscr. Gateway/ID manually.\\n\\nThe value of Paid Subscr. ID can be a PayPal Standard Subscription ID, or a PayPal Pro Recurring Profile ID, or a PayPal Transaction ID; depending on the type of sale. Your PayPal account will supply this information.\\n\\nIf you are using Stripe, please use the customer\\\'s Subscription ID (if applicable); else a Charge ID or an Invoice ID.\\n\\nIf you\\\'re using Google Wallet, use the Google Order ID. ClickBank provides a Receipt #, ccBill provides a Subscription ID, Authorize.Net provides a Subscription ID, and AliPay provides a Transaction ID.\\n\\nThe general rule is... IF there\\\'s a Subscription ID, use that! If there\\\'s NOT, use the Transaction ID.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
 										echo '<td><select name="ws_plugin__s2member_profile_s2member_subscr_gateway" id="ws-plugin--s2member-profile-s2member-subscr-gateway" style="width:25em;"><option value=""></option>'."\n";
 										foreach(apply_filters("ws_plugin__s2member_profile_s2member_subscr_gateways", array("paypal" => "PayPal (code: paypal)"), get_defined_vars()) as $gateway => $gateway_name)
 											echo '<option value="'.esc_attr($gateway).'"'.(($gateway === get_user_option("s2member_subscr_gateway", $user_id)) ? ' selected="selected"' : '').'>'.esc_html($gateway_name).'</option>'."\n";
@@ -98,24 +98,40 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_subscr_gateway", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_subscr_id", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
-										echo '<th><label for="ws-plugin--s2member-profile-s2member-subscr-id">Paid Subscr. ID:</label> <a href="#" onclick="alert(\'A Paid Subscription ID (or a Buy Now Transaction ID) is only valid for paid Members. Also known as (a Recurring Profile ID, a ClickBank Receipt #, a Google Order ID, an AliPay Trade No.). This will be filled automatically by s2Member.\\n\\nThis field will be empty for Free Subscribers, and/or anyone who is NOT paying you. This field is only editable for Customer Service purposes; just in case you ever need to update the Paid Subscr. Gateway/ID manually.\\n\\nThe value of Paid Subscr. ID, can be a PayPal Standard `Subscription ID`, or a PayPal Pro `Recurring Profile ID`, or a PayPal `Transaction ID`; depending on the type of sale. Your PayPal account will supply this information. If you\\\'re using Google Wallet, use the Google Order ID. ClickBank provides a Receipt #, ccBill provides a Subscription ID, Authorize.Net provides a Subscription ID, and AliPay provides a Transaction ID. The general rule is... IF there\\\'s a Subscription ID, use that! If there\\\'s NOT, use the Transaction ID.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
+										echo '<th><label for="ws-plugin--s2member-profile-s2member-subscr-id">Paid Subscr. ID:</label> <a href="#" onclick="alert(\'A Paid Subscription ID (or a Buy Now Transaction ID) is only valid for paid Members. Also known as a Recurring Profile ID, a ClickBank Receipt #, a Google Order ID, an AliPay Trade No.\\n\\nThis will be filled automatically by s2Member. This field will be empty for Free Subscribers, and/or anyone who is NOT paying you. This field is only editable for Customer Service purposes; just in case you ever need to update the Paid Subscr. Gateway/ID manually.\\n\\nThe value of Paid Subscr. ID can be a PayPal Standard Subscription ID, or a PayPal Pro Recurring Profile ID, or a PayPal Transaction ID; depending on the type of sale. Your PayPal account will supply this information.\\n\\nIf you are using Stripe, please use the customer\\\'s Subscription ID (if applicable); else a Charge ID or an Invoice ID.\\n\\nIf you\\\'re using Google Wallet, use the Google Order ID. ClickBank provides a Receipt #, ccBill provides a Subscription ID, Authorize.Net provides a Subscription ID, and AliPay provides a Transaction ID.\\n\\nThe general rule is... IF there\\\'s a Subscription ID, use that! If there\\\'s NOT, use the Transaction ID.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
 										echo '<td><input type="text" autocomplete="off" name="ws_plugin__s2member_profile_s2member_subscr_id" id="ws-plugin--s2member-profile-s2member-subscr-id" value="'.format_to_edit(get_user_option("s2member_subscr_id", $user_id)).'" class="regular-text" /></td>'."\n";
 										echo '</tr>'."\n";
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_subscr_id", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
+										if(c_ws_plugin__s2member_utils_conds::pro_is_installed())
+											if(in_array('stripe', $GLOBALS['WS_PLUGIN__']['s2member']['o']['pro_gateways_enabled']))
+											{
+												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
+												do_action("ws_plugin__s2member_during_users_list_edit_cols_before_subscr_cid", get_defined_vars());
+												unset($__refs, $__v);
+
+												echo '<tr>'."\n";
+												echo '<th><label for="ws-plugin--s2member-profile-s2member-subscr-cid">Paid Subscr. CID:</label> <a href="#" onclick="alert(\'A Paid Subscription CID; i.e. a Customer\\\'s ID. Applicable only with Stripe integration. s2Member fills this in automatically. This is the Customer\\\'s ID in Stripe, which remains constant throughout any & all future payments. Each Stripe Customer has this Customer ID; and also a Subscription and/or Transaction ID.\\n\\nIn all other cases, the Paid Subscr. CID is simply set to the Paid Subscr. ID value; i.e. it is a duplicate of Paid Subscr. ID when running anything other than Stripe.\\n\\nThis field will be empty for Free Subscribers, and/or anyone who is NOT paying you. This field is only editable for Customer Service purposes; just in case you ever need to update the Paid Subscr. Gateway/ID/CID manually.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
+												echo '<td><input type="text" autocomplete="off" name="ws_plugin__s2member_profile_s2member_subscr_cid" id="ws-plugin--s2member-profile-s2member-subscr-cid" value="'.format_to_edit(get_user_option("s2member_subscr_cid", $user_id)).'" class="regular-text" /></td>'."\n";
+												echo '</tr>'."\n";
+
+												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
+												do_action("ws_plugin__s2member_during_users_list_edit_cols_after_subscr_cid", get_defined_vars());
+												unset($__refs, $__v);
+											}
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_custom", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
 										echo '<th><label for="ws-plugin--s2member-profile-s2member-custom">Custom Value:</label> <a href="#" onclick="alert(\'A Paid Subscription is always associated with a Custom String that is passed through the custom=\\\'\\\''.c_ws_plugin__s2member_utils_strings::esc_js_sq(esc_attr($_SERVER["HTTP_HOST"]), 3).'\\\'\\\' attribute of your Shortcode. This Custom Value, MUST always start with your domain name. However, you can also pipe delimit additional values after your domain, if you need to.\\n\\nFor example:\n'.c_ws_plugin__s2member_utils_strings::esc_js_sq(esc_attr($_SERVER["HTTP_HOST"]), 3).'|cv1|cv2|cv3\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -124,11 +140,11 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_custom", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_registration_ip", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
 										echo '<th><label for="ws-plugin--s2member-profile-s2member-registration-ip">Registration IP:</label> <a href="#" onclick="alert(\'This is the IP Address the User had at the time of registration. If you don\\\'t know the User\\\'s IP Address, just leave this blank. If this is left empty, s2Member will make attempts in the future to grab the User\\\'s IP Address.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -137,7 +153,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_registration_ip", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										if(!is_multisite() || !c_ws_plugin__s2member_utils_conds::is_multisite_farm() || is_main_site())
 											// ^ Will change once Custom Capabilities are compatible with a Blog Farm.
@@ -148,7 +164,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_before_ccaps", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												echo '<tr>'."\n";
 												echo '<th><label for="ws-plugin--s2member-profile-s2member-ccaps">Custom Capabilities:</label> <a href="#" onclick="alert(\'Optional. This is VERY advanced.\\nSee: s2Member -› API Scripting -› Custom Capabilities.'.((is_multisite()) ? '\\n\\nCustom Capabilities are assigned on a per-Blog basis. So having a set of Custom Capabilities for one Blog, and having NO Custom Capabilities on another Blog - is very common. This is how permissions are designed to work.' : '').'\'); return false;" tabindex="-1">[?]</a>'.((is_multisite()) ? '<br /><small>(for this Blog)</small>' : '').'</th>'."\n";
@@ -157,14 +173,14 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_after_ccaps", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 											}
 
 										if(!$user->has_cap("administrator")) // Do NOT present these details for Administrator accounts.
 											{
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_before_auto_eot_time", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												echo '<tr>'."\n";
 												$auto_eot_time = get_user_option("s2member_auto_eot_time", $user_id);
@@ -175,13 +191,13 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_after_auto_eot_time", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												if(c_ws_plugin__s2member_utils_conds::pro_is_installed())
 													{
 														foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 														do_action("ws_plugin__s2member_during_users_list_edit_cols_before_reset_pass_resend", get_defined_vars());
-														unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+														unset($__refs, $__v);
 
 														echo '<tr>'."\n";
 														echo '<th><label for="ws-plugin--s2member-profile-reset-pass-resend">Reset Password &amp; Resend Welcome Email Message:</label> <a href="#" onclick="alert(\'Checking this box will tell s2Member to reset this User\\\'s password and then reprocess the New User Email Notification message against this User\\\'s account. This way they\\\'ll get an email message with their Username/Password.\\n\\nThis can be helpful in cases where a User/Member missed the original email message for some reason.\\n\\nThe User\\\'s password is reset to a new auto-generated password by default. However, you can provide a custom password by entering a new password of your choosing in the field above — provided by WordPress itself.\\n\\nIt is also possible to customize the New User Email Notification message with s2Member. Please see: `Dashboard -› s2Member -› General Options -› Email Configuration -› New User Notifications`.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -190,7 +206,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 														foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 														do_action("ws_plugin__s2member_during_users_list_edit_cols_after_reset_pass_resend", get_defined_vars());
-														unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+														unset($__refs, $__v);
 													}
 											}
 
@@ -198,7 +214,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 											{
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_before_opt_in", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												echo '<tr>'."\n";
 												echo '<th><label for="ws-plugin--s2member-profile-opt-in">Re-process List Servers:</label> <a href="#" onclick="alert(\'You have at least one List Server integrated with s2Member. Would you like to re-process a confirmation request for this User? If not, just leave the box un-checked.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -207,7 +223,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_edit_cols_after_opt_in", get_defined_vars());
-												unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+												unset($__refs, $__v);
 
 												if($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["custom_reg_auto_opt_out_transitions"])
 													if(($custom_reg_auto_op_outs = c_ws_plugin__s2member_utils_strings::wrap_deep($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["custom_reg_auto_opt_outs"], "/^", "$/i")))
@@ -215,7 +231,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 															{
 																foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 																do_action("ws_plugin__s2member_during_users_list_edit_cols_before_auto_opt_out_transitions", get_defined_vars());
-																unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+																unset($__refs, $__v);
 
 																echo '<tr>'."\n";
 																echo '<th><label for="ws-plugin--s2member-custom-reg-auto-opt-out-transitions">Allow List Transitioning:</label> <a href="#" onclick="alert(\'You\\\'ve configured s2Member with List Transitions enabled. By leaving this box checked, s2Member will Transition the User\\\'s mailing list subscription(s) automatically. For example, if a Member is demoted from Level #2, down to Level #1; s2Member will add them to the Level #1 List(s) after it removes them from the Level #2 List(s).\\n\\nDepending on your configuration of s2Member, a transition may ONLY occur if s2Member IS able to successfully remove them from an existing List. In other words, if they are currently NOT subscribed to any List(s), s2Member may NOT transition them to any new Lists (depending on your configuration).\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -224,13 +240,13 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 																foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 																do_action("ws_plugin__s2member_during_users_list_edit_cols_after_auto_opt_out_transitions", get_defined_vars());
-																unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+																unset($__refs, $__v);
 															}
 											}
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_ip_restrictions", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
 										echo '<th><label for="ws-plugin--s2member-profile-ip-restrictions">Reset IP Restrictions:</label> <a href="#" onclick="alert(\'A single Username is only valid for a certain number of unique IP addresses (as configured in your s2Member -› General Options). Once that limit is reached, s2Member assumes there has been a security breach. At that time, s2Member will place a temporary ban (preventing access).\\n\\nIf you have spoken to a legitimate Customer that is receiving an error upon logging in (ex: 503 / too many IP addresses), you can remove this temporary ban by checking the box below. If the abusive behavior continues, s2Member will automatically re-instate IP Restrictions in the future. If you would like to gain further control over IP Restrictions, please check your General Options panel for s2Member.\'); return false;" tabindex="-1">[?]</a></th>'."\n";
@@ -239,7 +255,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_ip_restrictions", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										if($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["custom_reg_fields"]) // Only if configured.
 											if($fields_applicable = c_ws_plugin__s2member_custom_reg_fields::custom_fields_configured_at_level($level, "administrative"))
@@ -254,13 +270,13 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_before_custom_fields", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													foreach(json_decode($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["custom_reg_fields"], true) as $field)
 														{
 															foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 															do_action("ws_plugin__s2member_during_users_list_edit_cols_during_custom_fields_before", get_defined_vars());
-															unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+															unset($__refs, $__v);
 
 															if(in_array($field["id"], $fields_applicable)) // Field applicable?
 																{
@@ -278,17 +294,17 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 																			echo '<td>'.c_ws_plugin__s2member_custom_reg_fields::custom_field_gen(__FUNCTION__, $field, "ws_plugin__s2member_profile_", "ws-plugin--s2member-profile-", "", ((preg_match("/^(text|textarea|select|selects)$/", $field["type"])) ? "width:99%;" : ""), "", "", $fields, $fields[$field_var], "administrative").'</td>'."\n";
 																			echo '</tr>'."\n";
 																		}
-																	unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+																	unset($__refs, $__v);
 																}
 
 															foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 															do_action("ws_plugin__s2member_during_users_list_edit_cols_during_custom_fields_after", get_defined_vars());
-															unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+															unset($__refs, $__v);
 														}
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_after_custom_fields", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													echo '<tr>'."\n";
 													echo '<td colspan="2">'."\n";
@@ -299,7 +315,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_before_notes", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '<tr>'."\n";
 										echo '<th><label for="ws-plugin--s2member-profile-s2member-notes">Administrative Notes:</label> <a href="#" onclick="alert(\'This is for Administrative purposes. You can keep a list of Notations about this account. These Notations are private; Users/Members will never see these.\\n\\n*Note* The s2Member software may `append` Notes to this field occasionally, under special circumstances. For example, when/if s2Member demotes a paid Member to a Free Subscriber, s2Member will leave a Note in this field.\'); return false;" tabindex="-1">[?]</a><br /><br /><small>These Notations are private; Users/Members will never see any of these notes.</small></th>'."\n";
@@ -308,11 +324,11 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after_notes", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 										do_action("ws_plugin__s2member_during_users_list_edit_cols_after", get_defined_vars());
-										unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+										unset($__refs, $__v);
 
 										echo '</table>'."\n";
 
@@ -332,19 +348,19 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_before", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													$fields = get_user_option("s2member_custom_fields", $user_id); // Existing fields.
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_before_custom_fields", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													foreach(json_decode($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["custom_reg_fields"], true) as $field)
 														{
 															foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 															do_action("ws_plugin__s2member_during_users_list_edit_cols_during_custom_fields_before", get_defined_vars());
-															unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+															unset($__refs, $__v);
 
 															if(in_array($field["id"], $fields_applicable)) // Field applicable?
 																{
@@ -362,21 +378,21 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 																			echo '<td>'.c_ws_plugin__s2member_custom_reg_fields::custom_field_gen(__FUNCTION__, $field, "ws_plugin__s2member_profile_", "ws-plugin--s2member-profile-", "", ((preg_match("/^(text|textarea|select|selects)$/", $field["type"])) ? "width:99%;" : ""), "", "", $fields, $fields[$field_var], "profile").'</td>'."\n";
 																			echo '</tr>'."\n";
 																		}
-																	unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+																	unset($__refs, $__v);
 																}
 
 															foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 															do_action("ws_plugin__s2member_during_users_list_edit_cols_during_custom_fields_after", get_defined_vars());
-															unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+															unset($__refs, $__v);
 														}
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_after_custom_fields", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 													do_action("ws_plugin__s2member_during_users_list_edit_cols_after", get_defined_vars());
-													unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+													unset($__refs, $__v);
 
 													echo '</table>'."\n";
 
@@ -387,7 +403,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 						foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 						do_action("ws_plugin__s2member_after_users_list_edit_cols", get_defined_vars());
-						unset /* Unset defined __refs, __v. */ ($__refs, $__v);
+						unset($__refs, $__v);
 
 						return /* Return for uniformity. */;
 					}
@@ -400,7 +416,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 				* @attaches-to ``add_action("edit_user_profile_update");``
 				* @attaches-to ``add_action("personal_options_update");``
 				*
-				* @param int|str $user_id Expects a numeric WordPress User ID passed in by the Action Hook.
+				* @param int|string $user_id Expects a numeric WordPress User ID passed in by the Action Hook.
 				* @return null
 				*/
 				public static function users_list_update_cols($user_id = FALSE)
@@ -409,7 +425,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 						foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 						do_action("ws_plugin__s2member_before_users_list_update_cols", get_defined_vars());
-						unset /* Unset defined __refs, __v. */($__refs, $__v);
+						unset($__refs, $__v);
 
 						$user = /* We need both of these objects. $user and $current_user. */ new WP_User($user_id);
 						$current_user = /* Current User. */ (is_user_logged_in()) ? wp_get_current_user() : false;
@@ -506,7 +522,7 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_update_cols", get_defined_vars());
-												unset /* Unset defined __refs, __v. */($__refs, $__v);
+												unset($__refs, $__v);
 											}
 									}
 								else if /* Otherwise, a User can always edit their own Profile. */($current_user->ID === $user->ID)
@@ -554,13 +570,13 @@ if(!class_exists("c_ws_plugin__s2member_users_list_in"))
 														}
 												foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 												do_action("ws_plugin__s2member_during_users_list_update_cols", get_defined_vars());
-												unset /* Unset defined __refs, __v. */($__refs, $__v);
+												unset($__refs, $__v);
 											}
 									}
 							}
 						foreach(array_keys(get_defined_vars())as$__v)$__refs[$__v]=&$$__v;
 						do_action("ws_plugin__s2member_after_users_list_update_cols", get_defined_vars());
-						unset /* Unset defined __refs, __v. */($__refs, $__v);
+						unset($__refs, $__v);
 
 						return /* Return for uniformity. */;
 					}

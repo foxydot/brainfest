@@ -15,8 +15,14 @@
 * @package WebSharks\Menu Pages
 * @since x.xx
 */
-@import url('//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css');
-
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+/*
+Alter WordPress wrap on s2Member menu pages.
+*/
+body[class*='s2member'] #wpwrap
+{
+	background : #C7C7C7;
+}
 /*
 Align these with menu page.
 */
@@ -25,7 +31,6 @@ div.updated, div.error
 	font-size : 120%;
 	margin    : 25px 25px 25px 5px;
 }
-
 /*
 These CSS selectors address common layout styles.
 */
@@ -37,9 +42,14 @@ div.ws-menu-page
 	margin        : 25px 25px 25px 5px;
 
 	border-radius : 5px;
-	background    : #ECECEC;
-	border        : 1px solid #A4A4A4;
-	box-shadow    : 0 0 2px 0 rgba(0, 0, 0, 0.2) !important;
+	border        : 1px solid #333333;
+	box-shadow    : 0 0 8px 0 rgba(0, 0, 0, 0.2) !important;
+	background    : #FFFFFF url('<?php echo $i; ?>/trans-bg.png') repeat left top;
+}
+div.ws-menu-page p,
+div.ws-menu-page code
+{
+	font-size : inherit;
 }
 div.ws-menu-page a
 {
@@ -114,7 +124,10 @@ div.ws-menu-page > h2:after
 }
 div.ws-menu-page code
 {
-	font-family : 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
+	border-radius : 3px;
+	padding       : 1px 5px 1px 5px;
+	background    : rgba(255, 255, 255, 0.25);
+	font-family   : 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 div.ws-menu-page pre.code
 {
@@ -153,33 +166,45 @@ div.ws-menu-page img
 {
 	border : 0;
 }
-div.ws-menu-page img.screenshot
+div.ws-menu-page img.ws-menu-page-bordered
 {
-	float         : right;
-	margin        : 0 0 15px 25px;
-
-	border-radius : 5px;
-	border        : 1px solid #AFAFAF;
-
-	box-shadow    : 0 0 5px 0 rgba(0, 0, 0, 0.2) inset, 0 0 1px 0 rgba(72, 155, 88, 0.2);
-	background    : #FFFFFF;
+	border-radius : 4px;
 	padding       : 10px;
+	background    : #FFFFFF;
+	border        : 1px solid #AFAFAF;
+	box-shadow    : 0 0 2px 1px #D8D8D8 inset, 0 0 1px 1px rgba(223, 245, 165, 0.5);
 }
 div.ws-menu-page .ws-menu-page-right
 {
-	float       : right;
 	margin-left : 25px;
+	float       : right;
 }
 div.ws-menu-page .ws-menu-page-left
 {
-	float        : left;
 	margin-right : 25px;
+	float        : left;
 }
 div.ws-menu-page .ws-menu-page-center
 {
 	margin-left  : auto;
 	margin-right : auto;
 	display      : block;
+}
+div.ws-menu-page ul.ws-menu-page-li-margins > li,
+div.ws-menu-page ol.ws-menu-page-li-margins > li
+{
+	margin-top    : 8px;
+	margin-bottom : 8px;
+}
+div.ws-menu-page ul.ws-menu-page-li-margins > li:first-child,
+div.ws-menu-page ol.ws-menu-page-li-margins > li:first-child
+{
+	margin-top : 0;
+}
+div.ws-menu-page ul.ws-menu-page-li-margins > li:last-child,
+div.ws-menu-page ol.ws-menu-page-li-margins > li:last-child
+{
+	margin-bottom : 0;
 }
 div.ws-menu-page div.ws-menu-page-hr
 {
@@ -198,7 +223,15 @@ div.ws-menu-page .ws-menu-page-hilite
 	background    : #DFF0DF;
 
 	border-radius : 3px;
-	padding       : 0.2em;
+	padding       : 0 0.2em;
+}
+div.ws-menu-page .ws-menu-page-bright-hilite
+{
+	font-size     : 102%;
+	background    : #EBF084;
+
+	border-radius : 3px;
+	padding       : 0 0.2em;
 }
 div.ws-menu-page .ws-menu-page-error-hilite
 {
@@ -206,7 +239,7 @@ div.ws-menu-page .ws-menu-page-error-hilite
 	background    : #962722;
 
 	border-radius : 3px;
-	padding       : 0.2em;
+	padding       : 0 0.2em;
 }
 div.ws-menu-page img.ws-menu-page-img-16
 {
@@ -227,28 +260,79 @@ div.ws-menu-page .form-table td
 	font-size   : inherit;
 	line-height : inherit;
 }
-div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']),
-div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus,
 div.ws-menu-page select, div.ws-menu-page select:focus,
+div.ws-menu-page textarea, div.ws-menu-page textarea:focus,
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']),
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus
+{
+	margin      : 0;
+	width       : 100%;
+	height      : 2em;
+
+	font-size   : 1em;
+	line-height : 1em;
+	font-weight : normal;
+
+	box-sizing  : border-box;
+}
+div.ws-menu-page textarea, div.ws-menu-page textarea:focus,
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']),
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus
+{
+	font-size   : 1em; /* Font size again, for CodeMirror too. */
+	font-family : 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+}
 div.ws-menu-page textarea, div.ws-menu-page textarea:focus
 {
-	width       : 100%;
-	height      : auto;
-
-	margin      : 0;
-	padding     : 5px;
-	line-height : 1em;
-	box-sizing  : border-box;
-	border      : 1px solid rgba(13, 31, 47, 0.5);
-
-	color       : #FFFFFF;
-	background  : #73834B;
-	box-shadow  : 0 0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 0 1px 1px rgba(223, 245, 165, 0.5);
+	height      : auto; /* Textareas auto. */
+	white-space : pre; /* Preserve whitespace. */
 }
-div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus,
-div.ws-menu-page select:focus, div.ws-menu-page textarea:focus
+div.ws-menu-page select, div.ws-menu-page select:focus,
+div.ws-menu-page textarea, div.ws-menu-page textarea:focus,
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']),
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus
+{
+	border        : 0;
+	padding       : 5px;
+	border-radius : 4px;
+	box-shadow    : 0 0 1px 1px rgba(37, 47, 26, 0.75) inset, 0 0 1px 1px rgba(223, 245, 165, 0.5);
+}
+div.ws-menu-page select,
+div.ws-menu-page textarea,
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox'])
+{
+	color      : #F7F7F7;
+	background : #73834B;
+}
+div.ws-menu-page select:focus,
+div.ws-menu-page textarea:focus,
+div.ws-menu-page input:not([type='image']):not([type='button']):not([type='submit']):not([type='radio']):not([type='checkbox']):focus
 {
 	background : #637041;
+}
+div.ws-menu-page input::-webkit-input-placeholder
+{
+	padding-top : 3px;
+	font-style  : italic;
+	color       : rgba(255, 255, 255, 0.2);
+}
+div.ws-menu-page input::-moz-placeholder
+{
+	padding-top : 3px;
+	font-style  : italic;
+	color       : rgba(255, 255, 255, 0.2);
+}
+div.ws-menu-page input:-moz-placeholder
+{
+	padding-top : 3px;
+	font-style  : italic;
+	color       : rgba(255, 255, 255, 0.2);
+}
+div.ws-menu-page input:-ms-input-placeholder
+{
+	padding-top : 3px;
+	font-style  : italic;
+	color       : rgba(255, 255, 255, 0.2);
 }
 div.ws-menu-page input[disabled],
 div.ws-menu-page select[disabled],
@@ -267,7 +351,7 @@ div.ws-menu-page input[type='submit']
 
 	border-radius       : 4px;
 	border              : 1px solid rgba(0, 0, 0, 0.5);
-	box-shadow          : 0 1px 1px 0 rgba(0, 0, 0, 0.25), -1px -1px 0 1px rgba(0, 0, 0, 0.2) inset, 1px 1px 0 1px rgba(255, 255, 255, 0.1) inset;
+	box-shadow          : 0 1px 1px 0 rgba(0, 0, 0, 0.25), -1px -1px 0 0 rgba(0, 0, 0, 0.2) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.1) inset;
 
 	margin              : 0;
 	box-sizing          : border-box;
@@ -323,30 +407,30 @@ div.ws-menu-page .notice,
 div.ws-menu-page .warning,
 div.ws-menu-page .error
 {
+	border-radius : 5px;
 	font-size     : 120%;
 	padding       : 10px;
 	margin        : 0 0 25px 0;
-	border-radius : 5px;
 }
 div.ws-menu-page .info
 {
-	border     : 1px solid #35558A;
 	background : #C9E0FA;
+	border     : 1px solid #35558A;
 }
 div.ws-menu-page .notice
 {
-	border     : 1px solid #E6DB55;
 	background : #FFFBCC;
+	border     : 1px solid #E6DB55;
 }
 div.ws-menu-page .warning
 {
-	border     : 1px solid #D29A04;
 	background : #FADDAB;
+	border     : 1px solid #D29A04;
 }
 div.ws-menu-page .error
 {
-	border     : 1px solid #711E1E;
 	background : #FABBC6;
+	border     : 1px solid #711E1E;
 }
 div.ws-menu-page .monospace
 {
@@ -366,7 +450,6 @@ div.ws-menu-page .clearfix:after
 {
 	clear : both;
 }
-
 /*
 Tools and togglers.
 */
@@ -386,7 +469,7 @@ div.ws-menu-page div.ws-menu-page-groups-hide
 
 	border-radius       : 4px;
 	border              : 1px solid rgba(0, 0, 0, 0.5);
-	box-shadow          : 0 1px 1px 0 rgba(0, 0, 0, 0.25), -1px -1px 0 1px rgba(0, 0, 0, 0.2) inset, 1px 1px 0 1px rgba(255, 255, 255, 0.1) inset;
+	box-shadow          : 0 1px 1px 0 rgba(0, 0, 0, 0.25), -1px -1px 0 0 rgba(0, 0, 0, 0.2) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.1) inset;
 
 	margin              : 0;
 	box-sizing          : border-box;
@@ -432,7 +515,6 @@ div.ws-menu-page div.ws-menu-page-toolbox > .links a
 	margin          : 0 10px 0 10px;
 	text-decoration : none;
 }
-
 /*
 Specifically for the main layout table.
 These CSS selectors address common layout styles.
@@ -448,11 +530,8 @@ table.ws-menu-page-table .info,
 table.ws-menu-page-table .warning,
 table.ws-menu-page-table .error
 {
-	font-size  : 100%;
-	font-style : italic;
-
-	padding    : 5px;
-	margin     : 1em 0 1em 0;
+	font-size : inherit;
+	margin    : 1em 0 1em 0;
 }
 table.ws-menu-page-table ul,
 table.ws-menu-page-table ol
@@ -501,8 +580,8 @@ table.ws-menu-page-table td.ws-menu-page-table-r > .toggler
 	top                 : 0;
 	right               : 0;
 
-	background          : #8EA7BD;
-	box-shadow          : 0 0 0 2px #FFFFFF;
+	background          : #0E4152 url('<?php echo $i; ?>/trans-bg.png') repeat left top;
+	box-shadow          : 0 0 0 1px #FFFFFF;
 	border-radius       : 3px;
 
 	cursor              : pointer;
@@ -512,7 +591,7 @@ table.ws-menu-page-table td.ws-menu-page-table-r > .toggler
 }
 table.ws-menu-page-table td.ws-menu-page-table-r > .toggler:hover
 {
-	background : #74808B;
+	background-color : #0D1F2F;
 }
 table.ws-menu-page-table td.ws-menu-page-table-r > .wrapper
 {
@@ -528,8 +607,8 @@ table.ws-menu-page-table td.ws-menu-page-table-r > .wrapper
 	left          : 25px;
 
 	border-radius : 5px;
-	background    : #B2BFCA;
-	border        : 1px solid #656F79;
+	background    : #D3D3D3 url('<?php echo $i; ?>/trans-bg.png') repeat left top;
+	box-shadow    : 0 0 1px 1px rgba(0, 0, 0, 0.25) inset;
 
 	display       : none;
 }
@@ -560,7 +639,7 @@ td.ws-menu-page-table-r div.ws-menu-page-others img
 }
 table.ws-menu-page-table img.ws-menu-page-brand-icon
 {
-	border         : 0px;
+	border         : 0;
 	float          : right;
 	width          : 128px;
 	height         : 128px;
@@ -569,7 +648,7 @@ table.ws-menu-page-table img.ws-menu-page-brand-icon
 }
 table.ws-menu-page-table img.ws-menu-page-brand-updates
 {
-	border         : 0px;
+	border         : 0;
 	float          : right;
 	width          : 155px;
 	height         : 40px;
@@ -642,6 +721,10 @@ table.ws-menu-page-table div.ws-menu-page-r-group-header.open:after
 table.ws-menu-page-table div.ws-menu-page-group,
 table.ws-menu-page-table div.ws-menu-page-r-group
 {
+	width                      : 99%;
+	margin                     : 0 auto 0 auto;
+	box-sizing                 : border-box;
+
 	z-index                    : 0;
 	position                   : relative;
 	display                    : none;
@@ -738,7 +821,6 @@ table.ws-menu-page-table div.ws-menu-page-group table.form-table > tbody > tr > 
 	background    : #73834B;
 	box-shadow    : 0 0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 0 1px 1px rgba(223, 245, 165, 0.5);
 }
-
 /*
 Specifically for info pages with readme files.
 These CSS selectors address common layout styles.
@@ -776,7 +858,6 @@ div.ws-menu-page-readme > div.readme > div.section > div.content ol > li
 	list-style    : decimal outside;
 	margin-bottom : 0;
 }
-
 /*
 Specifically for the right sidebar panel.
 - Specifically for the updates box.
@@ -811,20 +892,9 @@ div.ws-menu-page-updates div#creditfooter
 }
 div.ws-menu-page-updates div#ws-updates-div-fname,
 div.ws-menu-page-updates div#ws-updates-div-lname,
-div.ws-menu-page-updates div#ws-updates-div-email,
-div.ws-menu-page-updates div#ws-updates-div-subs,
-div.ws-menu-page-updates div#ws-updates-div-priv
+div.ws-menu-page-updates div#ws-updates-div-email
 {
 	margin : 0 0 10px 0;
-}
-div.ws-menu-page-updates div#ws-updates-div-subs
-{
-	margin : 15px 0 0 0;
-}
-div.ws-menu-page-updates div#ws-updates-div-priv
-{
-	font-size : 80%;
-	margin    : 0 0 5px 0;
 }
 div.ws-menu-page-updates input[type = "text"],
 div.ws-menu-page-updates input[type = "password"],

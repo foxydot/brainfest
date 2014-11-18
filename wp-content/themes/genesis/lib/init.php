@@ -65,7 +65,7 @@ function genesis_theme_support() {
 
 	//* Turn on HTML5, responsive viewport & footer widgets if Genesis is active
 	if ( ! is_child_theme() ) {
-		add_theme_support( 'html5' );
+		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption'  ) );
 		add_theme_support( 'genesis-responsive-viewport' );
 		add_theme_support( 'genesis-footer-widgets', 3 );
 	}
@@ -80,7 +80,7 @@ add_action( 'genesis_init', 'genesis_post_type_support' );
  */
 function genesis_post_type_support() {
 
-	add_post_type_support( 'post', array( 'genesis-seo', 'genesis-scripts', 'genesis-layouts' ) );
+	add_post_type_support( 'post', array( 'genesis-seo', 'genesis-scripts', 'genesis-layouts', 'genesis-rel-author' ) );
 	add_post_type_support( 'page', array( 'genesis-seo', 'genesis-scripts', 'genesis-layouts' ) );
 
 }
@@ -95,10 +95,10 @@ function genesis_constants() {
 
 	//* Define Theme Info Constants
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '2.0.1' );
-	define( 'PARENT_THEME_BRANCH', '2.0' );
-	define( 'PARENT_DB_VERSION', '2007' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1377061200' ) );
+	define( 'PARENT_THEME_VERSION', '2.1.2' );
+	define( 'PARENT_THEME_BRANCH', '2.1' );
+	define( 'PARENT_DB_VERSION', '2104' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1405418400' ) );
 #	define( 'PARENT_THEME_RELEASE_DATE', 'TBD' );
 
 	//* Define Directory Location Constants
@@ -152,6 +152,8 @@ add_action( 'genesis_init', 'genesis_load_framework' );
  * files are loaded.
  *
  * @since 1.6.0
+ *
+ * @global $_genesis_formatting_allowed_tags Array of allowed tags for output formatting.
  */
 function genesis_load_framework() {
 
@@ -213,6 +215,7 @@ function genesis_load_framework() {
 	require_once( GENESIS_ADMIN_DIR . '/inpost-metaboxes.php' );
 	require_once( GENESIS_ADMIN_DIR . '/whats-new.php' );
 	endif;
+	require_once( GENESIS_ADMIN_DIR . '/customizer.php' );
 	require_once( GENESIS_ADMIN_DIR . '/term-meta.php' );
 	require_once( GENESIS_ADMIN_DIR . '/user-meta.php' );
 

@@ -97,6 +97,13 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</td>'."\n";
 
 								echo '</tr>'."\n";
+								echo '</tbody>'."\n";
+								echo '</table>'."\n";
+
+								echo '<div class="ws-menu-page-hr"></div>'."\n";
+
+								echo '<table class="form-table">'."\n";
+								echo '<tbody>'."\n";
 								echo '<tr>'."\n";
 
 								echo '<th>'."\n";
@@ -149,6 +156,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 
 								echo '</tr>'."\n";
 								do_action("ws_plugin__s2member_during_paypal_ops_page_during_left_sections_during_paypal_account_detail_rows", get_defined_vars());
+
 								echo '</tbody>'."\n";
 								echo '</table>'."\n";
 
@@ -222,7 +230,6 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 
 										echo '</tr>'."\n";
 									}
-
 								echo '</tbody>'."\n";
 								echo '</table>'."\n";
 
@@ -342,7 +349,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<h3>PayPal IPN / Instant Payment Notifications (required, please enable)</h3>'."\n";
 								echo '<p>Log into your PayPal account and navigate to this section:<br /><code>Account Profile -› Instant Payment Notification Preferences</code></p>'."\n";
 								echo '<p>Edit your IPN settings &amp; turn IPN Notifications: <strong><code>On</code></strong></p>'."\n";
-								echo '<p>You\'ll need your IPN URL, which is:<br /><code>'.esc_html(site_url("/?s2member_paypal_notify=1")).'</code></p>'."\n";
+								echo '<p>You\'ll need your IPN URL, which is:<br /><code>'.esc_html(home_url("/?s2member_paypal_notify=1")).'</code></p>'."\n";
 								do_action("ws_plugin__s2member_during_paypal_ops_page_during_left_sections_during_paypal_ipn", get_defined_vars());
 
 								echo '<h3 style="margin:0;">More Information (<a href="#" onclick="jQuery(\'div#ws-plugin--s2member-paypal-ipn-details\').toggle(); return false;" class="ws-dotted-link">click here</a>)</h3>'."\n";
@@ -357,7 +364,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<h3 style="margin:0;">IPN w/ Proxy Key (<a href="#" onclick="jQuery(\'div#ws-plugin--s2member-paypal-ipn-proxy-details\').toggle(); return false;" class="ws-dotted-link">optional, for 3rd-party integrations</a>)</h3>'."\n";
 								echo '<div id="ws-plugin--s2member-paypal-ipn-proxy-details" style="display:none;">'."\n";
 								echo '<p>If you\'re using a 3rd-party application that needs to POST simulated IPN transactions to your s2Member installation, you can use this alternate IPN URL, which includes a Proxy Key. This encrypted Proxy Key verifies incoming data being received by s2Member\'s IPN processor. You can change <em>[proxy-gateway]</em> to whatever you like. The <em>[proxy-gateway]</em> value is required. It will be stored by s2Member as the Customer\'s Paid Subscr. Gateway. Your [proxy-gateway] value will also be reflected in s2Member\'s IPN log.</p>'."\n";
-								echo '<input type="text" autocomplete="off" value="'.format_to_edit(site_url("/?s2member_paypal_notify=1&s2member_paypal_proxy=[proxy-gateway]&s2member_paypal_proxy_verification=".urlencode(c_ws_plugin__s2member_paypal_utilities::paypal_proxy_key_gen()))).'" style="width:99%;" />'."\n";
+								echo '<input type="text" autocomplete="off" value="'.format_to_edit(home_url("/?s2member_paypal_notify=1&s2member_paypal_proxy=[proxy-gateway]&s2member_paypal_proxy_verification=".urlencode(c_ws_plugin__s2member_paypal_utilities::paypal_proxy_key_gen()))).'" style="width:99%;" />'."\n";
 								echo '<p><em>Any 3rd-party application that is sending IPN transactions to your s2Member installation, must ALWAYS include the <code>custom</code> POST variable, and that variable must always start with your installation domain (i.e. custom=<code>'.esc_html($_SERVER["HTTP_HOST"]).'</code>). In addition, the <code>item_number</code> variable, must always match a format that s2Member looks for. Generally speaking, the <code>item_number</code> should be <code>1, 2, 3, or 4</code>, indicating a specific s2Member Level #. However, s2Member also uses some advanced formats in this field. Just to be sure, we suggest creating a PayPal Button with the s2Member Button Generator, and then taking a look at the Full Button Code to see how s2Member expects <code>item_number</code> to be formatted. Other than the aforementioned exceptions; all other POST variables should follow PayPal standards. Please see: <a href="http://www.s2member.com/paypal-ipn-pdt-vars" target="_blank" rel="external">PayPal\'s IPN/PDT reference guide</a> for full documentation.</em></p>'."\n";
 								do_action("ws_plugin__s2member_during_paypal_ops_page_during_left_sections_during_paypal_ipn_after_proxy", get_defined_vars());
 								echo '</div>'."\n";
@@ -378,7 +385,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<h3>PayPal PDT Identity Token (required, please enable)</h3>'."\n";
 								echo '<p>Log into your PayPal account and navigate to this section:<br /><code>Account Profile -› Website Payment Preferences</code></p>'."\n";
 								echo '<p>Turn the Auto-Return feature: <strong><code>On</code></strong></p>'."\n";
-								echo '<p>You\'ll need your <a href="'.esc_attr(site_url("/?s2member_paypal_return=1&s2member_paypal_proxy=paypal&s2member_paypal_proxy_use=x-preview")).'" target="_blank" rel="external">Auto-Return URL</a>, which is:<br /><code>'.esc_html(site_url("/?s2member_paypal_return=1")).'</code></p>'."\n";
+								echo '<p>You\'ll need your <a href="'.esc_attr(home_url("/?s2member_paypal_return=1&s2member_paypal_proxy=paypal&s2member_paypal_proxy_use=x-preview")).'" target="_blank" rel="external">Auto-Return URL</a>, which is:<br /><code>'.esc_html(home_url("/?s2member_paypal_return=1")).'</code></p>'."\n";
 								echo '<p>You MUST also enable PDT (Payment Data Transfer): <strong><code>On</code></strong><br /><em>You\'ll be issued an Identity Token that you MUST enter below.</em></p>'."\n";
 								do_action("ws_plugin__s2member_during_paypal_ops_page_during_left_sections_during_paypal_pdt", get_defined_vars());
 
@@ -484,7 +491,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<textarea name="ws_plugin__s2member_signup_email_message" id="ws-plugin--s2member-signup-email-message" rows="10">'.format_to_edit($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["signup_email_message"]).'</textarea><br />'."\n";
 								echo 'Message Body used in the email sent to a Customer after a successful signup has occurred through PayPal.<br /><br />'."\n";
 								echo '<strong>You can also use these special Replacement Codes if you need them:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%registration_url%%</code> = The full URL (generated by s2Member) where the Customer can get registered.</li>'."\n";
 								echo '<li><code>%%subscr_id%%</code> = The PayPal Subscription ID, which remains constant throughout any &amp; all future payments. [ <a href="#" onclick="alert(\'There is one exception. If you are selling Lifetime or Fixed-Term (non-recurring) access, using Buy Now functionality; the %%subscr_id%% is actually set to the Transaction ID for the purchase. PayPal does not provide a specific Subscription ID for Buy Now purchases. Since Lifetime &amp; Fixed-Term Subscriptions are NOT recurring (i.e. there is only ONE payment), using the Transaction ID as the Subscription ID is a graceful way to deal with this minor conflict.\'); return false;">?</a> ]</li>'."\n";
 								echo '<li><code>%%initial%%</code> = The Initial Fee charged during signup. If you offered a 100% Free Trial, this will be <code>0</code>. [ <a href="#" onclick="alert(\'This will always represent the amount of money the Customer spent, whenever they initially signed up, no matter what. If a Customer signs up, under the terms of a 100% Free Trial Period, this will be 0.\'); return false;">?</a> ]</li>'."\n";
@@ -505,7 +512,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>'."\n";
 
 								echo '<strong>Custom Replacement Codes can also be inserted using these instructions:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%cv0%%</code> = The domain of your site, which is passed through the `custom` attribute in your Shortcode.</li>'."\n";
 								echo '<li><code>%%cv1%%</code> = If you need to track additional custom variables, you can pipe delimit them into the `custom` attribute; inside your Shortcode, like this: <code>custom="'.esc_html($_SERVER["HTTP_HOST"]).'|cv1|cv2|cv3"</code>. You can have an unlimited number of custom variables. Obviously, this is for advanced webmasters; but the functionality has been made available for those who need it.</li>'."\n";
 								echo '</ul>'."\n";
@@ -592,8 +599,9 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<textarea name="ws_plugin__s2member_modification_email_message" id="ws-plugin--s2member-modification-email-message" rows="10">'.format_to_edit($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["modification_email_message"]).'</textarea><br />'."\n";
 								echo 'Message Body used in the email sent to a Customer after a successful modification has occurred through PayPal.<br /><br />'."\n";
 								echo '<strong>You can also use these special Replacement Codes if you need them:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%subscr_id%%</code> = The PayPal Subscription ID, which remains constant throughout any &amp; all future payments. [ <a href="#" onclick="alert(\'There is one exception. If you are selling Lifetime or Fixed-Term (non-recurring) access, using Buy Now functionality; the %%subscr_id%% is actually set to the Transaction ID for the purchase. PayPal does not provide a specific Subscription ID for Buy Now purchases. Since Lifetime &amp; Fixed-Term Subscriptions are NOT recurring (i.e. there is only ONE payment), using the Transaction ID as the Subscription ID is a graceful way to deal with this minor conflict.\'); return false;">?</a> ]</li>'."\n";
+								echo '<li><code>%%subscr_baid%%</code> = Applicable only with PayPal Pro (Payflow Edition); and only for Express Checkout transactions that require a Billing Agreement. This is the Subscription\'s Billing Agreement ID, which remains constant throughout any &amp; all future payments. [ <a href="#" onclick="alert(\'Applicable only with PayPal Pro (Payflow Edition); and only for Express Checkout transactions that require a Billing Agreement. In all other cases, the %%subscr_baid%% is simply set to the %%subscr_id%% value; i.e. it is a duplicate of %%subscr_id%% in most cases.\'); return false;">?</a> ]</li>' . "\n";
 								echo '<li><code>%%initial%%</code> = The Initial Fee. If you offered a 100% Free Trial, this will be <code>0</code>. [ <a href="#" onclick="alert(\'This will always represent the amount of money the Customer spent when they completed checkout, no matter what. Even if that amount is 0. If a Customer upgrades/downgrades under the terms of a 100% Free Trial Period, this will be 0.\'); return false;">?</a> ]</li>'."\n";
 								echo '<li><code>%%regular%%</code> = The Regular Amount of the Subscription. If you offer something 100% free, this will be <code>0</code>. [ <a href="#" onclick="alert(\'This is how much the Subscription costs after an Initial Period expires. If you did NOT offer an Initial Period at a different price, %%initial%% and %%regular%% will be equal to the same thing.\'); return false;">?</a> ]</li>'."\n";
 								echo '<li><code>%%recurring%%</code> = This is the amount that will be charged on a recurring basis, or <code>0</code> if non-recurring. [ <a href="#" onclick="alert(\'If Recurring Payments have not been required, this will be equal to 0. That being said, %%regular%% &amp; %%recurring%% are usually the same value. This variable can be used in two different ways. You can use it to determine what the Regular Recurring Rate is, or to determine whether the Subscription will recur or not. If it is going to recur, %%recurring%% will be > 0.\'); return false;">?</a> ]</li>'."\n";
@@ -618,7 +626,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>'."\n";
 
 								echo '<strong>Custom Registration/Profile Fields are also supported in this email:</strong>' . "\n";
-								echo '<ul>' . "\n";
+								echo '<ul class="ws-menu-page-li-margins">' . "\n";
 								echo '<li><code>%%date_of_birth%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>date_of_birth</code>.</li>' . "\n";
 								echo '<li><code>%%street_address%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>street_address</code>.</li>' . "\n";
 								echo '<li><code>%%country%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>country</code>.</li>' . "\n";
@@ -626,7 +634,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>' . "\n";
 
 								echo '<strong>Custom Replacement Codes can also be inserted using these instructions:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%cv0%%</code> = The domain of your site, which is passed through the `custom` attribute in your Shortcode.</li>'."\n";
 								echo '<li><code>%%cv1%%</code> = If you need to track additional custom variables, you can pipe delimit them into the `custom` attribute; inside your Shortcode, like this: <code>custom="'.esc_html($_SERVER["HTTP_HOST"]).'|cv1|cv2|cv3"</code>. You can have an unlimited number of custom variables. Obviously, this is for advanced webmasters; but the functionality has been made available for those who need it.</li>'."\n";
 								echo '</ul>'."\n";
@@ -713,7 +721,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<textarea name="ws_plugin__s2member_ccap_email_message" id="ws-plugin--s2member-ccap-email-message" rows="10">'.format_to_edit($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["ccap_email_message"]).'</textarea><br />'."\n";
 								echo 'Message Body used in the email sent to a Customer after a purchase is completed through PayPal.<br /><br />'."\n";
 								echo '<strong>You can also use these special Replacement Codes if you need them:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%txn_id%%</code> = The PayPal Transaction ID. PayPal assigns a unique identifier for every purchase.</li>'."\n";
 								echo '<li><code>%%amount%%</code> = The full Amount that you charged for Custom Capability access.</li>'."\n";
 								echo '<li><code>%%first_name%%</code> = The First Name of the Customer who completed the purchase.</li>'."\n";
@@ -732,7 +740,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>'."\n";
 
 								echo '<strong>Custom Registration/Profile Fields are also supported in this email:</strong>' . "\n";
-								echo '<ul>' . "\n";
+								echo '<ul class="ws-menu-page-li-margins">' . "\n";
 								echo '<li><code>%%date_of_birth%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>date_of_birth</code>.</li>' . "\n";
 								echo '<li><code>%%street_address%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>street_address</code>.</li>' . "\n";
 								echo '<li><code>%%country%%</code> would be valid; if you have a Custom Registration/Profile Field with the ID <code>country</code>.</li>' . "\n";
@@ -740,7 +748,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>' . "\n";
 
 								echo '<strong>Custom Replacement Codes can also be inserted using these instructions:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%cv0%%</code> = The domain of your site, which is passed through the `custom` attribute in your Shortcode.</li>'."\n";
 								echo '<li><code>%%cv1%%</code> = If you need to track additional custom variables, you can pipe delimit them into the `custom` attribute; inside your Shortcode, like this: <code>custom="'.esc_html($_SERVER["HTTP_HOST"]).'|cv1|cv2|cv3"</code>. You can have an unlimited number of custom variables. Obviously, this is for advanced webmasters; but the functionality has been made available for those who need it.</li>'."\n";
 								echo '</ul>'."\n";
@@ -827,7 +835,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<textarea name="ws_plugin__s2member_sp_email_message" id="ws-plugin--s2member-sp-email-message" rows="10">'.format_to_edit($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["sp_email_message"]).'</textarea><br />'."\n";
 								echo 'Message Body used in the email sent to a Customer after a successful purchase has occurred through PayPal, for Specific Post/Page Access.<br /><br />'."\n";
 								echo '<strong>You can also use these special Replacement Codes if you need them:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%sp_access_url%%</code> = The full URL (generated by s2Member) where the Customer can gain access.</li>'."\n";
 								echo '<li><code>%%sp_access_exp%%</code> = Human readable expiration for <code>%%sp_access_url%%</code>. Ex: <em>(link expires in <code>%%sp_access_exp%%</code>)</em>.</li>'."\n";
 								echo '<li><code>%%txn_id%%</code> = The PayPal Transaction ID. PayPal assigns a unique identifier for every purchase.</li>'."\n";
@@ -842,7 +850,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</ul>'."\n";
 
 								echo '<strong>Custom Replacement Codes can also be inserted using these instructions:</strong>'."\n";
-								echo '<ul>'."\n";
+								echo '<ul class="ws-menu-page-li-margins">'."\n";
 								echo '<li><code>%%cv0%%</code> = The domain of your site, which is passed through the `custom` attribute in your Shortcode.</li>'."\n";
 								echo '<li><code>%%cv1%%</code> = If you need to track additional custom variables, you can pipe delimit them into the `custom` attribute; inside your Shortcode, like this: <code>custom="'.esc_html($_SERVER["HTTP_HOST"]).'|cv1|cv2|cv3"</code>. You can have an unlimited number of custom variables. Obviously, this is for advanced webmasters; but the functionality has been made available for those who need it.</li>'."\n";
 								echo '</ul>'."\n";
@@ -880,7 +888,7 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '<p><em>s2Member will not process an EOT until the User has completely used up the time they paid for. In other words, if a User signs up for a monthly Subscription on Jan 1st, and then cancels their Subscription on Jan 15th; technically, they should still be allowed to access the site for another 15 days, and then on Feb 1st, the time they paid for has completely elapsed. At that time, s2Member will remove their Membership privileges; by either demoting them to a Free Subscriber, or deleting their account from the system (based on your configuration). s2Member also calculates one extra day (24 hours) into its equation, just to make sure access is not removed sooner than a Customer might expect.</em></p>'."\n";
 								do_action("ws_plugin__s2member_during_paypal_ops_page_during_left_sections_during_eot_behavior", get_defined_vars());
 
-								echo '<p id="ws-plugin--s2member-auto-eot-system-enabled-via-cron"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["auto_eot_system_enabled"] == 2 && (!function_exists("wp_cron") || !wp_get_schedule("ws_plugin__s2member_auto_eot_system__schedule"))) ? '' : ' style="display:none;"').'>If you\'d like to run s2Member\'s Auto-EOT System through a more traditional Cron Job; instead of through <code>WP-Cron</code>, you will need to configure a Cron Job through your server control panel; provided by your hosting company. Set the Cron Job to run <code>once about every 10 minutes to an hour</code>. You\'ll want to configure an HTTP Cron Job that loads this URL:<br /><code>'.esc_html(site_url("/?s2member_auto_eot_system_via_cron=1")).'</code></p>'."\n";
+								echo '<p id="ws-plugin--s2member-auto-eot-system-enabled-via-cron"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["auto_eot_system_enabled"] == 2 && (!function_exists("wp_cron") || !wp_get_schedule("ws_plugin__s2member_auto_eot_system__schedule"))) ? '' : ' style="display:none;"').'>If you\'d like to run s2Member\'s Auto-EOT System through a more traditional Cron Job; instead of through <code>WP-Cron</code>, you will need to configure a Cron Job through your server control panel; provided by your hosting company. Set the Cron Job to run <code>once about every 10 minutes to an hour</code>. You\'ll want to configure an HTTP Cron Job that loads this URL:<br /><code>'.esc_html(home_url("/?s2member_auto_eot_system_via_cron=1")).'</code></p>'."\n";
 
 								echo '<table class="form-table">'."\n";
 								echo '<tbody>'."\n";
@@ -907,6 +915,13 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</td>'."\n";
 
 								echo '</tr>'."\n";
+								echo '</tbody>'."\n";
+								echo '</table>'."\n";
+
+								echo '<div class="ws-menu-page-hr"></div>'."\n";
+
+								echo '<table class="form-table">'."\n";
+								echo '<tbody>'."\n";
 								echo '<tr>'."\n";
 
 								echo '<th>'."\n";
@@ -946,6 +961,13 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</td>'."\n";
 
 								echo '</tr>'."\n";
+								echo '</tbody>'."\n";
+								echo '</table>'."\n";
+
+								echo '<div class="ws-menu-page-hr"></div>'."\n";
+
+								echo '<table class="form-table">'."\n";
+								echo '<tbody>'."\n";
 								echo '<tr>'."\n";
 
 								echo '<th>'."\n";
@@ -963,11 +985,18 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 								echo '</td>'."\n";
 
 								echo '</tr>'."\n";
+								echo '</tbody>'."\n";
+								echo '</table>'."\n";
+
+								echo '<div class="ws-menu-page-hr"></div>'."\n";
+
+								echo '<table class="form-table">'."\n";
+								echo '<tbody>'."\n";
 								echo '<tr>'."\n";
 
 								echo '<th>'."\n";
 								echo '<label for="ws-plugin--s2member-triggers-immediate-eot">'."\n";
-								echo 'Refunds/Reversals (trigger Immediate EOT)?'."\n";
+								echo 'Refunds/Partial Refunds/Reversals (trigger Immediate EOT)?'."\n";
 								echo '</label>'."\n";
 								echo '</th>'."\n";
 
@@ -976,15 +1005,23 @@ if(!class_exists("c_ws_plugin__s2member_menu_page_paypal_ops"))
 
 								echo '<td>'."\n";
 								echo '<select name="ws_plugin__s2member_triggers_immediate_eot" id="ws-plugin--s2member-triggers-immediate-eot">'."\n";
-								echo '<option value="none"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "none") ? ' selected="selected"' : '').'>Neither (I\'ll review these two events manually)</option>'."\n";
-								echo '<option value="refunds"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "refunds") ? ' selected="selected"' : '').'>Refunds (refunds ALWAYS trigger an Immediate EOT action)</option>'."\n";
-								echo '<option value="reversals"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "reversals") ? ' selected="selected"' : '').'>Reversals (chargebacks ALWAYS trigger an Immediate EOT action)</option>'."\n";
-								echo '<option value="refunds,reversals"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "refunds,reversals") ? ' selected="selected"' : '').'>Refunds/Reversals (ALWAYS trigger an Immediate EOT action)</option>'."\n";
+								echo '<option value="none"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "none") ? ' selected="selected"' : '').'>None (I\'ll review these events manually)</option>'."\n";
+								echo '<option value="refunds"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "refunds") ? ' selected="selected"' : '').'>Full Refunds (full refunds only; ALWAYS trigger an Immediate EOT action)</option>'."\n";
+								echo '<option value="reversals"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "reversals") ? ' selected="selected"' : '').'>Reversals (chargebacks only; ALWAYS trigger an Immediate EOT action)</option>'."\n";
+								echo '<option value="refunds,reversals"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "refunds,reversals") ? ' selected="selected"' : '').'>Full Refunds, Reversals (these ALWAYS trigger an Immediate EOT action)</option>'."\n";
+								echo '<option value="refunds,partial_refunds,reversals"'.(($GLOBALS["WS_PLUGIN__"]["s2member"]["o"]["triggers_immediate_eot"] === "refunds,partial_refunds,reversals") ? ' selected="selected"' : '').'>Full Refunds, Partial Refunds, Reversals (these ALWAYS trigger an Immediate EOT action)</option>'."\n";
 								echo '</select><br />'."\n";
-								echo '<em>This setting will <a href="#" onclick="alert(\'A Refund/Reversal Notification will ALWAYS be processed internally by s2Member, even if no action is taken by s2Member. This way you\\\'ll have the full ability to listen for these two events on your own; if you prefer (optional). For more information, check your Dashboard under: `s2Member -› API Notifications -› Refunds/Reversals`.\'); return false;">NOT impact</a> s2Member\'s internal API Notifications for Refund/Reversal events.</em>'."\n";
+								echo '<em><strong>Note:</strong> s2Member is not equipped to detect partial refunds against multi-payment Subscriptions reliably. Therefore, all refunds processed against Subscriptions (of any kind) are considered <strong>Partial</strong> Refunds. Full refunds (in the eyes of s2Member) occur only against Buy Now transactions where it is easy for s2Member to see that the refund amount is &gt;= the original Buy Now purchase price (i.e. a Full Refund). <strong>Also Note:</strong> This setting (no matter what you choose) will NOT impact s2Member\'s internal API Notifications for Refund/Reversal events. <a href="#" onclick="alert(\'A Full or Partial Refund; and/or a Reversal Notification will ALWAYS be processed internally by s2Member, even if no action is taken by s2Member in accordance with your configuration here.\\n\\nIn this way, you\\\'ll have the full ability to listen for these events on your own (via API Notifications); if you prefer (optional). For more information, check your Dashboard under: `s2Member -› API Notifications -› Refunds/Reversals`.\'); return false;">Click here for details</a>.</em>'."\n";
 								echo '</td>'."\n";
 
 								echo '</tr>'."\n";
+								echo '</tbody>'."\n";
+								echo '</table>'."\n";
+
+								echo '<div class="ws-menu-page-hr"></div>'."\n";
+
+								echo '<table class="form-table">'."\n";
+								echo '<tbody>'."\n";
 								echo '<tr>'."\n";
 
 								echo '<th>'."\n";
