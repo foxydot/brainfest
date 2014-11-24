@@ -115,63 +115,62 @@ Site Navigation
 --------------------------------------------- */
 
 .nav-primary {
-  display: inline-block;
-  float: right;
+  display: block;
   .customheader(1.6);
-  margin-top: 20px;
-  margin-top: 2rem;
+  background-color: @medgrey;
   li.menu-item{
     font-size: 16px;
     font-size: 1.6rem;
     padding: 1rem 2rem;
     font-weight: 700;
+      margin-left: -4px;
+      border-left: 1px solid @ltgrey;
     a{
-      color: @dkblue;
+      color: @white;
       text-transform: uppercase;
       padding: 0;
     }
+    a:hover{
+      color: @white;
+      text-decoration: none;
+      border: 0;
+    }
     .sub-menu{
-      background-color: @white;
+      background-color: @medgrey;
       margin-top: 0px;
       .box-shadow(0 10px 10px rgba(20,20,20,0.5));
       li.menu-item{
-        background-color: @white;
+        border:0;
+        border-bottom: 1px solid @ltgrey;
+        margin: 0;
         padding: 0 2rem;
         width: 100%;
         a{
           background-color: transparent;
           border: 0;
-          color: @dkblue;
+          color: @white;
           padding: 1rem 0;
           width: 100%;
         }
       }
-      li.last-child>a{
+      li.last-child{
         border: 0;
-      }
-      li:hover>a{
-        color: @ltgrey;
-        text-decoration: none;
       }
     }
   }
   li.separator {
-    color: @dkblue;
+    color: @white;
   }
-  li:hover, li.current-menu-item, li.current-menu-ancestor{
-    a, a:hover{
-      color: @blue;
-      text-decoration: none;
-      }
+  li.current-menu-item, li.current-menu-ancestor{
+    background-color: @orange;
+  }
+  li:hover{
+    background-color: @ltgrey;
   }
   li.first-child{
-    a:before{
-      .fontawesome;
-      padding: 0 0.4rem 0 0.2rem;
-      content: "\f015";
-    }
   }
   li.last-child{
+      border-right: 1px solid @ltgrey;
   }
 }
 .mainNav>ul>li.first>ul>li.title>ul>li>ul>li {

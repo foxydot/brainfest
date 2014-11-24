@@ -337,9 +337,9 @@ function msdlab_do_social_footer(){
     
     if($msd_social){
         $address = '<span itemprop="name">'.$msd_social->get_bizname().'</span> | <span itemprop="streetAddress">'.get_option('msdsocial_street').'</span>, <span itemprop="streetAddress">'.get_option('msdsocial_street2').'</span> | <span itemprop="addressLocality">'.get_option('msdsocial_city').'</span>, <span itemprop="addressRegion">'.get_option('msdsocial_state').'</span> <span itemprop="postalCode">'.get_option('msdsocial_zip').'</span> | '.$msd_social->get_digits();
-        $copyright .= '&copy; '.date('Y').' '.$msd_social->get_bizname().' | An Equal Opportunity Employer | All Rights Reserved';
+        $copyright .= '&copy; '.date('Y').' '.$msd_social->get_bizname().' | All Rights Reserved';
     } else {
-        $copyright .= '&copy; '.date('Y').' '.get_bloginfo('name').' | An Equal Opportunity Employer | All Rights Reserved';
+        $copyright .= '&copy; '.date('Y').' '.get_bloginfo('name').' | All Rights Reserved';
     }
     
     print '<div id="footer-info">'.$copyright.'</div>';

@@ -6,37 +6,25 @@
 
 // Block direct requests
 if ( !defined('ABSPATH') )
-	die('-1');
+    die('-1');
 
-echo '<div class="image-widget-background" style="background-image: url('.$imageurl.')">
-    <div class="fuzzybubble">
-';
-
+echo $before_widget;
+if($args['id']=='header-right'){ //logo strip
+    echo $link?'<a class="'.$this->widget_options['classname'].'-link" href="'.$link.'" target="'.$linktarget.'">':'';
+    echo $this->get_image_html( $instance, true );
+    echo $link?'</a>':'';
+} else { //not in the logo strip
 if ( !empty( $title ) ) { echo $before_title . $title . $after_title; }
-
-if ( !empty( $subtitle ) ) { $subtitle = '<span class="subtitle">'.$subtitle.'</span>'; }
-
-echo '<div class="widget-content">';
-
+echo $this->get_image_html( $instance, true );
 if ( !empty( $description ) ) {
-	echo '<div class="'.$this->widget_options['classname'].'-description" >';
-	echo wpautop( $subtitle.$description );
-	echo "</div>";
+    echo '<div class="'.$this->widget_options['classname'].'-description" >';
+    echo wpautop( $description );
+    echo "</div>";
 }
 if ( $link ) {
-	$linktext = $linktext != ''?$linktext:'Read More >';
-	echo '<div class="link"><a class="'.$this->widget_options['classname'].'-link button" href="'.$link.'" target="'.$linktarget.'">'.$linktext.' ></a><div class="clear"></div></div>';
-}
-echo '      </div>
-        <div class="clear"></div>
-</div>';
-echo '</div>
-    <script type="text/javascript">
-        jQuery(document).ready(function($){
-            $(".fuzzybubble").blurjs({
-                radius: 20,
-                source: ".image-widget-background",
-            });
-        });
-    </script>
-';
+    $linktext = $linktext != ''?$linktext:'Read More';
+        echo '<h4 class="link"><a class="'.$this->widget_options['classname'].'-link alignright" href="'.$link.'" target="'.$linktarget.'">'.$linktext.' ></a><div class="clear"></div></h4>';
+    }
+    echo '<div class="clear"></div>';
+    }
+echo $after_widget;

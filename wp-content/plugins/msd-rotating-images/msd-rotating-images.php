@@ -1483,7 +1483,8 @@ $this->addAdminScripts();
 		}
 		
 		function print_scrollable(){
-			$script = '<script>jQuery(function($) {
+			$script = '
+			<script>jQuery(function($) {
 			  // initialize scrollable
 			  $(".scrollable").scrollable({circular:true}).autoscroll();
 			});</script>';
@@ -1601,8 +1602,8 @@ $this->addAdminScripts();
 					$return .= '</ul></div>
 					<div class="clear"></div>
 					<div class="browse">
-						<a class="prev browse left"></a>
-						<a class="next browse right"></a>
+						<a class="prev browse left fa fa-chevron-left"></a>
+						<a class="next browse right fa fa-chevron-right"></a>
 					</div>';
 			} // End error if.
 			if ($widget == true) {

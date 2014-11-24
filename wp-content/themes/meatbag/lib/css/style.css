@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+@import url(http://fonts.googleapis.com/css?family=News+Cycle:400,700);
 /*
 HTML5 Reset
 ---------------------------------------------------------------------------------------------------- */
@@ -5656,7 +5657,7 @@ td.visible-print {
 /* Font Stacks */
 .customsansserif,
 .customsanserif {
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -5678,7 +5679,7 @@ td.visible-print {
   background-color: #532a44;
   border-radius: 0;
   padding: 6px 24px;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -5699,6 +5700,10 @@ td.visible-print {
   height: 0;
   clear: both;
   visibility: hidden;
+}
+.container,
+.row {
+  visibility: visible;
 }
 /*
 Defaults
@@ -5741,7 +5746,7 @@ textarea:focus,
   color: #ffffff;
 }
 a {
-  color: #323232;
+  color: #663300;
   text-decoration: none;
 }
 a img {
@@ -5749,7 +5754,7 @@ a img {
   margin-bottom: -0.4rem;
 }
 a:hover {
-  color: #1a1a1a;
+  color: #f26620;
 }
 a:focus {
   outline: 0;
@@ -5769,7 +5774,7 @@ ul {
 }
 blockquote,
 blockquote::before {
-  color: #323232;
+  color: #636466;
 }
 blockquote {
   margin: 40px 40px 24px;
@@ -5777,7 +5782,7 @@ blockquote {
   border: none;
 }
 blockquote p {
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -5795,7 +5800,7 @@ blockquote::before {
 }
 .entry-content code {
   background-color: #1a1a1a;
-  color: #cccccc;
+  color: #ebebeb;
 }
 cite {
   font-style: normal;
@@ -5808,7 +5813,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -5864,8 +5869,8 @@ input,
 select,
 textarea {
   background-color: #ffffff;
-  border: 1px solid #323232;
-  box-shadow: 1px 1px 3px #323232 inset;
+  border: 1px solid #636466;
+  box-shadow: 1px 1px 3px #636466 inset;
   color: #1a1a1a;
   font-size: 14px;
   font-size: 1.4rem;
@@ -5875,7 +5880,7 @@ textarea {
 }
 input:focus,
 textarea:focus {
-  border: 1px solid #999999;
+  border: 1px solid #b8b7b9;
   outline: none;
 }
 ::-moz-placeholder {
@@ -5894,7 +5899,7 @@ input[type="submit"],
   background-color: #532a44;
   border-radius: 0;
   padding: 6px 24px;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -5921,7 +5926,7 @@ input:hover[type="submit"],
   background-color: #532a44;
   border-radius: 0;
   padding: 6px 24px;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -6114,7 +6119,7 @@ img.alignright,
   background-color: transparent;
   margin-bottom: 40px;
   margin-bottom: 4rem;
-  border-bottom: 2px solid #999999;
+  border-bottom: 2px solid #b8b7b9;
 }
 .archive-description {
   padding: 0;
@@ -6147,18 +6152,19 @@ img.alignright,
 --------------------------------------------- */
 .section-title,
 .entry-title {
-  font-size: 36px;
-  font-size: 3.6rem;
+  font-size: 24px;
+  font-size: 2.4rem;
   line-height: 1;
+  color: #f26620;
 }
 .section-title a,
 .entry-title a,
 .sidebar .widget-title a {
-  color: #1a1a1a;
+  color: #f26620;
 }
 .section-title a:hover,
 .entry-title a:hover {
-  color: #323232;
+  color: #f26620;
 }
 .widget-title {
   font-size: 16px;
@@ -6284,6 +6290,100 @@ Widgets
 .featured-content .alignleft {
   margin-right: 1rem;
 }
+/* Scroller Widget */
+.sidebar-primary .scrollable {
+  position: relative;
+  overflow: hidden;
+  width: 208px;
+  height: 100px;
+  margin: 1em auto;
+}
+.sidebar-primary .scrollable .items {
+  width: 20000px;
+  position: absolute;
+  margin-left: 0 !important;
+}
+.sidebar-primary .scrollable .items li {
+  float: left;
+  width: 208px;
+  height: 100px;
+  padding: 0;
+  text-align: center;
+  list-style: none outside none;
+}
+.sidebar-primary div.browse {
+  text-align: center;
+}
+.sidebar-primary div.browse a {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  font-family: FontAwesome;
+  color: #f26620;
+  cursor: pointer;
+}
+/* MultiTweet */
+.widget_twitterstreamwidget .widget-title {
+  margin-bottom: 0;
+}
+.twitter-avatar {
+  clear: both;
+  float: left;
+  padding: 6px 12px 2px 0;
+}
+.twitter {
+  background: none repeat scroll 0 0 transparent;
+}
+.tweet {
+  margin: 0 !important;
+  min-height: 48px;
+}
+.tweet a {
+  text-decoration: underline;
+}
+.tweet-userName {
+  color: #454545;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  line-height: 0;
+  margin-bottom: 10px;
+  margin-left: 8px;
+  min-width: 50px;
+  padding-top: 7px;
+}
+.twitter-avatar {
+  border-radius: 5px 5px 5px 5px;
+  height: 48px;
+  padding: 0 !important;
+  width: 48px;
+}
+.tweet-time {
+  color: #8A8A8A;
+  font-size: 11px !important;
+  margin-top: -3px;
+}
+.tweet-message {
+  color: #333333;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  margin-left: 58px;
+  margin-top: -10px !important;
+  margin-bottom: 10px !important;
+  width: 160px;
+  word-wrap: break-word;
+}
+.twitter-stream p {
+  color: #333333;
+  font-family: Arial, sans-serif;
+  font-size: 1.4rem;
+  line-height: 14px;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+  word-wrap: break-word;
+}
 /*
 Plugins
 ---------------------------------------------------------------------------------------------------- */
@@ -6401,7 +6501,7 @@ Site Header
 --------------------------------------------- */
 .title-area {
   float: left;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -6450,10 +6550,10 @@ Site Header
 }
 .header-image .site-title a {
   float: left;
-  min-height: 74px;
-  width: 300px;
+  min-height: 80px;
+  width: 400px;
   height: 100px;
-  background: url(../img/logo.png) no-repeat center left;
+  background: url(../img/logo.jpg) no-repeat center left;
   background-size: contain;
   margin: 10px 0;
   margin: 1rem 0;
@@ -6483,7 +6583,7 @@ Site Header
   padding: 0;
   text-transform: uppercase;
   font-size: 1rem;
-  color: #999999;
+  color: #b8b7b9;
 }
 .site-header .widget-area .widget_nav_menu nav ul li a:after {
   font-family: FontAwesome;
@@ -6503,7 +6603,7 @@ Site Header
   content: "\f023";
 }
 .site-header .widget-area .widget_nav_menu nav ul li:hover a {
-  color: #323232;
+  color: #636466;
   text-decoration: none;
 }
 .site-header .widget-area .search-form {
@@ -6526,7 +6626,7 @@ Site Header
   background: transparent;
   border: 0 none;
   clip: auto;
-  color: #999999;
+  color: #b8b7b9;
   display: inline-block;
   font-size: 1.2rem;
   height: 18px;
@@ -6548,7 +6648,7 @@ Site Navigation
 .genesis-nav-menu {
   clear: both;
   color: #31b3d5;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -6647,29 +6747,34 @@ Site Navigation
 /* Primary Navigation
 --------------------------------------------- */
 .nav-primary {
-  display: inline-block;
-  float: right;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  display: block;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
-  margin-top: 20px;
-  margin-top: 2rem;
+  background-color: #636466;
 }
 .nav-primary li.menu-item {
   font-size: 16px;
   font-size: 1.6rem;
   padding: 1rem 2rem;
   font-weight: 700;
+  margin-left: -4px;
+  border-left: 1px solid #b8b7b9;
 }
 .nav-primary li.menu-item a {
-  color: #163559;
+  color: #ffffff;
   text-transform: uppercase;
   padding: 0;
 }
+.nav-primary li.menu-item a:hover {
+  color: #ffffff;
+  text-decoration: none;
+  border: 0;
+}
 .nav-primary li.menu-item .sub-menu {
-  background-color: #ffffff;
+  background-color: #636466;
   margin-top: 0px;
   -webkit-box-shadow: 0 10px 10px rgba(20, 20, 20, 0.5);
   box-shadow: 0 10px 10px rgba(20, 20, 20, 0.5);
@@ -6678,40 +6783,34 @@ Site Navigation
   box-shadow: 0px 10px 10px rgba(20, 20, 20, 0.5);
 }
 .nav-primary li.menu-item .sub-menu li.menu-item {
-  background-color: #ffffff;
+  border: 0;
+  border-bottom: 1px solid #b8b7b9;
+  margin: 0;
   padding: 0 2rem;
   width: 100%;
 }
 .nav-primary li.menu-item .sub-menu li.menu-item a {
   background-color: transparent;
   border: 0;
-  color: #163559;
+  color: #ffffff;
   padding: 1rem 0;
   width: 100%;
 }
-.nav-primary li.menu-item .sub-menu li.last-child > a {
+.nav-primary li.menu-item .sub-menu li.last-child {
   border: 0;
 }
-.nav-primary li.menu-item .sub-menu li:hover > a {
-  color: #999999;
-  text-decoration: none;
-}
 .nav-primary li.separator {
-  color: #163559;
+  color: #ffffff;
 }
-.nav-primary li:hover a,
-.nav-primary li.current-menu-item a,
-.nav-primary li.current-menu-ancestor a,
-.nav-primary li:hover a:hover,
-.nav-primary li.current-menu-item a:hover,
-.nav-primary li.current-menu-ancestor a:hover {
-  color: #31b3d5;
-  text-decoration: none;
+.nav-primary li.current-menu-item,
+.nav-primary li.current-menu-ancestor {
+  background-color: #f26620;
 }
-.nav-primary li.first-child a:before {
-  font-family: FontAwesome;
-  padding: 0 0.4rem 0 0.2rem;
-  content: "\f015";
+.nav-primary li:hover {
+  background-color: #b8b7b9;
+}
+.nav-primary li.last-child {
+  border-right: 1px solid #b8b7b9;
 }
 .mainNav > ul > li.first > ul > li.title > ul > li > ul > li {
   padding: 3px 0;
@@ -6731,7 +6830,7 @@ Site Navigation
   line-height: 18px;
   line-height: 1.8rem;
   padding: 0.5rem 1rem;
-  color: #323232;
+  color: #636466;
 }
 .nav-secondary .wrap li.menu-item > a:hover {
   color: #31b3d5;
@@ -6739,7 +6838,7 @@ Site Navigation
 .nav-secondary .wrap li.menu-item ul {
   display: none;
   position: absolute;
-  background: #999999;
+  background: #b8b7b9;
   text-align: center;
   left: 20px;
   z-index: 500;
@@ -6775,9 +6874,8 @@ article.entry {
   padding: 0;
 }
 .entry-content h3 {
-  color: #31b3d5;
+  color: #f26620;
   text-transform: uppercase;
-  border-bottom: 1px dotted #323232;
 }
 .entry-content .attachment a,
 .entry-content .gallery a {
@@ -6997,7 +7095,7 @@ li.comment {
 Sidebars
 ---------------------------------------------------------------------------------------------------- */
 .sidebar {
-  color: #999999;
+  color: #b8b7b9;
 }
 .sidebar a {
   border-bottom: 1px solid #ddd;
@@ -7023,11 +7121,12 @@ Sidebars
   padding: 2rem;
 }
 .sidebar .widget .widget-title {
-  color: #ff9900;
+  background-color: #f26620;
+  color: #ffffff;
   text-transform: uppercase;
   font-size: 19px;
   font-size: 1.9rem;
-  text-align: center;
+  padding: 1rem;
 }
 .sidebar .enews-widget {
   background-color: #333;
@@ -7036,13 +7135,13 @@ Sidebars
   /*Text Widget with Click */
 }
 .sidebar .widget_text {
-  border-bottom: 1px dotted #323232;
+  border-bottom: 1px dotted #636466;
 }
 .sidebar .widget_text .textwidget .readmore {
   background-color: #532a44;
   border-radius: 0;
   padding: 6px 24px;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 16px;
   font-size: 1.6rem;
@@ -7064,15 +7163,13 @@ Sidebars
 .sidebar .widget_text a {
   border: none;
 }
-.sidebar .widget_sp_image {
-  text-align: center;
-}
 .sidebar .widget_sp_image .link a {
-  color: #1a1a1a;
+  color: #f26620;
+  font-size: 1.6rem;
   border: 0;
 }
 .sidebar .widget_sp_image .link a i {
-  color: #ff9900;
+  color: #f26620;
 }
 .sidebar span.fa-stack {
   color: #31b3d5;
@@ -7112,7 +7209,7 @@ Site Footer
 .site-footer {
   background-color: #1a1a1a;
   color: #cccccc;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 10px;
   font-size: 1rem;
@@ -7152,7 +7249,7 @@ Site Footer
 .page-title-area .page-title {
   padding: 1.2rem 0;
   margin: 0;
-  font-family: "Raleway", "Trebuchet MS", Calibri, sans-serif;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 400;
   font-size: 30px;
   font-size: 3rem;
@@ -7343,7 +7440,7 @@ Site Footer
   background-color: #f37d2a;
 }
 .footer-menu {
-  background: #323232;
+  background: #636466;
   color: #ffffff;
 }
 .footer-menu .wrap .ftr-menu {
@@ -7388,7 +7485,7 @@ Site Footer
   font-size: 1.6rem;
   line-height: 1.625;
   font-style: italic;
-  color: #999999;
+  color: #b8b7b9;
 }
 .footer-menu .wrap .ftr-menu .menu > li .sub-menu {
   padding-top: 2rem;
@@ -7444,6 +7541,9 @@ Site Footer
     float: none;
     display: block;
   }
+  .nav-primary .wrap {
+    padding: 0;
+  }
   .nav-responsive {
     text-align: left;
     border-bottom: 0;
@@ -7456,7 +7556,7 @@ Site Footer
     display: inline-block;
     width: 100%;
     text-indent: 20px;
-    background: #31b3d5;
+    background: #636466;
     min-height: 46px;
     padding-top: 14px;
     position: relative;
@@ -7469,27 +7569,29 @@ Site Footer
   }
   .nav-responsive a#pull ul#mobile_menu {
     margin-top: 14px;
-    border-top: 1px solid #999999;
+    border-top: 1px solid #b8b7b9;
   }
   .nav-responsive a#pull ul#mobile_menu li {
     display: block;
     list-style: none;
     padding: 0;
+    border-left: 0;
+    border-right: 0;
   }
   .nav-responsive a#pull ul#mobile_menu li a {
-    background: #31b3d5;
+    background: #636466;
     color: #ffffff;
     display: block;
     width: 100%;
     padding: 0.5em;
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #b8b7b9;
     font-size: 1.2rem;
   }
   .nav-responsive a#pull ul#mobile_menu li a .toggle-switch {
     right: 15px;
   }
   .nav-responsive a#pull ul#mobile_menu li a:hover {
-    background: #5bc3de;
+    background: #f58750;
   }
   .nav-responsive a#pull ul#mobile_menu li .toggle-switch {
     margin-right: 12px;
@@ -7519,7 +7621,7 @@ Site Footer
     display: none;
   }
   .nav-responsive a#pull ul#mobile_menu li.current-menu-item a {
-    background: #71cae2;
+    background: #f69868;
   }
   .nav-responsive a#pull:hover {
     text-decoration: none;
@@ -7529,7 +7631,7 @@ Site Footer
     font-family: 'FontAwesome';
     font-size: 2.2rem;
     text-indent: 0;
-    color: #31b3d5;
+    color: #636466;
     text-align: center;
     width: 30px;
     height: 30px;
@@ -7544,6 +7646,10 @@ Site Footer
     position: absolute;
     right: 15px;
     top: 10px;
+  }
+  .entry-content img {
+    width: 100%;
+    height: auto;
   }
 }
 @media only screen and (max-width: 479px) {
