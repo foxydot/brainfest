@@ -5754,7 +5754,7 @@ a img {
   margin-bottom: -0.4rem;
 }
 a:hover {
-  color: #f26620;
+  color: #ee7b29;
 }
 a:focus {
   outline: 0;
@@ -6155,16 +6155,16 @@ img.alignright,
   font-size: 24px;
   font-size: 2.4rem;
   line-height: 1;
-  color: #f26620;
+  color: #ee7b29;
 }
 .section-title a,
 .entry-title a,
 .sidebar .widget-title a {
-  color: #f26620;
+  color: #ee7b29;
 }
 .section-title a:hover,
 .entry-title a:hover {
-  color: #f26620;
+  color: #ee7b29;
 }
 .widget-title {
   font-size: 16px;
@@ -6319,7 +6319,7 @@ Widgets
   width: 12px;
   display: inline-block;
   font-family: FontAwesome;
-  color: #f26620;
+  color: #ee7b29;
   cursor: pointer;
 }
 /* MultiTweet */
@@ -6804,7 +6804,7 @@ Site Navigation
 }
 .nav-primary li.current-menu-item,
 .nav-primary li.current-menu-ancestor {
-  background-color: #f26620;
+  background-color: #ee7b29;
 }
 .nav-primary li:hover {
   background-color: #b8b7b9;
@@ -6874,7 +6874,7 @@ article.entry {
   padding: 0;
 }
 .entry-content h3 {
-  color: #f26620;
+  color: #ee7b29;
   text-transform: uppercase;
 }
 .entry-content .attachment a,
@@ -7121,7 +7121,7 @@ Sidebars
   padding: 2rem;
 }
 .sidebar .widget .widget-title {
-  background-color: #f26620;
+  background-color: #ee7b29;
   color: #ffffff;
   text-transform: uppercase;
   font-size: 19px;
@@ -7164,12 +7164,12 @@ Sidebars
   border: none;
 }
 .sidebar .widget_sp_image .link a {
-  color: #f26620;
+  color: #ee7b29;
   font-size: 1.6rem;
   border: 0;
 }
 .sidebar .widget_sp_image .link a i {
-  color: #f26620;
+  color: #ee7b29;
 }
 .sidebar span.fa-stack {
   color: #31b3d5;
@@ -7591,7 +7591,7 @@ Site Footer
     right: 15px;
   }
   .nav-responsive a#pull ul#mobile_menu li a:hover {
-    background: #f58750;
+    background: #f29858;
   }
   .nav-responsive a#pull ul#mobile_menu li .toggle-switch {
     margin-right: 12px;
@@ -7621,7 +7621,7 @@ Site Footer
     display: none;
   }
   .nav-responsive a#pull ul#mobile_menu li.current-menu-item a {
-    background: #f69868;
+    background: #f4a770;
   }
   .nav-responsive a#pull:hover {
     text-decoration: none;
