@@ -5658,7 +5658,7 @@ td.visible-print {
 .customsansserif,
 .customsanserif {
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -5680,7 +5680,7 @@ td.visible-print {
   border-radius: 0;
   padding: 6px 24px;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -5717,10 +5717,10 @@ html {
 body {
   background-color: #ffffff;
   color: #1a1a1a;
-  font-family: "Open Sans", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 1.625;
 }
 a,
@@ -5746,7 +5746,7 @@ textarea:focus,
   color: #ffffff;
 }
 a {
-  color: #663300;
+  color: #ee7b29;
   text-decoration: none;
 }
 a img {
@@ -5783,7 +5783,7 @@ blockquote {
 }
 blockquote p {
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -5814,7 +5814,7 @@ h4,
 h5,
 h6 {
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -5900,7 +5900,7 @@ input[type="submit"],
   border-radius: 0;
   padding: 6px 24px;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -5927,7 +5927,7 @@ input:hover[type="submit"],
   border-radius: 0;
   padding: 6px 24px;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -6129,10 +6129,10 @@ img.alignright,
   padding: 4rem;
 }
 .author-box-title {
-  font-family: "Open Sans", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 1.625;
   color: #1a1a1a;
   margin-bottom: 4px;
@@ -6259,11 +6259,6 @@ Widgets
 .widget ul li {
   list-style: none inside none;
 }
-.widget .widget-title {
-  background: none;
-  padding: 0.4rem 0;
-  font-weight: normal;
-}
 /* Featured Content
 --------------------------------------------- */
 .featured-content .entry {
@@ -6313,6 +6308,7 @@ Widgets
 }
 .sidebar-primary div.browse {
   text-align: center;
+  display: none;
 }
 .sidebar-primary div.browse a {
   height: 12px;
@@ -6502,7 +6498,7 @@ Site Header
 .title-area {
   float: left;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -6564,8 +6560,10 @@ Site Header
   float: right;
   text-align: right;
   width: 800px;
+  max-height: 150px;
   line-height: 1;
   margin-top: 1rem;
+  overflow: hidden;
 }
 .site-header .widget-area .widget {
   display: inline-block;
@@ -6649,7 +6647,7 @@ Site Navigation
   clear: both;
   color: #31b3d5;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -6749,7 +6747,7 @@ Site Navigation
 .nav-primary {
   display: block;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -6758,15 +6756,13 @@ Site Navigation
 .nav-primary li.menu-item {
   font-size: 16px;
   font-size: 1.6rem;
-  padding: 1rem 2rem;
-  font-weight: 700;
   margin-left: -4px;
   border-left: 1px solid #b8b7b9;
 }
 .nav-primary li.menu-item a {
+  padding: 1rem 5.9rem;
   color: #ffffff;
   text-transform: uppercase;
-  padding: 0;
 }
 .nav-primary li.menu-item a:hover {
   color: #ffffff;
@@ -7095,7 +7091,7 @@ li.comment {
 Sidebars
 ---------------------------------------------------------------------------------------------------- */
 .sidebar {
-  color: #b8b7b9;
+  color: #636466;
 }
 .sidebar a {
   border-bottom: 1px solid #ddd;
@@ -7124,9 +7120,14 @@ Sidebars
   background-color: #ee7b29;
   color: #ffffff;
   text-transform: uppercase;
-  font-size: 19px;
-  font-size: 1.9rem;
-  padding: 1rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+  padding: 0.4rem 1rem;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+.sidebar .widget:first-child {
+  padding-top: 0;
 }
 .sidebar .enews-widget {
   background-color: #333;
@@ -7142,7 +7143,7 @@ Sidebars
   border-radius: 0;
   padding: 6px 24px;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
@@ -7207,10 +7208,10 @@ Footer Widgets
 Site Footer
 ---------------------------------------------------------------------------------------------------- */
 .site-footer {
-  background-color: #1a1a1a;
+  background-color: #636466;
   color: #cccccc;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 10px;
   font-size: 1rem;
   line-height: 1.625;
@@ -7250,7 +7251,6 @@ Site Footer
   padding: 1.2rem 0;
   margin: 0;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
-  font-weight: 400;
   font-size: 30px;
   font-size: 3rem;
   line-height: 1.625;
@@ -7480,7 +7480,7 @@ Site Footer
 }
 .footer-menu .wrap .ftr-menu .menu > li .sub-menu-description {
   font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
