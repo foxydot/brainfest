@@ -189,13 +189,38 @@ function register_tax_timeslot() {
 					}
 				}
 	        $table .= '</tr>';
-            $list .= '';
+            $list .= '<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading'.$timeslot->term_id.'" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$timeslot->term_id.'" aria-expanded="false" aria-controls="collapse'.$timeslot->term_id.'">
+      <h4 class="panel-title">
+        <a class="collapsed">
+          '.$timeslot->name.'
+        </a>
+      </h4>
+    </div>
+    <div id="collapse'.$timeslot->term_id.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$timeslot->term_id.'">
+      <div class="panel-body">
+        <ul>';
+      foreach($tracks AS $track){
+          if($session_data[$timeslot->term_id]['all']){
+            $list .= '<li><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+            break 1;
+          } else {
+            $list .= '<li><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+          }
+        }
+      $list .= '
+        </ul>
+      </div>
+    </div>
+  </div>';
 
 		}
 		$width = (100-$num_tracks)/($num_tracks+1);
 		$style = '<style>table.agenda th.track{width:'.$width.'%;visibility: hidden;}</style>';
 	    //return
-		return '<div class="table-responsive"><table class="agenda">'.$table.'</table></div><div class="clear"></div>'.$style;
+	    $grid_display = '<div class="table-responsive hidden-xs hidden-sm"><table class="agenda">'.$table.'</table></div><div class="clear"></div>';
+		$accordion_display = '<div class="panel-group hidden-lg hidden-md" id="accordion" role="tablist" aria-multiselectable="true">'.$list.'</div>';
+		return $grid_display.$accordion_display.$style;
 	}	
 }
 $msd_sessions = new MSDSessionCPT;

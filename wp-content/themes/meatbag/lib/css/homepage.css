@@ -50,6 +50,8 @@
   visibility: hidden;
 }
 .container,
-.row {
+.row,
+.panel-body {
+  height: auto;
   visibility: visible;
 }
