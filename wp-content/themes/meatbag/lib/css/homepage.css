@@ -55,3 +55,6 @@
   height: auto;
   visibility: visible;
 }
+.modal-dialog {
+  left: auto;
+}
