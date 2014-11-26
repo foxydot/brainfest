@@ -189,6 +189,7 @@ function register_tax_timeslot() {
 					}
 				}
 	        $table .= '</tr>';
+            $list .= '';
 
 		}
 		$width = (100-$num_tracks)/($num_tracks+1);

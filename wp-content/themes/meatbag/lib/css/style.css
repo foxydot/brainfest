@@ -5833,20 +5833,20 @@ h2 {
   font-size: 3rem;
 }
 h3 {
-  font-size: 24px;
-  font-size: 2.4rem;
-}
-h4 {
-  font-size: 20px;
-  font-size: 2rem;
-}
-h5 {
   font-size: 18px;
   font-size: 1.8rem;
 }
-h6 {
+h4 {
   font-size: 16px;
   font-size: 1.6rem;
+}
+h5 {
+  font-size: 14px;
+  font-size: 1.4rem;
+}
+h6 {
+  font-size: 12px;
+  font-size: 1.2rem;
 }
 /* Objects
 --------------------------------------------- */
@@ -5963,6 +5963,7 @@ tbody {
 th,
 td {
   text-align: left;
+  vertical-align: top;
 }
 th {
   font-weight: bold;
@@ -7647,13 +7648,13 @@ Site Footer
     right: 15px;
     top: 10px;
   }
+}
+@media only screen and (max-width: 479px) {
+  /* Enter Your Custom Styles Here */
   .entry-content img {
     width: 100%;
     height: auto;
   }
-}
-@media only screen and (max-width: 479px) {
-  /* Enter Your Custom Styles Here */
   .pre-header .wrap .header-widget-area .widget {
     display: block;
     width: 100%;
