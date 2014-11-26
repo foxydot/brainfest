@@ -34,7 +34,7 @@ add_filter('widget_text', 'do_shortcode');//shortcodes in widgets
 /*** CONTENT ***/
 add_filter('genesis_breadcrumb_args', 'msdlab_breadcrumb_args'); //customize the breadcrumb output
 remove_action('genesis_before_loop', 'genesis_do_breadcrumbs'); //move the breadcrumbs 
-add_filter( 'genesis_post_info', 'sp_post_info_filter' );
+//add_filter( 'genesis_post_info', 'sp_post_info_filter' );
 
 add_action('genesis_before_content_sidebar_wrap', 'genesis_do_breadcrumbs'); //to outside of the loop area
 add_action('genesis_before_entry','msd_post_image');//add the image above the entry
@@ -42,9 +42,9 @@ add_action('genesis_before_entry','msd_post_image');//add the image above the en
 add_filter('excerpt_more', 'sp_read_more_link');
 add_filter( 'the_content_more_link', 'sp_read_more_link' );
 
-//remove_action( 'genesis_before_post_content', 'genesis_post_info' ); //remove the info (date, posted by,etc.)
+remove_action( 'genesis_before_post_content', 'genesis_post_info' ); //remove the info (date, posted by,etc.)
 remove_action( 'genesis_after_post_content', 'genesis_post_meta' ); //remove the meta (filed under, tags, etc.)
-//remove_action( 'genesis_entry_header', 'genesis_post_info' ); //remove the info (date, posted by,etc.)
+remove_action( 'genesis_entry_header', 'genesis_post_info',12 ); //remove the info (date, posted by,etc.)
 remove_action( 'genesis_entry_footer', 'genesis_post_meta'); //remove the meta (filed under, tags, etc.)
 //add_action( 'msdlab_title_area', 'msdlab_do_post_subtitle' );
 
