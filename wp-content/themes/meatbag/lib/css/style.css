@@ -7499,6 +7499,20 @@ Site Footer
 .footer-menu .wrap .ftr-menu .menu > li.first-child {
   border-left: 1px solid #1a1a1a;
 }
+.panel-group .panel-default {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #b8b7b9;
+}
+.panel-group .panel-default .panel-heading {
+  background: none;
+}
+.panel-group .panel-default .panel-body ul {
+  margin-left: 0;
+}
+.panel-group .panel-default .panel-body ul li {
+  list-style: none outside none;
+}
 .nav-responsive ul,
 .nav-responsive li,
 .nav-responsive li a {
