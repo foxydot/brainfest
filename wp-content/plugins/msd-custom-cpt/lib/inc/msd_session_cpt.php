@@ -235,7 +235,7 @@ global $session_info, $subtitle;
 		'types' => array('msd_session'), 
 		'context' => 'normal', 
 		'priority' => 'high', 
-		'template' => dirname(__FILE__).'/template/session_info.php',
+		'template' => WP_PLUGIN_DIR.'/'.plugin_dir_path('msd-custom-cpt/msd-custom-cpt.php').'lib/template/session_info.php',
 		'mode' => WPALCHEMY_MODE_EXTRACT,
 		'prefix' => '_msd_'
 	));
@@ -246,7 +246,7 @@ global $session_info, $subtitle;
         'types' => array('msd_session'), 
         'context' => 'normal', 
         'priority' => 'high', 
-        'template' => dirname(__FILE__).'/template/subtitle.php',
+        'template' => WP_PLUGIN_DIR.'/'.plugin_dir_path('msd-custom-cpt/msd-custom-cpt.php').'lib/template/subtitle.php',
         'mode' => WPALCHEMY_MODE_EXTRACT,
         'prefix' => '_msd_'
     ));
