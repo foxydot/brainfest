@@ -107,7 +107,7 @@ global $speaker_title,$speakers;
 		'types' => array('msd_speaker'), 
 		'context' => 'normal', 
 		'priority' => 'high', 
-		'template' => dirname(__FILE__).'/template/speaker_title.php',
+		'template' => WP_PLUGIN_DIR.'/'.plugin_dir_path('msd-custom-cpt/msd-custom-cpt.php').'lib/template/speaker_title.php',
 		'mode' => WPALCHEMY_MODE_EXTRACT,
 		'prefix' => '_msd_'
 	));
@@ -118,7 +118,7 @@ global $speaker_title,$speakers;
 		'types' => array('msd_speaker'), // added only for pages and to custom post type "events"
 		'context' => 'normal', // same as above, defaults to "normal"
 		'priority' => 'high', // same as above, defaults to "high"
-		'template' => dirname(__FILE__).'/template/speaker_info.php',
+		'template' => WP_PLUGIN_DIR.'/'.plugin_dir_path('msd-custom-cpt/msd-custom-cpt.php').'lib/template/speaker_info.php',
 		'mode' => WPALCHEMY_MODE_EXTRACT,
 		'prefix' => '_msd_'
 	));
