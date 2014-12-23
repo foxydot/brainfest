@@ -5677,16 +5677,15 @@ td.visible-print {
 .button a:hover,
 .button a:visited {
   background-color: #532a44;
-  border-radius: 0;
-  padding: 6px 24px;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: normal;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
@@ -5901,17 +5900,16 @@ input[type="reset"],
 input[type="submit"],
 .button,
 .entry-content .button {
-  background-color: #532a44;
-  border-radius: 0;
-  padding: 6px 24px;
+  background-color: #ee7b29;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: normal;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
@@ -5929,16 +5927,15 @@ input:hover[type="submit"],
 .button:hover,
 .entry-content .button:hover {
   background-color: #532a44;
-  border-radius: 0;
-  padding: 6px 24px;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: normal;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
@@ -6385,6 +6382,32 @@ Widgets
   padding: 10px 0;
   border-bottom: 1px solid #eeeeee;
   word-wrap: break-word;
+}
+/*Text Widget with Click */
+.widget_text .textwidget .readmore {
+  background-color: #ee7b29;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
+  font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 1.625;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  display: table;
+  margin: 12px auto;
+  text-decoration: none;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  float: right;
+}
+.widget_text a {
+  border: none;
 }
 /*
 Plugins
@@ -7138,22 +7161,23 @@ Sidebars
 .sidebar .enews-widget {
   background-color: #333;
 }
-/*Text Widget with Click */
-.widget_text {
+.sidebar {
+  /*Text Widget with Click */
+}
+.sidebar .widget_text {
   border-bottom: 1px dotted #636466;
 }
-.widget_text .textwidget .readmore {
-  background-color: #532a44;
-  border-radius: 0;
-  padding: 6px 24px;
+.sidebar .widget_text .textwidget .readmore {
+  background-color: #ee7b29;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: normal;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
@@ -7165,7 +7189,7 @@ Sidebars
   transition: all 0.1s ease-in-out;
   float: right;
 }
-.widget_text a {
+.sidebar .widget_text a {
   border: none;
 }
 .sidebar .widget_sp_image .link a {
@@ -7510,6 +7534,14 @@ Site Footer
 }
 .panel-group .panel-default .panel-body ul li {
   list-style: none outside none;
+  padding-bottom: 1rem;
+  border-bottom: 1px dotted #d2d1d2;
+  margin-bottom: 1rem;
+}
+.panel-group .panel-default .panel-body ul li.last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+  margin-bottom: 0;
 }
 .nav-responsive ul,
 .nav-responsive li,

@@ -25,16 +25,15 @@
 .button a:hover,
 .button a:visited {
   background-color: #532a44;
-  border-radius: 0;
-  padding: 6px 24px;
+  border-radius: 4px;
+  padding: 0.5em 2em 0.6em;
   font-family: "News Cycle", "Trebuchet MS", Calibri, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: normal;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
