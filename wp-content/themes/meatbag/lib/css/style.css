@@ -7138,13 +7138,11 @@ Sidebars
 .sidebar .enews-widget {
   background-color: #333;
 }
-.sidebar {
-  /*Text Widget with Click */
-}
-.sidebar .widget_text {
+/*Text Widget with Click */
+.widget_text {
   border-bottom: 1px dotted #636466;
 }
-.sidebar .widget_text .textwidget .readmore {
+.widget_text .textwidget .readmore {
   background-color: #532a44;
   border-radius: 0;
   padding: 6px 24px;
@@ -7167,7 +7165,7 @@ Sidebars
   transition: all 0.1s ease-in-out;
   float: right;
 }
-.sidebar .widget_text a {
+.widget_text a {
   border: none;
 }
 .sidebar .widget_sp_image .link a {
