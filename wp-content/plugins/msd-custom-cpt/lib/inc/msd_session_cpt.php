@@ -192,9 +192,7 @@ function register_tax_timeslot() {
             $list .= '<div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading'.$timeslot->term_id.'" data-parent="#accordion" href="#collapse'.$timeslot->term_id.'" aria-expanded="false" aria-controls="collapse'.$timeslot->term_id.'">
       <h4 class="panel-title">
-        <a class="collapsed">
           '.$timeslot->name.'
-        </a>
       </h4>
     </div>
     <div id="collapse'.$timeslot->term_id.'" class="" role="tabpanel" aria-labelledby="heading'.$timeslot->term_id.'">
@@ -202,10 +200,18 @@ function register_tax_timeslot() {
         <ul>';
       foreach($tracks AS $track){
           if($session_data[$timeslot->term_id]['all']){
-            $list .= '<li><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+              if($session_data[$timeslot->term_id]['all']['post']->post_content == ''){
+                 $list .= '<li><span>'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</span><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>'; 
+              } else {
+                 $list .= '<li><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+              }
             break 1;
           } else {
-            $list .= '<li><a style="font-weight: 700;" href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+              if($session_data[$timeslot->term_id][$track->term_id]['post']->post_content == ''){
+                $list .= '<li><span>'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</span><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+              } else {
+                $list .= '<li><a href="'.get_permalink($session_data[$timeslot->term_id][$track->term_id]['post']->ID).'">'.$session_data[$timeslot->term_id][$track->term_id]['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].'</li>';
+              }
           }
         }
       $list .= '

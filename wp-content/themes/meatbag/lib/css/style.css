@@ -7538,6 +7538,11 @@ Site Footer
   border-bottom: 1px dotted #d2d1d2;
   margin-bottom: 1rem;
 }
+.panel-group .panel-default .panel-body ul li a,
+.panel-group .panel-default .panel-body ul li span {
+  font-weight: 700;
+  color: #ee7b29;
+}
 .panel-group .panel-default .panel-body ul li.last-child {
   padding-bottom: 0;
   border-bottom: 0;
