@@ -152,16 +152,17 @@ Widgets
   /*Text Widget with Click */
 .widget_text{
   .textwidget{
+    padding: 0 1rem;
       .readmore{
         .button();
         float: right;
       }
   }
+  .textwidget:after{.clearfix;}
    a {border: none;}
 }
 .header-widget-area .widget_text:nth-child(2){
   .textwidget{
-        padding-left: 2rem;
       .readmore{
         .button(@medgrey);
       }

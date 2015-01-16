@@ -14,8 +14,8 @@ define('MSD_ALT_API','http://msdlab.com/plugin-api/');
 class MSD_Widget_Text extends WP_Widget {
 
 	function __construct() {
-		add_action('wp_print_styles', array($this,'add_css'));
-		add_action('wp_print_scripts', array($this,'add_js'));
+		add_action('wp_enqueue_scripts', array($this,'add_css'));
+		add_action('wp_enqueue_scripts', array($this,'add_js'));
 		$widget_ops = array('classname' => 'widget_text', 'description' => __('Arbitrary text or HTML with optional URL'));
 		$control_ops = array('width' => 400, 'height' => 350);
 		parent::__construct('text', __('Text'), $widget_ops, $control_ops);
@@ -93,12 +93,12 @@ class MSD_Widget_Text extends WP_Widget {
 	
 	function add_css(){
 		if(!is_admin()){
-			wp_enqueue_style('msd-widget-text',plugin_dir_url(__FILE__).'/css/msd-widget-text.css');
+			wp_enqueue_style('msd-widget-text',plugin_dir_url(__FILE__).'css/msd-widget-text.css');
 		}
 	}
 	function add_js(){
 		if(!is_admin()){
-			wp_enqueue_script('msd-widget-text',plugin_dir_url(__FILE__).'/js/msd-widget-text.js','jquery','0.4',TRUE);
+			wp_enqueue_script('msd-widget-text',plugin_dir_url(__FILE__).'js/msd-widget-text.js','jquery','0.4',FALSE);
 		}
 	}
 	
