@@ -22,10 +22,12 @@
 # and "themes" directories.
 assets/*
 !assets/plugins/
+!assets/mu-plugins/
 !assets/themes/
 !assets/wpalchemy/
 wp-content/*
 !wp-content/plugins/
+!wp-content/mu-plugins/
 !wp-content/themes/
 !wp-content/wpalchemy/
 
