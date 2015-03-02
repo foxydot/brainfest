@@ -1,4 +1,5 @@
 <?php
+if(!class_exists('MSDSessionCPT')){
 class MSDSessionCPT {
 	public function MSDSessionCPT(){
         add_action( 'init', array(&$this,'register_tax_track') );
@@ -226,3 +227,4 @@ $msd_sessions = new MSDSessionCPT;
 
 //$tracks = array('Business Intelligence and Big Data','Digital Analytics','Digital Advertising Solutions','Digital CRM','Risk Management');
 //$timeslots = array('7:30AM - 8:45AM','8:45AM - 9:30AM','9:40AM - 10:40AM','11:00AM - 12:00PM','12:00PM - 1:20PM','1:35PM - 2:50PM','3:00PM - 4:00PM');
+}

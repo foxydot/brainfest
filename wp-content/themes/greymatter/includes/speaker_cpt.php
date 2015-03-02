@@ -1,4 +1,5 @@
 <?php
+if(!class_exists('MSDSpeakerCPT')){
 class MSDSpeakerCPT {
 	public function MSDSpeakerCPT(){
 		add_action( 'init', array(&$this,'register_cpt_speaker') );
@@ -121,3 +122,4 @@ $msd_speakers = new MSDSpeakerCPT;
 		'mode' => WPALCHEMY_MODE_EXTRACT,
 		'prefix' => '_msd_'
 	));
+	}
