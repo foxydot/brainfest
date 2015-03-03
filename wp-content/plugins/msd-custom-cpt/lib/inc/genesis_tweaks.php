@@ -2,7 +2,7 @@
 add_action('genesis_entry_header','msdlab_speaker_session_meta',11);
     if(!function_exists('msdlab_speaker_session_meta')){
         function msdlab_speaker_session_meta(){
-            global $post, $session_info, $speaker,$speaker_title;
+            global $post, $session_info, $speakers, $speaker_title;
             $cpt = get_post_type($post->ID);
             switch($cpt){
                 case 'msd_session':
@@ -40,16 +40,18 @@ add_action('genesis_entry_header','msdlab_speaker_session_meta',11);
             <?php endwhile; ?>
                     <?php
                     break;
-case 'msd_speaker':
-    ?>
-    <?php if($speaker_title->get_the_value('speaker_title')!=''): ?>
+            case 'msd_speaker':
+                ?>
+            <?php the_post_thumbnail('medium', array('class' => 'alignright')); ?>
+            <?php 
+            if($speaker_title->get_the_value('speaker_title')!=''): ?>
             <h6><?php $speaker_title->the_value('speaker_title'); ?></h6>
             <?php endif; ?>
             <?php if($speakers->get_the_value('focus-areas')!=''): ?>
             <p><strong>Focus Area:</strong> <?php $speakers->the_value('focus-areas'); ?></p>
             <?php endif; ?>
-    <?php
-    break;
+            <?php
+            break;
             }
             
         }
