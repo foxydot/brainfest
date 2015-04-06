@@ -28,11 +28,15 @@ add_action('genesis_entry_header','msdlab_speaker_session_meta',11);
             <?php endwhile; ?>
             <?php while($session_info->have_fields('speaker')): ?>
             <?php if($session_info->is_first()){ ?>
-                <?php if($hasMod){ ?>
-                    <h6>Panelists: 
-                <?php } else { ?>
-                    <h6>Speakers: 
-                <?php } ?>
+                <?php if($hasMod){ 
+                    print '<h6>Panelist';
+                } else {
+                    print '<h6>Speaker';
+                } 
+                if(count($session_info->meta['speaker'])>1){ 
+                    print 's';
+                 } 
+                 print ': '; ?>
             <?php } ?>
             <?php $speaker = get_post($session_info->get_the_value());?>
             <a href="<?php print get_permalink($speaker->ID);?>">
