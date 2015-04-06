@@ -10,6 +10,7 @@ add_action('genesis_entry_header','msdlab_speaker_session_meta',11);
                     <h6>
             <?php if($session_info->get_the_value('timeslot')){$timeslot = get_term($session_info->get_the_value('timeslot'),'msd_timeslot'); print $timeslot->name;} ?>
             </h6>
+            <?php $hasMod = FALSE; ?>
             <?php while($session_info->have_fields('moderator')): ?>
             <?php if($session_info->is_first()){ ?>
             <h6>Moderator: 
@@ -23,10 +24,15 @@ add_action('genesis_entry_header','msdlab_speaker_session_meta',11);
             <?php } else { ?>
             , 
             <?php } ?>
+            <?php $hasMod = TRUE; ?>
             <?php endwhile; ?>
             <?php while($session_info->have_fields('speaker')): ?>
             <?php if($session_info->is_first()){ ?>
-            <h6>Panelists: 
+                <?php if($hasMod){ ?>
+                    <h6>Panelists: 
+                <?php } else { ?>
+                    <h6>Speakers: 
+                <?php } ?>
             <?php } ?>
             <?php $speaker = get_post($session_info->get_the_value());?>
             <a href="<?php print get_permalink($speaker->ID);?>">
