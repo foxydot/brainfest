@@ -168,3 +168,45 @@ Widgets
       }
   }
 }
+
+
+/* Twitter Widget */
+.widget{
+  #twitter-feed{
+    ul{
+      li{
+        margin-bottom: 1em;
+        p{
+          margin: 0;
+        }
+        p.interact{
+          a{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            border: 0;
+            font-weight: 700;
+            color: @ltgrey;
+            &:before{
+              .fontawesome;
+            }
+            &:hover{
+              color: @orange;
+            }
+          }
+          a.twitter_reply_icon:before{
+            content: '\f112';
+          }
+          a.twitter_retweet_icon:before{
+            content: '\f079';
+          }
+          a.twitter_fav_icon:before{
+            content: '\f004';
+          }
+        }
+      }
+    }
+  }
+}

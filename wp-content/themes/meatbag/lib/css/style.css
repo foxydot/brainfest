@@ -6419,6 +6419,38 @@ Widgets
   margin: 12px auto;
   text-decoration: none;
 }
+/* Twitter Widget */
+.widget #twitter-feed ul li {
+  margin-bottom: 1em;
+}
+.widget #twitter-feed ul li p {
+  margin: 0;
+}
+.widget #twitter-feed ul li p.interact a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  border: 0;
+  font-weight: 700;
+  color: #b8b7b9;
+}
+.widget #twitter-feed ul li p.interact a:before {
+  font-family: FontAwesome;
+}
+.widget #twitter-feed ul li p.interact a:hover {
+  color: #ee7b29;
+}
+.widget #twitter-feed ul li p.interact a.twitter_reply_icon:before {
+  content: '\f112';
+}
+.widget #twitter-feed ul li p.interact a.twitter_retweet_icon:before {
+  content: '\f079';
+}
+.widget #twitter-feed ul li p.interact a.twitter_fav_icon:before {
+  content: '\f004';
+}
 /*
 Plugins
 ---------------------------------------------------------------------------------------------------- */
