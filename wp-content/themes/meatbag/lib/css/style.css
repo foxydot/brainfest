@@ -6423,6 +6423,40 @@ Widgets
 .widget #twitter-feed ul li {
   margin-bottom: 1em;
 }
+.widget #twitter-feed ul li .user {
+  margin: 0.5em 0;
+}
+.widget #twitter-feed ul li .user a {
+  display: block;
+  border: 0;
+}
+.widget #twitter-feed ul li .user a:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.widget #twitter-feed ul li .user a:after:before,
+.widget #twitter-feed ul li .user a:after:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.widget #twitter-feed ul li .user a:after:after {
+  clear: both;
+}
+.widget #twitter-feed ul li .user a:after:before,
+.widget #twitter-feed ul li .user a:after:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.widget #twitter-feed ul li .user a:after:after {
+  clear: both;
+}
 .widget #twitter-feed ul li p {
   margin: 0;
 }
