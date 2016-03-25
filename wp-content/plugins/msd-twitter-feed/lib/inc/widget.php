@@ -42,7 +42,7 @@ class MSD_Widget_Twitter_Feed extends WP_Widget {
     function footer_scripts(){
         print '
         <script type="text/javascript">
-        var config4 = {
+        var brainfest16 = {
           "id": "593854058173083648",
           "domId": "twitter-feed",
           "maxTweets": 3,
@@ -52,8 +52,7 @@ class MSD_Widget_Twitter_Feed extends WP_Widget {
           "showRetweet": false
         };
         
-        
-        twitterFetcher.fetch(config4);
+        twitterFetcher.fetch(brainfest16);
         </script>
         ';
     }
