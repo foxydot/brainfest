@@ -1259,11 +1259,13 @@ a[rel~="attachment"]:hover,
   text-indent: -9999px;
 }
 .header-image .site-title > a {
-  background-position: center center !important;
+  background-image: url(../img/logo.jpg);
+  background-repeat: no-repeat;
+  background-position: left center !important;
   background-size: contain !important;
   float: left;
   min-height: 70px;
-  width: 300px;
+  width: 400px;
 }
 .header-image .title-area {
   margin: 3px 0 0;

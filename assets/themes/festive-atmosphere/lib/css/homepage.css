@@ -65,6 +65,13 @@
 }
 /* Front Page
 ---------------------------------------------------------------------------------------------------- */
+.header-image .site-title > a {
+  height: 150px;
+  min-height: 70px;
+}
+.header-image .site-title > a.smaller {
+  height: auto;
+}
 .content .textwidget a {
   border-bottom: 1px solid #B7B7B7;
 }

@@ -1,0 +1,1 @@
+jQuery(document).ready(function($){});var controller=new ScrollMagic.Controller,scene=new ScrollMagic.Scene({triggerElement:".site-inner",triggerHook:0,duration:150}).setTween(".site-header .title-area .site-title a",{className:"+=smaller"}).addTo(controller);

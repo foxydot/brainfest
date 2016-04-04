@@ -11,7 +11,15 @@ function atmosphere_scripts_styles() {
         wp_enqueue_style('msd-homepage-style',get_stylesheet_directory_uri().'/lib/css/homepage.css',array('msd-style'), CHILD_THEME_VERSION);
     }
     
-    wp_enqueue_script('msd-jquery',get_stylesheet_directory_uri().'/lib/js/theme-jquery.js',array('jquery'),CHILD_THEME_VERSION,true);
+    wp_enqueue_script('tween-max','//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js',array('jquery'),CHILD_THEME_VERSION,false);
+    wp_enqueue_script('scroll-magic','//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js',array('jquery','tween-max'),CHILD_THEME_VERSION,false);
+    wp_enqueue_script('scroll-magic-gsap','//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js',array('scroll-magic','tween-max'),CHILD_THEME_VERSION,false);
+    wp_enqueue_script('scroll-magic-indicators','//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js',array('scroll-magic'),CHILD_THEME_VERSION,false);
+    
+    wp_enqueue_script('msd-jquery',get_stylesheet_directory_uri().'/lib/js/theme-jquery.js',array('jquery','scroll-magic'),CHILD_THEME_VERSION,true);
+    if(is_front_page()){
+            wp_enqueue_script('msd-home-jquery',get_stylesheet_directory_uri().'/lib/js/homepage-jquery.js',array('jquery','scroll-magic','msd-jquery'),CHILD_THEME_VERSION,true);
+    }
     wp_enqueue_script( 'atmosphere-responsive-menu', get_stylesheet_directory_uri() . '/lib/js/responsive-menu.js', array( 'jquery' ), '1.0.0', true );
     $output = array(
         'mainMenu' => __( 'Menu', 'atmosphere' ),
@@ -34,13 +42,13 @@ add_filter( 'genesis_attr_author-archive-description', 'genesis_attributes_scree
 add_theme_support( 'genesis-responsive-viewport' );
 
 //* Add support for custom header
-add_theme_support( 'custom-header', array(
+/*add_theme_support( 'custom-header', array(
     'width'           => 600,
     'height'          => 140,
     'header-selector' => '.site-title a',
     'header-text'     => false,
     'flex-height'     => true,
-) );
+) );*/
 
 //* Add support for custom background
 add_theme_support( 'custom-background' );
@@ -56,7 +64,7 @@ remove_filter( 'genesis_nav_items', 'genesis_nav_right', 10, 2 );
 remove_filter( 'wp_nav_menu_items', 'genesis_nav_right', 10, 2 );
 
 //* Remove navigation meta box
-add_action( 'genesis_theme_settings_metaboxes', 'atmosphere_remove_genesis_metaboxes' );
+//add_action( 'genesis_theme_settings_metaboxes', 'atmosphere_remove_genesis_metaboxes' );
 function atmosphere_remove_genesis_metaboxes( $_genesis_theme_settings_pagehook ) {
 
     remove_meta_box( 'genesis-theme-settings-nav', $_genesis_theme_settings_pagehook, 'main' );
