@@ -75,6 +75,9 @@
 
 .flexible-widgets.widget-thirds .widget {
   width: 33.33%;
+  &.last-child{
+    width: 100%;
+  }
 }
 
 .flexible-widgets.widget-halves .widget:nth-child(even),
@@ -416,4 +419,20 @@
     max-width: 100%;
   }
 
+}
+
+.flexible-widgets{
+  .widget{
+    i.fa{
+      color: @white;
+      background-color: @medgrey;
+      border-radius: 50%;
+      font-size: 3em;
+      height: 1.75em;
+      line-height: 1.8;
+      margin-bottom: 0.5em;
+      text-align: center;
+      width: 1.75em;
+    }
+  }
 }

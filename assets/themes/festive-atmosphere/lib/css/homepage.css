@@ -125,6 +125,9 @@
 .flexible-widgets.widget-thirds .widget {
   width: 33.33%;
 }
+.flexible-widgets.widget-thirds .widget.last-child {
+  width: 100%;
+}
 .flexible-widgets.widget-halves .widget:nth-child(even),
 .flexible-widgets.widget-thirds .widget:nth-child(3n+2),
 .flexible-widgets.widget-fourths .widget:nth-child(4n+2) {
@@ -408,4 +411,15 @@
     float: none;
     max-width: 100%;
   }
+}
+.flexible-widgets .widget i.fa {
+  color: #FFF;
+  background-color: #404040;
+  border-radius: 50%;
+  font-size: 3em;
+  height: 1.75em;
+  line-height: 1.8;
+  margin-bottom: 0.5em;
+  text-align: center;
+  width: 1.75em;
 }
