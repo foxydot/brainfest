@@ -1,4 +1,6 @@
 <?php
+add_filter('widget_text', 'do_shortcode');//shortcodes in widgets
+
 //* Enqueue scripts and styles
 add_action( 'wp_enqueue_scripts', 'atmosphere_scripts_styles' );
 function atmosphere_scripts_styles() {
@@ -223,6 +225,8 @@ function atmosphere_widget_area_class( $id ) {
     
     if ( $count == 1 ) {
         $class .= ' widget-full';
+    } elseif ( $count == 8 ) {
+        $class .= ' widget-thirds';
     } elseif ( $count % 3 == 1 ) {
         $class .= ' widget-thirds';
     } elseif ( $count % 4 == 1 ) {
