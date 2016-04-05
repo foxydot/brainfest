@@ -20,11 +20,11 @@ function atmosphere_front_page_genesis_meta() {
 		add_action( 'wp_enqueue_scripts', 'atmosphere_enqueue_atmosphere_script' );
 		function atmosphere_enqueue_atmosphere_script() {
 
-			wp_enqueue_script( 'atmosphere-front-script', get_stylesheet_directory_uri() . '/js/front-page.js', array( 'jquery' ), '1.0.0' );
-			wp_enqueue_script( 'localScroll', get_stylesheet_directory_uri() . '/js/jquery.localScroll.min.js', array( 'scrollTo' ), '1.2.8b', true );
-			wp_enqueue_script( 'scrollTo', get_stylesheet_directory_uri() . '/js/jquery.scrollTo.min.js', array( 'jquery' ), '1.4.5-beta', true );
+			wp_enqueue_script( 'atmosphere-front-script', get_stylesheet_directory_uri() . '/lib/js/front-page.js', array( 'jquery' ), '1.0.0' );
+			wp_enqueue_script( 'localScroll', get_stylesheet_directory_uri() . '/lib/js/jquery.localScroll.min.js', array( 'scrollTo' ), '1.2.8b', true );
+			wp_enqueue_script( 'scrollTo', get_stylesheet_directory_uri() . '/lib/js/jquery.scrollTo.min.js', array( 'jquery' ), '1.4.5-beta', true );
 
-			wp_enqueue_style( 'atmosphere-front-styles', get_stylesheet_directory_uri() . '/style-front.css' );
+			wp_enqueue_style( 'atmosphere-front-styles', get_stylesheet_directory_uri() . '/lib/css/style-front.css' );
 
 		}
 
@@ -38,8 +38,8 @@ function atmosphere_front_page_genesis_meta() {
 		if ( ! empty( $image ) && is_active_sidebar( 'front-page-1' ) ) {
 	
 			//* Enqueue Backstretch scripts
-			wp_enqueue_script( 'atmosphere-backstretch', get_stylesheet_directory_uri() . '/js/backstretch.js', array( 'jquery' ), '1.0.0' );
-			wp_enqueue_script( 'atmosphere-backstretch-set', get_stylesheet_directory_uri() . '/js/backstretch-set.js' , array( 'jquery', 'atmosphere-backstretch' ), '1.0.0' );
+			wp_enqueue_script( 'atmosphere-backstretch', get_stylesheet_directory_uri() . '/lib/js/backstretch.js', array( 'jquery' ), '1.0.0' );
+			wp_enqueue_script( 'atmosphere-backstretch-set', get_stylesheet_directory_uri() . '/lib/js/backstretch-set.js' , array( 'jquery', 'atmosphere-backstretch' ), '1.0.0' );
 	
 			wp_localize_script( 'atmosphere-backstretch-set', 'BackStretchImg', array( 'src' => str_replace( 'http:', '', $image ) ) );
 		
