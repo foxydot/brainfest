@@ -236,7 +236,7 @@ function atmosphere_widget_area_class( $id ) {
 }
 
 //* Add support for 1-column footer widget
-add_theme_support( 'genesis-footer-widgets', 1 );
+add_theme_support( 'genesis-footer-widgets', 2 );
 
 //* Register widget areas
 genesis_register_sidebar( array(
