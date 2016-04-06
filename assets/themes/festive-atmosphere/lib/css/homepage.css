@@ -371,6 +371,15 @@
   font-size: 2.4rem;
   letter-spacing: 1px;
 }
+/* Front Page 5
+--------------------------------------------- */
+.front-page-5 .widget {
+  border-top: 1px solid #E3E2E0;
+  padding: 0;
+}
+.front-page-5 .widget .widget-title {
+  display: none;
+}
 /* Media Queries
 ---------------------------------------------------------------------------------------------------- */
 @media only screen and (max-width: 1024px) {
