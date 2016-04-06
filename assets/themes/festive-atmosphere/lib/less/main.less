@@ -428,7 +428,7 @@ input[type="submit"],
 .content .widget .textwidget a.button,
 .entry-content a.button,
 .entry-content a.more-link {
-  background-color: transparent;
+  background-color: fade(@orange,0%);
   border: 1px solid @medgrey;
   color: @medgrey;
   cursor: pointer;
@@ -476,8 +476,8 @@ input:focus[type="submit"],
 .entry-content a.button:focus,
 .entry-content a.more-link:hover,
 .entry-content a.more-link:focus {
-  background-color: @dkgrey;
-  border: 1px solid @dkgrey;
+  background-color: @orange;
+  border: 1px solid darken(@orange, 10%);
   color: @white;
   text-decoration: none;
 }

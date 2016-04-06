@@ -23,21 +23,20 @@
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
-  color: #2F5673;
+  color: #F16528;
   font-size: 12px;
   font-weight: 700;
   display: table;
   margin: 12px auto;
   text-decoration: none;
-  background-color: rgba(47, 86, 115, 0);
-  border: 2px solid #2F5673;
+  border: 2px solid #F16528;
   border-radius: 0;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
-  background-color: transparent;
+  background-color: rgba(241, 101, 40, 0);
   border: 1px solid #404040;
   color: #404040;
   cursor: pointer;
@@ -59,17 +58,17 @@
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.625;
-  color: #2F5673;
+  color: #F16528;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   display: table;
   margin: 12px auto;
   text-decoration: none;
-  background-color: rgba(47, 86, 115, 0);
-  border: 2px solid #2F5673;
+  background-color: rgba(241, 101, 40, 0);
+  border: 2px solid #F16528;
   border-radius: 0;
-  background-color: rgba(47, 86, 115, 0.4);
+  background-color: rgba(241, 101, 40, 0.4);
 }
 /* Clears */
 .msd-clearfix {
@@ -622,7 +621,7 @@ input[type="submit"],
 .content .widget .textwidget a.button,
 .entry-content a.button,
 .entry-content a.more-link {
-  background-color: transparent;
+  background-color: rgba(241, 101, 40, 0);
   border: 1px solid #404040;
   color: #404040;
   cursor: pointer;
@@ -666,8 +665,8 @@ input:focus[type="submit"],
 .entry-content a.button:focus,
 .entry-content a.more-link:hover,
 .entry-content a.more-link:focus {
-  background-color: #2D2D2D;
-  border: 1px solid #2D2D2D;
+  background-color: #F16528;
+  border: 1px solid #d84b0e;
   color: #FFF;
   text-decoration: none;
 }
