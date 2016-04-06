@@ -251,6 +251,12 @@
   border-top: 1px solid #E3E2E0;
   padding: 30px 60px;
 }
+.front-page-3 .widget.widget_youtube_responsive {
+  padding: 0;
+}
+.front-page-3 .widget.widget_youtube_responsive .widget-title {
+  display: none;
+}
 .front-page-3 .entry-title a {
   display: block;
   padding-right: 24px;
