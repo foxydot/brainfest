@@ -23,8 +23,9 @@ function atmosphere_front_page_genesis_meta() {
 			wp_enqueue_script( 'atmosphere-front-script', get_stylesheet_directory_uri() . '/lib/js/front-page.js', array( 'jquery' ), '1.0.0' );
 			wp_enqueue_script( 'localScroll', get_stylesheet_directory_uri() . '/lib/js/jquery.localScroll.min.js', array( 'scrollTo' ), '1.2.8b', true );
 			wp_enqueue_script( 'scrollTo', get_stylesheet_directory_uri() . '/lib/js/jquery.scrollTo.min.js', array( 'jquery' ), '1.4.5-beta', true );
+            wp_enqueue_script('msd-home-jquery',get_stylesheet_directory_uri().'/lib/js/homepage-jquery.js',array('jquery','scroll-magic','msd-jquery'),CHILD_THEME_VERSION,true);
 
-			wp_enqueue_style( 'atmosphere-front-styles', get_stylesheet_directory_uri() . '/lib/css/style-front.css' );
+			wp_enqueue_style( 'atmosphere-front-styles', get_stylesheet_directory_uri() . '/lib/css/homepage.css' );
 
 		}
 
