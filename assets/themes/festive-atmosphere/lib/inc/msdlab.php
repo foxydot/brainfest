@@ -13,4 +13,8 @@ function msdlab_pre_header(){
     </div>';
 }
 
-add_action( 'msdlab_pre_header', 'genesis_do_subnav' );
+add_action( 'msdlab_pre_header', 'genesis_do_subnav',10,2);
+//add_filter('genesis_footer_widget_areas','msdlab_flexible_footer_widgets');
+
+function msdlab_flexible_footer_widgets($output, $footer_widgets){
+}
