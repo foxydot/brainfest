@@ -96,10 +96,16 @@ function atmosphere_front_page_widgets() {
 	//* Remove entry-title filter
 	remove_filter( 'the_title', 'atmosphere_title' );
 
-	genesis_widget_area( 'front-page-4', array(
-		'before' => '<div id="front-page-4" class="front-page-4"><div class="flexible-widgets widget-area' . atmosphere_widget_area_class( 'front-page-4' ) . '"><div class="wrap">',
-		'after'  => '</div></div></div>',
-	) );
+    genesis_widget_area( 'front-page-4', array(
+        'before' => '<div id="front-page-4" class="front-page-4"><div class="flexible-widgets widget-area' . atmosphere_widget_area_class( 'front-page-4' ) . '"><div class="wrap">',
+        'after'  => '</div></div></div>',
+    ) );
+    
+    
+    genesis_widget_area( 'front-page-5', array(
+        'before' => '<div id="front-page-5" class="front-page-5"><div class="flexible-widgets widget-area' . atmosphere_widget_area_class( 'front-page-5' ) . '"><div class="wrap">',
+        'after'  => '</div></div></div>',
+    ) );
 
 }
 

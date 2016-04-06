@@ -265,3 +265,8 @@ genesis_register_sidebar( array(
     'name'        => __( 'Front Page 4', 'atmosphere' ),
     'description' => __( 'This is the 4th section on the front page.', 'atmosphere' ),
 ) );
+genesis_register_sidebar( array(
+    'id'          => 'front-page-5',
+    'name'        => __( 'Front Page 5', 'atmosphere' ),
+    'description' => __( 'This is the 5th section on the front page.', 'atmosphere' ),
+) );

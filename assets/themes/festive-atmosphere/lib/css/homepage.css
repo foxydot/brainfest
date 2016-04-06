@@ -94,7 +94,8 @@
   font-size: 30px;
   margin-bottom: 10px;
 }
-.front-page .seventy-two {
+.front-page .seventy-two,
+.front-page .number {
   font-size: 72px;
   font-size: 7.2rem;
   font-weight: 700;
