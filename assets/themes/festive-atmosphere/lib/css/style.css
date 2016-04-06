@@ -1960,8 +1960,8 @@ p.form-submit,
   text-align: center;
 }
 .connected-social .social-media a.fa {
-  background: #2D2D2D;
-  color: #FFF;
+  background: #FFF;
+  color: #404040;
   height: 2em;
   width: 2em;
   margin: 0.4rem;
@@ -1976,6 +1976,7 @@ p.form-submit,
 }
 .connected-social .social-media a.fa:hover {
   text-decoration: none;
+  color: #FFF;
 }
 .connected-social .social-media a.fa.last-child {
   margin-right: 0;
