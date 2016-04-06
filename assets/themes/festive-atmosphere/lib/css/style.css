@@ -1905,6 +1905,70 @@ p.form-submit,
 .pre-header .nav-secondary .genesis-nav-menu .menu-item:hover:before {
   background-color: #404040;
 }
+.connected-social .social-media {
+  float: right;
+}
+.connected-social .social-media a.fa {
+  background: #2D2D2D;
+  color: #FFF;
+  height: 3rem;
+  width: 3rem;
+  margin: 0.4rem;
+  line-height: 1.5;
+  font-size: 2rem;
+  border-radius: 8px;
+}
+.connected-social .social-media a.fa:before {
+  opacity: 1;
+}
+.connected-social .social-media a.fa.last-child {
+  margin-right: 0;
+}
+.connected-social .social-media a.fa-facebook:hover {
+  background-color: #345AA1;
+}
+.connected-social .social-media a.fa-twitter:hover {
+  background-color: #348DB9;
+}
+.connected-social .social-media a.fa-pinterest:hover {
+  background-color: #EC1A22;
+}
+.connected-social .social-media a.fa-google-plus:hover {
+  background-color: #000000;
+}
+.connected-social .social-media a.fa-linkedin:hover {
+  background-color: #66B5D3;
+}
+.connected-social .social-media a.fa-instagram:hover {
+  background-color: #EC1A22;
+}
+.connected-social .social-media a.fa-tumblr:hover {
+  background-color: #3E5A70;
+}
+.connected-social .social-media a.fa-reddit:hover {
+  background-color: #FF4400;
+}
+.connected-social .social-media a.fa-flickr:hover {
+  background-color: #0062DD;
+}
+.connected-social .social-media a.fa-youtube:hover {
+  background-color: #CC181E;
+}
+.connected-social .social-media a.fa-vimeo-square:hover {
+  background-color: #232021;
+}
+.connected-social .social-media a.fa-vine:hover {
+  background-color: #00BE8F;
+}
+.connected-social .social-media a.fa-share-alt:hover {
+  background-color: #00BF00;
+}
+.connected-social .social-media a.fa-envelope:hover {
+  background-color: #999999;
+}
+.connected-social .social-media a.fa-rss:hover {
+  background-color: #F37D2A;
+}
 .msd-fa.block,
 .msd-icon.block {
   display: block;
