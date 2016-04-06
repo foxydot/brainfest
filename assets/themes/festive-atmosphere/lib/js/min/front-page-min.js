@@ -1,0 +1,1 @@
+jQuery(function($){var i=$(window).height()-77;$(".front-page-1").css({height:i+"px"}),$(window).resize(function(){var i=$(window).height();$(".front-page-1").css({height:i+"px"})}),$.localScroll({duration:750})});

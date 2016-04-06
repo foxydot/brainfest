@@ -887,7 +887,7 @@ th {
 --------------------------------------------- */
 .site-inner {
   clear: both;
-  margin-top: 77px;
+  margin-top: 153px;
   padding: 10% 20%;
 }
 .atmosphere-landing .site-inner {
@@ -1859,4 +1859,28 @@ p.form-submit,
     margin-left: 0;
     width: 100%;
   }
+}
+.msd-fa.block,
+.msd-icon.block {
+  display: block;
+}
+.msd-fa.block:before,
+.msd-icon.block:before {
+  margin: 0 auto;
+  display: block;
+}
+.msd-fa.circle:before,
+.msd-icon.circle:before,
+.msd-fa.square:before,
+.msd-icon.square:before {
+  background: #404040;
+  color: #FFF;
+  height: 2.4em;
+  width: 2.4em;
+  text-align: center;
+  padding: 0.7em 0;
+}
+.msd-fa.circle:before,
+.msd-icon.circle:before {
+  border-radius: 50%;
 }

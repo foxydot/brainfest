@@ -58,3 +58,37 @@ function msdlab_mailto_function($atts, $content){
     $email = antispambot($email);
     return '<a href="mailto:'.$email.'">'.$content.'</a>';
 }
+add_shortcode('fa','msdlab_fontawesome_shortcodes');
+function msdlab_fontawesome_shortcodes($atts){
+    $classes[] = 'msd-fa fa';
+    foreach($atts AS $att){
+        switch($att){
+            case "circle":
+            case "square":
+            case "block":
+                $classes[] = $att;
+                break;
+            default:
+                $classes[] = 'fa-'.$att;
+                break;
+        }
+    }
+    return '<i class="'.implode(" ",$classes).'"></i>';
+}
+add_shortcode('icon','msdlab_icon_shortcodes');
+function msdlab_icon_shortcodes($atts){
+    $classes[] = 'msd-icon icon';
+    foreach($atts AS $att){
+        switch($att){
+            case "circle":
+            case "square":
+            case "block":
+                $classes[] = $att;
+                break;
+            default:
+                $classes[] = 'icon-'.$att;
+                break;
+        }
+    }
+    return '<i class="'.implode(" ",$classes).'"></i>';
+}
