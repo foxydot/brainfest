@@ -165,13 +165,13 @@ textarea:focus,
 }
 
 a {
-  color: @medgrey;
+  color: @orange;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: @blue;
+  color: darken(@orange,10%);
 }
 
 p {
@@ -451,7 +451,8 @@ input[type="submit"].small,
 }
 
 a.more-link {
-  display: inline-block;
+  display: table;
+  margin: 1em auto;
 }
 
 .archive .content a.more-link,
@@ -717,7 +718,7 @@ th {
 .site-inner {
   clear: both;
   margin-top: 153px;
-  padding: 10% 20%;
+  padding: 5% 15%;
 }
 
 .atmosphere-landing .site-inner {

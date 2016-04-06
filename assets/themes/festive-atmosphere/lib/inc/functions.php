@@ -59,7 +59,7 @@ add_theme_support( 'custom-background' );
 add_theme_support( 'genesis-after-entry-widget-area' );
 
 //* Rename primary and secondary navigation menus
-add_theme_support( 'genesis-menus' , array( 'primary' => __( 'Header Menu', 'atmosphere' ), 'secondary' => __( 'Footer Menu', 'atmosphere' ) ) );
+add_theme_support( 'genesis-menus' , array( 'primary' => __( 'Header Menu', 'atmosphere' ), 'secondary' => __( 'Floating Menu', 'atmosphere' ) ) );
 
 //* Remove output of primary navigation right extras
 remove_filter( 'genesis_nav_items', 'genesis_nav_right', 10, 2 );
@@ -85,7 +85,7 @@ add_action( 'genesis_header', 'genesis_do_nav', 12 );
 
 //* Reposition the secondary navigation menu
 remove_action( 'genesis_after_header', 'genesis_do_subnav' );
-add_action( 'genesis_footer', 'genesis_do_subnav', 12 );
+//add_action( 'genesis_footer', 'genesis_do_subnav', 12 );
 
 //* Reduce the secondary navigation menu to one level depth
 add_filter( 'wp_nav_menu_args', 'atmosphere_secondary_menu_args' );
