@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {   
+    $('.widget.featured-content article>a').removeAttr('href');
+    $('.widget.featured-content .entry-title a').contents().unwrap()
 });
 
 var controller = new ScrollMagic.Controller();
