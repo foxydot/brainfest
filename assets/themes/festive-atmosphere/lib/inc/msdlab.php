@@ -14,7 +14,12 @@ function msdlab_pre_header(){
 }
 
 add_action( 'msdlab_pre_header', 'genesis_do_subnav',10,2);
-//add_filter('genesis_footer_widget_areas','msdlab_flexible_footer_widgets');
+remove_action('genesis_entry_header','genesis_post_info',12);
 
-function msdlab_flexible_footer_widgets($output, $footer_widgets){
+if(!function_exists('remove_wpautop')){
+function remove_wpautop( $content ) { 
+    $content = do_shortcode( shortcode_unautop( $content ) ); 
+    $content = preg_replace( '#^<\/p>|^<br \/>|<p>$#', '', $content );
+    return $content;
+}
 }

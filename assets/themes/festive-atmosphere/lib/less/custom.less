@@ -195,6 +195,38 @@
   }
 }
 
+
+.panel-group{
+  .panel-default{
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid @ltgrey;
+    .panel-heading{
+      background: none;
+    }
+    .panel-body{
+      ul{
+        margin-left: 0;
+        li{
+          list-style: none outside none;
+          padding-bottom: 1rem;
+          border-bottom: 1px dotted lighten(@ltgrey,10%);
+          margin-bottom: 1rem;
+          a,span{
+            font-weight: 700;
+            color: @orange;
+          }
+        }
+        li.last-child{
+          padding-bottom: 0;
+          border-bottom: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
 //icons
 .msd-fa, .msd-icon{
   &.block{

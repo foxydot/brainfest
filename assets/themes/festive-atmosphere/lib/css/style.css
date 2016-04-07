@@ -1399,14 +1399,6 @@ a[rel~="attachment"]:hover,
 .single .entry {
   margin-bottom: 0;
 }
-.entry-content a {
-  border-bottom: 1px solid #B7B7B7;
-}
-.entry-content a:hover,
-.entry-content a:focus {
-  border-bottom: 1px solid #404040;
-  color: #404040;
-}
 .page .entry-content p:last-child {
   margin-bottom: 0;
 }
@@ -2025,6 +2017,33 @@ p.form-submit,
 }
 .connected-social .social-media a.fa-rss:hover {
   background-color: #F37D2A;
+}
+.panel-group .panel-default {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #D4D4D6;
+}
+.panel-group .panel-default .panel-heading {
+  background: none;
+}
+.panel-group .panel-default .panel-body ul {
+  margin-left: 0;
+}
+.panel-group .panel-default .panel-body ul li {
+  list-style: none outside none;
+  padding-bottom: 1rem;
+  border-bottom: 1px dotted #eeeeef;
+  margin-bottom: 1rem;
+}
+.panel-group .panel-default .panel-body ul li a,
+.panel-group .panel-default .panel-body ul li span {
+  font-weight: 700;
+  color: #F16528;
+}
+.panel-group .panel-default .panel-body ul li.last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+  margin-bottom: 0;
 }
 .msd-fa.block,
 .msd-icon.block {

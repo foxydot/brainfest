@@ -92,3 +92,24 @@ function msdlab_icon_shortcodes($atts){
     }
     return '<i class="'.implode(" ",$classes).'"></i>';
 }
+add_shortcode('testimonials','msdlab_testimonials_handler');
+function msdlab_testimonials_handler($atts,$content){
+    $content = preg_replace( '#^<\/p>|<br \/>|<p>$#', '', $content );
+    $content = do_shortcode($content);
+    return '<ul class="testimonial-slider">'.$content.'</ul>';
+}
+add_shortcode('testimonial','msdlab_testimonial_handler');
+function msdlab_testimonial_handler($atts,$content){
+    $classes[] = "testimonial";
+    foreach($atts AS $att){
+        switch($att){
+            case "left":
+            case "right":
+                $classes[] = $att;
+                break;
+            default:
+                break;
+        }
+    }
+    return '<li class="'.implode(' ',$classes).'"><div>'.do_shortcode($content).'</div></li>';
+}
