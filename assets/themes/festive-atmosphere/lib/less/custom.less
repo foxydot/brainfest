@@ -226,7 +226,29 @@
     }
   }
 }
-
+.modal-dialog{
+  .modal-content{
+    .modal-header{
+      &:after{
+        .msd-clearfix();
+      }
+      button{
+        float: right;
+        padding: 0.5em 1em;
+      }
+    }
+    .modal-body{
+      text-align: center;
+      .video-piece{
+      text-align: center;
+        .fourthree{
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      }
+    }
+  }
+}
 //icons
 .msd-fa, .msd-icon{
   &.block{

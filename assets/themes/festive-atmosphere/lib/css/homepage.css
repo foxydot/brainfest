@@ -183,7 +183,7 @@
   color: #2D2D2D;
 }
 .front-page-1 .widget {
-  text-shadow: 0 0 0.4em #2D2D2D;
+  text-shadow: 0 0 0.4em #000;
 }
 .front-page-1 .date {
   font-size: 3.2rem;

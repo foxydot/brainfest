@@ -23,3 +23,8 @@ function remove_wpautop( $content ) {
     return $content;
 }
 }
+/** Adding custom Favicon */
+add_filter( 'genesis_pre_load_favicon', 'custom_favicon' );
+function custom_favicon( $favicon_url ) {
+    return ''. get_stylesheet_directory_uri().'/lib/img/favicon.ico';
+}

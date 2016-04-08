@@ -2045,6 +2045,27 @@ p.form-submit,
   border-bottom: 0;
   margin-bottom: 0;
 }
+.modal-dialog .modal-content .modal-header:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.modal-dialog .modal-content .modal-header button {
+  float: right;
+  padding: 0.5em 1em;
+}
+.modal-dialog .modal-content .modal-body {
+  text-align: center;
+}
+.modal-dialog .modal-content .modal-body .video-piece {
+  text-align: center;
+}
+.modal-dialog .modal-content .modal-body .video-piece .fourthree {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 .msd-fa.block,
 .msd-icon.block {
   display: block;
