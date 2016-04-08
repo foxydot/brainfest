@@ -28,3 +28,8 @@ add_filter( 'genesis_pre_load_favicon', 'custom_favicon' );
 function custom_favicon( $favicon_url ) {
     return ''. get_stylesheet_directory_uri().'/lib/img/favicon.ico';
 }
+
+add_filter('genesis_footer_creds_text','msdlab_footer_creds_text_filter');
+function msdlab_footer_creds_text_filter($text){
+    return '[footer_copyright before="Copyright "] '.get_bloginfo('name');
+}
