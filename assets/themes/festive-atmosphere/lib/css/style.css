@@ -2066,6 +2066,11 @@ p.form-submit,
   margin-left: auto !important;
   margin-right: auto !important;
 }
+.video-grid h4 {
+  text-transform: none;
+  font-size: 1.4rem;
+  margin-top: 1em;
+}
 .msd-fa.block,
 .msd-icon.block {
   display: block;
