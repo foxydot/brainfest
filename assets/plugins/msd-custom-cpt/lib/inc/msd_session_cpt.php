@@ -203,9 +203,9 @@ function register_tax_timeslot() {
       foreach($tracks AS $track){
           if($session_data[$timeslot->term_id]['all']){
               if($session_data[$timeslot->term_id]['all']['post']->post_content == ''){
-                 $list .= '<li><span>'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</span><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].$session_data[$timeslot->term_id][$track->term_id]['excerpt'].'</li>'; 
+                 $list .= '<li><span>'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</span><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].$session_data[$timeslot->term_id]['all']['excerpt'].'</li>'; 
               } else {
-                 $list .= '<li><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id][$track->term_id]['subtitle'].$session_data[$timeslot->term_id][$track->term_id]['excerpt'].'</li>';
+                 $list .= '<li><a href="'.get_permalink($session_data[$timeslot->term_id]['all']['post']->ID).'">'.$session_data[$timeslot->term_id]['all']['post']->post_title.'</a><br /> '.$session_data[$timeslot->term_id]['all']['subtitle'].$session_data[$timeslot->term_id]['all']['excerpt'].'</li>';
               }
             break 1;
           } else {
