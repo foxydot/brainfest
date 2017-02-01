@@ -143,6 +143,20 @@ function register_tax_timeslot() {
         jQuery('#_subtitle_metabox').after(jQuery('#_session_info_metabox'));
 		</script><?php
 	}
+
+    function session_year($date = '',$convert = TRUE){
+    if(empty($date)){
+        $convert = FALSE;
+        $date = time();
+    }
+    if($convert){
+        $date = strtotime($date);
+    }
+    $year = date('Y',$date);
+    $month = intval(date('m',$date));
+    $year = $month<=3?$year-1:$year;
+    return $year;
+}
 		
 	function list_sessions( $atts ) {
 		extract( shortcode_atts( array(
@@ -157,7 +171,7 @@ function register_tax_timeslot() {
 		$args = array( 'post_type' => 'msd_session', 'numberposts' => -1, 'orderby'=> 'menu_order','meta_query' => array(
         array(
             'key' => '_msd_event-year',
-            'value' => serialize(strval((int) date("Y"))),
+            'value' => serialize(strval((int) $this->session_year())),
             'compare' => 'LIKE'
         )
     ) );		

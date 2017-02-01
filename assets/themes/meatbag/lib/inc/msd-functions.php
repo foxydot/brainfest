@@ -3,7 +3,7 @@ function msdlab_excerpt($content){
     global $post;
     return msdlab_get_excerpt($post->ID);
 }
-
+if(!function_exists('msdlab_get_excerpt')){
 function msdlab_get_excerpt( $post_id, $excerpt_length = 50, $trailing_character = '&nbsp;<i class="fa fa-arrow-circle-right"></i>' ) {
     $the_post = get_post( $post_id );
     $the_excerpt = strip_tags( strip_shortcodes( $the_post->post_excerpt ) );
@@ -18,6 +18,7 @@ function msdlab_get_excerpt( $post_id, $excerpt_length = 50, $trailing_character
      
     $the_excerpt = implode( ' ', $words ) . '<a href="'.get_permalink($post_id).'">'.$trailing_character.'</a>';
     return $the_excerpt;
+}
 }
 
 // cleanup tinymce for SEO
