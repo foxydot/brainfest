@@ -15,6 +15,7 @@ global $speaker_title,$speakers,$tracks;
 <div class="my_meta_control">
     <label>Event Year(s)</label>
         <p>
+            <i>NOTE: In 2017, we hardcoded the date here to 2016. If the event is back on, we will want the developer to go to msd-custom-cpt/lib/inc/msd_session_cpt.php and uncomment line 174, comment line 175.</i>
         <?php 
             foreach($years AS $year){
                 $mb->the_field('event-year'); ?>

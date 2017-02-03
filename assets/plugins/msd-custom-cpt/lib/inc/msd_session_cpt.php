@@ -171,7 +171,8 @@ function register_tax_timeslot() {
 		$args = array( 'post_type' => 'msd_session', 'numberposts' => -1, 'orderby'=> 'menu_order','meta_query' => array(
         array(
             'key' => '_msd_event-year',
-            'value' => serialize(strval((int) $this->session_year())),
+            //'value' => serialize(strval((int) $this->session_year())),
+            'value' => serialize(strval((int) 2016)), //hardcoded until we find out if there will be a future conference
             'compare' => 'LIKE'
         )
     ) );		
